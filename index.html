@@ -709,7 +709,7 @@
     }
     .about-grid .about-text { flex: 1 1 300px; }
     .about-grid .about-text p { font-size: 1.05rem; color: var(--text-soft); line-height: 1.8; }
-    .about-grid .about-slider-wrapper {
+    .about-grid .about-video-wrapper {
       flex: 1 1 300px;
       border-radius: 28px;
       overflow: hidden;
@@ -718,9 +718,16 @@
       min-height: 200px;
       box-shadow: var(--shadow);
       transition: transform 0.5s ease;
+      position: relative;
+      aspect-ratio: 16/9;
     }
-    .about-grid .about-slider-wrapper:hover { transform: scale(1.003); }
-    .about-grid .about-slider-wrapper .slider-container { aspect-ratio: 4/3; }
+    .about-grid .about-video-wrapper:hover { transform: scale(1.003); }
+    .about-grid .about-video-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
 
     /* ----- REVIEWS (green + gold) ----- */
     .review-slider-wrap {
@@ -1504,16 +1511,14 @@
             <span style="background: var(--delivery-light); backdrop-filter:blur(8px); padding: 6px 18px; border-radius: 40px; border: 1px solid var(--gold); font-size:0.9rem; color:var(--delivery-green);"><i class="fas fa-motorcycle" style="color:var(--delivery-green);"></i> <span data-en="Free Delivery 1km" data-ne="१ किमि नि:शुल्क डेलिभरी">Free Delivery 1km</span></span>
           </div>
         </div>
-        <div class="about-slider-wrapper animate-on-scroll">
-          <div class="slider-container" id="aboutSlider">
-            <div class="slider-track" id="aboutTrack">
-              <img class="slider-slide" src="first.jpeg" alt="Bella Cafe Interior" onerror="this.onerror=null; this.src='https://picsum.photos/seed/bella1/800/400';" />
-              <img class="slider-slide" src="second.jpeg" alt="Bella Cafe Food" onerror="this.onerror=null; this.src='https://picsum.photos/seed/bella2/800/400';" />
-            </div>
-            <button class="slider-btn prev" id="aboutPrev"><i class="fas fa-chevron-left"></i></button>
-            <button class="slider-btn next" id="aboutNext"><i class="fas fa-chevron-right"></i></button>
-            <div class="slider-dots" id="aboutDots"></div>
-          </div>
+        <!-- YouTube Video replacing slider -->
+        <div class="about-video-wrapper animate-on-scroll">
+          <iframe 
+            src="https://www.youtube.com/embed/_u_MGPOV-8k?si=ricwLhiTa56OXVD5&autoplay=0&rel=0" 
+            title="Tour of Hotel Bella Cafe"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+          </iframe>
         </div>
       </div>
     </section>
@@ -1952,7 +1957,6 @@
       return { goTo, next, prev };
     }
     createSlider('heroTrack', 'heroDots', 'heroPrev', 'heroNext', true);
-    createSlider('aboutTrack', 'aboutDots', 'aboutPrev', 'aboutNext', true);
 
     function createReviewSlider(trackId, dotsId, prevId, nextId) {
       const track = document.getElementById(trackId);
@@ -2137,4 +2141,4 @@
     console.log('☕ Bella Cafe · Green theme + Gold outlines · Bilingual · Free Delivery 1km');
   </script>
 </body>
-</html> 
+</html>
