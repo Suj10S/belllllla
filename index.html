@@ -64,6 +64,66 @@
       z-index: 1;
     }
 
+    /* ----- ANIMATIONS: Left/Right to Middle ----- */
+    .animate-from-left {
+      opacity: 0;
+      transform: translateX(-60px);
+      transition: opacity 0.8s var(--transition-smooth), transform 0.8s var(--transition-smooth);
+    }
+    .animate-from-left.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .animate-from-right {
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity 0.8s var(--transition-smooth), transform 0.8s var(--transition-smooth);
+    }
+    .animate-from-right.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .animate-from-left.delay-1 { transition-delay: 0.1s; }
+    .animate-from-left.delay-2 { transition-delay: 0.2s; }
+    .animate-from-left.delay-3 { transition-delay: 0.3s; }
+    .animate-from-right.delay-1 { transition-delay: 0.1s; }
+    .animate-from-right.delay-2 { transition-delay: 0.2s; }
+    .animate-from-right.delay-3 { transition-delay: 0.3s; }
+
+    /* ----- BUTTON BOUNCE ANIMATION ----- */
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-8px); }
+      50% { transform: translateY(-4px); }
+      70% { transform: translateY(-6px); }
+      90% { transform: translateY(-2px); }
+    }
+    .btn-bounce {
+      transition: all 0.3s var(--transition-smooth);
+    }
+    .btn-bounce:hover {
+      animation: bounce 0.6s var(--transition-smooth);
+    }
+    .btn-bounce-gold {
+      transition: all 0.3s var(--transition-smooth);
+    }
+    .btn-bounce-gold:hover {
+      animation: bounce 0.6s var(--transition-smooth);
+    }
+
+    /* Apply bounce to all interactive elements */
+    .btn, .btn-gold, .btn-notice, .btn-delivery-order, .btn-delivery-call, 
+    .btn-book-room, .float-btn, .slider-btn, .review-slider-btn,
+    .lang-btn, .close-notice, .hamburger, .gallery-item {
+      transition: all 0.3s var(--transition-smooth);
+    }
+    .btn:hover, .btn-gold:hover, .btn-notice:hover, .btn-delivery-order:hover, 
+    .btn-delivery-call:hover, .btn-book-room:hover, .float-btn:hover, 
+    .slider-btn:hover, .review-slider-btn:hover, .lang-btn:hover, 
+    .close-notice:hover, .hamburger:hover, .gallery-item:hover {
+      animation: bounce 0.6s var(--transition-smooth);
+    }
+
     /* ----- INTRO OVERLAY (green + gold) ----- */
     #intro-overlay {
       position: fixed;
@@ -1086,7 +1146,7 @@
     .contact-card p, .contact-card a { color: var(--text-soft); text-decoration: none; font-weight: 400; transition: color 0.3s ease; }
     .contact-card a:hover { color: var(--gold-dark); }
 
-    /* ----- FAQ (green + gold) ----- */
+    /* ----- FAQ (NEW: with toggle functionality) ----- */
     .faq-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1103,10 +1163,43 @@
       cursor: pointer;
     }
     .faq-item:hover { transform: translateY(-2px); border-color: var(--gold-dark); box-shadow: 0 8px 24px rgba(0,0,0,0.02); }
-    .faq-item .faq-q { font-weight: 600; color: var(--primary-dark); display: flex; align-items: center; gap: 10px; font-size: 0.95rem; }
-    .faq-item .faq-q i { color: var(--gold-dark); font-size: 0.9rem; }
-    .faq-item .faq-a { margin-top: 8px; color: var(--text-soft); font-size: 0.9rem; line-height: 1.7; padding-left: 28px; }
-    .faq-item .faq-a a { color: var(--gold-dark); text-decoration: none; font-weight: 500; }
+    .faq-item .faq-q {
+      font-weight: 600;
+      color: var(--primary-dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.95rem;
+      user-select: none;
+    }
+    .faq-item .faq-q i {
+      color: var(--gold-dark);
+      font-size: 0.9rem;
+      transition: transform 0.3s ease;
+    }
+    .faq-item.open .faq-q i {
+      transform: rotate(90deg);
+    }
+    .faq-item .faq-a {
+      margin-top: 8px;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      padding-left: 28px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+    .faq-item.open .faq-a {
+      max-height: 300px;
+      opacity: 1;
+    }
+    .faq-item .faq-a a {
+      color: var(--gold-dark);
+      text-decoration: none;
+      font-weight: 500;
+    }
     .faq-item .faq-a a:hover { text-decoration: underline; }
 
     /* ----- FOOTER (green + gold) ----- */
@@ -1315,6 +1408,7 @@
       .delivery-info-card .delivery-cta { justify-content: center; }
       .delivery-info-card .delivery-text .radius-indicator { justify-content: center; }
       #notice-popup { top: 16px; right: 16px; max-width: 380px; }
+      .faq-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
       .nav-links { display: none; flex-direction: column; width: 100%; padding-top: 16px; gap: 12px; }
@@ -1345,6 +1439,8 @@
       #notice-popup { top: 12px; right: 12px; max-width: 340px; }
       .notice-card { padding: 20px 18px 18px; }
       .notice-card h3 { font-size: 1.3rem; }
+      .animate-from-left { transform: translateX(-40px); }
+      .animate-from-right { transform: translateX(40px); }
     }
     @media (max-width: 480px) {
       .float-buttons { bottom: 16px; right: 16px; gap: 10px; }
@@ -1364,6 +1460,8 @@
       .notice-card { padding: 16px 14px 14px; }
       .notice-card h3 { font-size: 1.1rem; }
       .notice-card .notice-image-grid img { width: 60px; height: 60px; }
+      .animate-from-left { transform: translateX(-20px); }
+      .animate-from-right { transform: translateX(20px); }
     }
   </style>
 </head>
@@ -1389,16 +1487,13 @@
       <span class="notice-badge">🎉 Limited Offer</span>
       <h3>🌿 Welcome to Bella Cafe!</h3>
       <div class="notice-sub">Authentic Nepali flavors &amp; premium coffee</div>
-
       <div class="notice-image-grid">
         <img src="https://res.cloudinary.com/demo/image/upload/w_200,h_200,c_fill,q_auto,f_auto/sample" alt="Bella Food" id="noticeImg1" />
         <img src="https://res.cloudinary.com/demo/image/upload/w_200,h_200,c_fill,q_auto,f_auto/cafe" alt="Bella Coffee" id="noticeImg2" />
         <img src="https://res.cloudinary.com/demo/image/upload/w_200,h_200,c_fill,q_auto,f_auto/coffee" alt="Bella Treat" id="noticeImg3" />
       </div>
-
       <div class="offer-tag"><i class="fas fa-tag"></i> 20% off on first dine-in + free delivery 1km</div>
       <div style="font-size:0.85rem; opacity:0.9; margin-bottom:10px;">Try our new <strong>Nepali Thali</strong> &amp; <strong>Signature Lattes</strong></div>
-
       <div class="notice-actions">
         <a href="#menu" class="btn-notice btn-notice-gold"><i class="fas fa-utensils"></i> Menu</a>
         <a href="#rooms" class="btn-notice"><i class="fas fa-bed"></i> Rooms</a>
@@ -1442,7 +1537,7 @@
   <!-- ============================================ -->
   <section id="home" class="hero">
     <div class="container hero-grid">
-      <div class="hero-content">
+      <div class="hero-content animate-from-left">
         <h1 data-en="Bella <i>Cafe</i> &amp; Restaurant" data-ne="बेला <i>क्याफे</i> र रेस्टुरेन्ट">Bella <i>Cafe</i> &amp; Restaurant</h1>
         <div class="tagline" data-en="Time for good food. · MM6V+WJH, Damak 57217 · Free Delivery 1km" data-ne="राम्रो खानाको समय। · MM6V+WJH, दमक ५७२१७ · १ किमि नि:शुल्क डेलिभरी">Time for good food. · MM6V+WJH, Damak 57217 · Free Delivery 1km</div>
         <div class="hero-stats">
@@ -1457,7 +1552,7 @@
           <a href="https://wa.me/9779852630088?text=Hello%20Bella%20Cafe!%20I%20would%20like%20to%20place%20a%20delivery%20order." target="_blank" class="btn" style="background:#25d366; border-color:var(--gold);" data-en="Order Delivery" data-ne="डेलिभरी अर्डर गर्नुहोस्"><i class="fab fa-whatsapp"></i> <span>Order Delivery</span></a>
         </div>
       </div>
-      <div class="hero-slider animate-on-scroll">
+      <div class="hero-slider animate-from-right">
         <div class="slider-container" id="heroSlider">
           <div class="slider-track" id="heroTrack">
             <img class="slider-slide" src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWm6awKkZZJ6HD7Bv2QeayaB5hOFegYb0molnugIXSbxl0FvfTqEY-5rCCQ0nUqrfanHvytU0ycIfOOAStAJWPYEoiBZYIiJIRw9LiNFLi76JcS0zGpePhrSy68l3XZOSO6H9BtW9mNu_RLh=s1360-w1360-h1020-rw" alt="Bella Cafe interior" />
@@ -1501,7 +1596,7 @@
     <section id="about" style="margin: 48px 0 24px;">
       <div class="section-title animate-on-scroll"><i class="fas fa-info-circle"></i> <span data-en="About Us" data-ne="हाम्रो बारे">About Us</span></div>
       <div class="about-grid">
-        <div class="about-text animate-on-scroll">
+        <div class="about-text animate-from-left">
           <p data-en="<strong>Bella Cafe & Restaurant</strong> is the top-rated family restaurant in Damak, Jhapa, offering authentic Nepali cuisine, premium coffee, and a cozy atmosphere. Whether you're looking for a quick bite or a relaxing meal with friends and family, we bring you the best of local and international flavors." data-ne="<strong>बेला क्याफे र रेस्टुरेन्ट</strong> दमक, झापाको उत्कृष्ट पारिवारिक रेस्टुरेन्ट हो, जसले प्रामाणिक नेपाली खाना, उत्कृष्ट कफी र आरामदायी वातावरण प्रदान गर्दछ। चाहे तपाईं छिटो खाजा खोज्दै हुनुहुन्छ वा साथीभाइ र परिवारसँग आरामदायी भोजनको लागि, हामी तपाईंलाई स्थानीय र अन्तर्राष्ट्रिय स्वादको उत्कृष्ट मिश्रण प्रदान गर्छौं।"><strong>Bella Cafe & Restaurant</strong> is the top-rated family restaurant in Damak, Jhapa, offering authentic Nepali cuisine, premium coffee, and a cozy atmosphere. Whether you're looking for a quick bite or a relaxing meal with friends and family, we bring you the best of local and international flavors.</p>
           <p style="margin-top: 16px;" data-en="Visit us at <strong>MM6V+WJH, Damak 57217</strong> to experience the true taste of Jhapa. Our doors are open from 7:30 AM to 9:30 PM, ready to serve you with a smile. We also offer <strong>free delivery within 1 km</strong> — order your favorite dishes and enjoy them at home!" data-ne="हामीलाई <strong>MM6V+WJH, दमक ५७२१७</strong> मा भेट्नुहोस् र झापाको वास्तविक स्वाद अनुभव गर्नुहोस्। हाम्रा ढोकाहरू बिहान ७:३० बजेदेखि राति ९:३० बजेसम्म खुला रहन्छन्, तपाईंलाई मुस्कानका साथ सेवा गर्न तयार। हामी <strong>१ किमि भित्र नि:शुल्क डेलिभरी</strong> पनि प्रदान गर्छौं — आफ्नो मनपर्ने परिकार अर्डर गर्नुहोस् र घरमै आनन्द लिनुहोस्!">Visit us at <strong>MM6V+WJH, Damak 57217</strong> to experience the true taste of Jhapa. Our doors are open from 7:30 AM to 9:30 PM, ready to serve you with a smile. We also offer <strong>free delivery within 1 km</strong> — order your favorite dishes and enjoy them at home!</p>
           <div style="display: flex; gap: 14px; margin-top: 24px; flex-wrap: wrap;">
@@ -1511,8 +1606,7 @@
             <span style="background: var(--delivery-light); backdrop-filter:blur(8px); padding: 6px 18px; border-radius: 40px; border: 1px solid var(--gold); font-size:0.9rem; color:var(--delivery-green);"><i class="fas fa-motorcycle" style="color:var(--delivery-green);"></i> <span data-en="Free Delivery 1km" data-ne="१ किमि नि:शुल्क डेलिभरी">Free Delivery 1km</span></span>
           </div>
         </div>
-        <!-- YouTube Video replacing slider -->
-        <div class="about-video-wrapper animate-on-scroll">
+        <div class="about-video-wrapper animate-from-right">
           <iframe 
             src="https://www.youtube.com/embed/_u_MGPOV-8k?si=ricwLhiTa56OXVD5&autoplay=0&rel=0" 
             title="Tour of Hotel Bella Cafe"
@@ -1555,35 +1649,35 @@
       <div class="section-title animate-on-scroll"><i class="fas fa-images"></i> <span data-en="Our Gallery" data-ne="हाम्रो ग्यालरी">Our Gallery</span></div>
       <p class="section-sub animate-on-scroll" data-en="A glimpse of our food, ambiance, and moments at Bella Cafe — the best restaurant in Damak, Jhapa" data-ne="बेला क्याफेको खाना, वातावरण र क्षणहरूको झलक — दमक, झापाको उत्कृष्ट रेस्टुरेन्ट">A glimpse of our food, ambiance, and moments at Bella Cafe — the best restaurant in Damak, Jhapa</p>
       <div class="gallery-grid" id="galleryGrid">
-        <div class="gallery-item animate-on-scroll" data-img="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWm6awKkZZJ6HD7Bv2QeayaB5hOFegYb0molnugIXSbxl0FvfTqEY-5rCCQ0nUqrfanHvytU0ycIfOOAStAJWPYEoiBZYIiJIRw9LiNFLi76JcS0zGpePhrSy68l3XZOSO6H9BtW9mNu_RLh=s1360-w1360-h1020-rw" data-caption-en="Cozy Interior" data-caption-ne="आरामदायी भित्री भाग">
+        <div class="gallery-item animate-from-left" data-img="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWm6awKkZZJ6HD7Bv2QeayaB5hOFegYb0molnugIXSbxl0FvfTqEY-5rCCQ0nUqrfanHvytU0ycIfOOAStAJWPYEoiBZYIiJIRw9LiNFLi76JcS0zGpePhrSy68l3XZOSO6H9BtW9mNu_RLh=s1360-w1360-h1020-rw" data-caption-en="Cozy Interior" data-caption-ne="आरामदायी भित्री भाग">
           <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWm6awKkZZJ6HD7Bv2QeayaB5hOFegYb0molnugIXSbxl0FvfTqEY-5rCCQ0nUqrfanHvytU0ycIfOOAStAJWPYEoiBZYIiJIRw9LiNFLi76JcS0zGpePhrSy68l3XZOSO6H9BtW9mNu_RLh=s1360-w1360-h1020-rw" alt="Cozy Interior" />
           <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Cozy Interior" data-ne="आरामदायी भित्री भाग">Cozy Interior</span></div>
         </div>
-        <div class="gallery-item animate-on-scroll" data-img="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkE0eCy3ekmgqaZmSo9TNDdEXYp2z2jgyMt1XGfht8MCNov1zW2XPKmrjWW9z3JV5c66_oPL8DCdslpk4is8haFMAhNacjqNEA9V1RUGlSYqNsUCC9wBUhsTKwSEGDxNg8vvmoafA=s1360-w1360-h1020-rw" data-caption-en="Delicious Food" data-caption-ne="स्वादिष्ट खाना">
+        <div class="gallery-item animate-from-right" data-img="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkE0eCy3ekmgqaZmSo9TNDdEXYp2z2jgyMt1XGfht8MCNov1zW2XPKmrjWW9z3JV5c66_oPL8DCdslpk4is8haFMAhNacjqNEA9V1RUGlSYqNsUCC9wBUhsTKwSEGDxNg8vvmoafA=s1360-w1360-h1020-rw" data-caption-en="Delicious Food" data-caption-ne="स्वादिष्ट खाना">
           <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkE0eCy3ekmgqaZmSo9TNDdEXYp2z2jgyMt1XGfht8MCNov1zW2XPKmrjWW9z3JV5c66_oPL8DCdslpk4is8haFMAhNacjqNEA9V1RUGlSYqNsUCC9wBUhsTKwSEGDxNg8vvmoafA=s1360-w1360-h1020-rw" alt="Delicious Food" />
           <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Delicious Food" data-ne="स्वादिष्ट खाना">Delicious Food</span></div>
         </div>
-        <div class="gallery-item animate-on-scroll" data-img="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkWKos2876qtnH8XmWLA2y5TctRjdPtn5DDwoG7NyjvcoRdLaAmsffPfBttbRxMU4ruNh0SDZGG3gkL1qltNpROL_eAoHia-H43w5QCVIB1REF6DBqGLTKZFrFR82pfRnt1eULeJvIQpLX1=s1360-w1360-h1020-rw" data-caption-en="Fresh Coffee" data-caption-ne="ताजा कफी">
+        <div class="gallery-item animate-from-left delay-1" data-img="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkWKos2876qtnH8XmWLA2y5TctRjdPtn5DDwoG7NyjvcoRdLaAmsffPfBttbRxMU4ruNh0SDZGG3gkL1qltNpROL_eAoHia-H43w5QCVIB1REF6DBqGLTKZFrFR82pfRnt1eULeJvIQpLX1=s1360-w1360-h1020-rw" data-caption-en="Fresh Coffee" data-caption-ne="ताजा कफी">
           <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWkWKos2876qtnH8XmWLA2y5TctRjdPtn5DDwoG7NyjvcoRdLaAmsffPfBttbRxMU4ruNh0SDZGG3gkL1qltNpROL_eAoHia-H43w5QCVIB1REF6DBqGLTKZFrFR82pfRnt1eULeJvIQpLX1=s1360-w1360-h1020-rw" alt="Fresh Coffee" />
           <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Fresh Coffee" data-ne="ताजा कफी">Fresh Coffee</span></div>
         </div>
-        <div class="gallery-item animate-on-scroll" data-img="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnNwpV4gjHxk_RWxfeFIQIHHxuoYXzQcoMTx9vQFY6jje07qCCp8mG4VxJIFf1ZQDFLfcLRKuEL2SHqAAHW2HkM3qeIRAVN03d-dn4EQqz07uUOhtyTWQzrrE9qBqvYejy6nAJDMArsvEnI=s1360-w1360-h1020-rw" data-caption-en="Pasta &amp; More" data-caption-ne="पास्ता र थप">
+        <div class="gallery-item animate-from-right delay-1" data-img="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnNwpV4gjHxk_RWxfeFIQIHHxuoYXzQcoMTx9vQFY6jje07qCCp8mG4VxJIFf1ZQDFLfcLRKuEL2SHqAAHW2HkM3qeIRAVN03d-dn4EQqz07uUOhtyTWQzrrE9qBqvYejy6nAJDMArsvEnI=s1360-w1360-h1020-rw" data-caption-en="Pasta &amp; More" data-caption-ne="पास्ता र थप">
           <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnNwpV4gjHxk_RWxfeFIQIHHxuoYXzQcoMTx9vQFY6jje07qCCp8mG4VxJIFf1ZQDFLfcLRKuEL2SHqAAHW2HkM3qeIRAVN03d-dn4EQqz07uUOhtyTWQzrrE9qBqvYejy6nAJDMArsvEnI=s1360-w1360-h1020-rw" alt="Pasta" />
           <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Pasta &amp; More" data-ne="पास्ता र थप">Pasta &amp; More</span></div>
         </div>
-        <div class="gallery-item animate-on-scroll" data-img="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnEeyzb1Z5kejyEHqVp4pEY4Ooh_Lk2lN0GTFiXOjWHztkwJ4E-VbpH5669-Vauwb-XIw1qqW8wF5NExgU6Qi6KQCbz_wA7jppGxwBizVs_fcaAOcQUoJp5OcnKZwoNalw6kNrLqKEECzM=s1360-w1360-h1020-rw" data-caption-en="Sweet Treats" data-caption-ne="मिठाईहरू">
+        <div class="gallery-item animate-from-left delay-2" data-img="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnEeyzb1Z5kejyEHqVp4pEY4Ooh_Lk2lN0GTFiXOjWHztkwJ4E-VbpH5669-Vauwb-XIw1qqW8wF5NExgU6Qi6KQCbz_wA7jppGxwBizVs_fcaAOcQUoJp5OcnKZwoNalw6kNrLqKEECzM=s1360-w1360-h1020-rw" data-caption-en="Sweet Treats" data-caption-ne="मिठाईहरू">
           <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWnEeyzb1Z5kejyEHqVp4pEY4Ooh_Lk2lN0GTFiXOjWHztkwJ4E-VbpH5669-Vauwb-XIw1qqW8wF5NExgU6Qi6KQCbz_wA7jppGxwBizVs_fcaAOcQUoJp5OcnKZwoNalw6kNrLqKEECzM=s1360-w1360-h1020-rw" alt="Sweet Treats" />
           <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Sweet Treats" data-ne="मिठाईहरू">Sweet Treats</span></div>
         </div>
-        <div class="gallery-item animate-on-scroll" data-img="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk26FFe0Mi8vkNvyrNxDaSkOOKMUea6nQuR_YQ7f5dAi0jn69x9dOoZlnDtJ8WZJZam3fxc33w8Ch6OIahKtpPcD2Jkg7YzRKlAhtk8CyziLEtA_FpQ4e8c-3nHfWydmvQbCNgv2nIuuVY=s1360-w1360-h1020-rw" data-caption-en="Warm Ambiance" data-caption-ne="न्यानो वातावरण">
+        <div class="gallery-item animate-from-right delay-2" data-img="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk26FFe0Mi8vkNvyrNxDaSkOOKMUea6nQuR_YQ7f5dAi0jn69x9dOoZlnDtJ8WZJZam3fxc33w8Ch6OIahKtpPcD2Jkg7YzRKlAhtk8CyziLEtA_FpQ4e8c-3nHfWydmvQbCNgv2nIuuVY=s1360-w1360-h1020-rw" data-caption-en="Warm Ambiance" data-caption-ne="न्यानो वातावरण">
           <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk26FFe0Mi8vkNvyrNxDaSkOOKMUea6nQuR_YQ7f5dAi0jn69x9dOoZlnDtJ8WZJZam3fxc33w8Ch6OIahKtpPcD2Jkg7YzRKlAhtk8CyziLEtA_FpQ4e8c-3nHfWydmvQbCNgv2nIuuVY=s1360-w1360-h1020-rw" alt="Warm Ambiance" />
           <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Warm Ambiance" data-ne="न्यानो वातावरण">Warm Ambiance</span></div>
         </div>
-        <div class="gallery-item animate-on-scroll" data-img="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWl2f_sM5Wpdz_86-XWY2CvWq1gKNOGC9SQuaJNCzG_CMbWxKWVugy3tD01Z_EGW3jjCG-Q34hn87dv9i4jBEGc2WqUQLVQUCzbQJNC8vcp5zE1bx4i7kER8a72qkXgX1w6QxE5i3p6m=s1360-w1360-h1020-rw" data-caption-en="Tasty Momo" data-caption-ne="स्वादिलो मःम">
+        <div class="gallery-item animate-from-left delay-3" data-img="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWl2f_sM5Wpdz_86-XWY2CvWq1gKNOGC9SQuaJNCzG_CMbWxKWVugy3tD01Z_EGW3jjCG-Q34hn87dv9i4jBEGc2WqUQLVQUCzbQJNC8vcp5zE1bx4i7kER8a72qkXgX1w6QxE5i3p6m=s1360-w1360-h1020-rw" data-caption-en="Tasty Momo" data-caption-ne="स्वादिलो मःम">
           <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWl2f_sM5Wpdz_86-XWY2CvWq1gKNOGC9SQuaJNCzG_CMbWxKWVugy3tD01Z_EGW3jjCG-Q34hn87dv9i4jBEGc2WqUQLVQUCzbQJNC8vcp5zE1bx4i7kER8a72qkXgX1w6QxE5i3p6m=s1360-w1360-h1020-rw" alt="Tasty Momo" />
           <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Tasty Momo" data-ne="स्वादिलो मःम">Tasty Momo</span></div>
         </div>
-        <div class="gallery-item animate-on-scroll" data-img="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmWfiIS2hyD2QbG-s8yprDg1PgqEl_wIqSseuTpNscRxbA-IZgw1lbOotT2AXKOxA0za7lL6fRD5DcXjB-KfplPxXqnKUGF2YkQ_iL-WqngKtW5WqWn17_6b0aQ3NfrRzYZswE05p9H=s1360-w1360-h1020-rw" data-caption-en="Outdoor Seating" data-caption-ne="बाहिरी बस्ने स्थान">
+        <div class="gallery-item animate-from-right delay-3" data-img="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmWfiIS2hyD2QbG-s8yprDg1PgqEl_wIqSseuTpNscRxbA-IZgw1lbOotT2AXKOxA0za7lL6fRD5DcXjB-KfplPxXqnKUGF2YkQ_iL-WqngKtW5WqWn17_6b0aQ3NfrRzYZswE05p9H=s1360-w1360-h1020-rw" data-caption-en="Outdoor Seating" data-caption-ne="बाहिरी बस्ने स्थान">
           <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWmWfiIS2hyD2QbG-s8yprDg1PgqEl_wIqSseuTpNscRxbA-IZgw1lbOotT2AXKOxA0za7lL6fRD5DcXjB-KfplPxXqnKUGF2YkQ_iL-WqngKtW5WqWn17_6b0aQ3NfrRzYZswE05p9H=s1360-w1360-h1020-rw" alt="Outdoor Seating" />
           <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Outdoor Seating" data-ne="बाहिरी बस्ने स्थान">Outdoor Seating</span></div>
         </div>
@@ -1596,7 +1690,7 @@
       <p class="section-sub animate-on-scroll" data-en="Explore our handcrafted dishes and beverages — from authentic Nepali thali to continental favorites" data-ne="हाम्रा हातले बनाएका परिकार र पेय पदार्थहरू अन्वेषण गर्नुहोस् — प्रामाणिक नेपाली थालीदेखि कन्टिनेन्टल मनपर्नेहरूसम्म">Explore our handcrafted dishes and beverages — from authentic Nepali thali to continental favorites</p>
       <div class="menu-section animate-on-scroll">
         <div class="menu-grid">
-          <div class="menu-category">
+          <div class="menu-category animate-from-left">
             <h3><i class="fas fa-mug-hot"></i> <span data-en="Coffee" data-ne="कफी">Coffee</span></h3>
             <div class="menu-item"><span class="name"><span data-en="Espresso" data-ne="एस्प्रेसो">Espresso</span> <span class="desc" data-en="Rich &amp; bold" data-ne="गाढा र बलियो">Rich &amp; bold</span></span><span class="price">Rs. 250</span></div>
             <div class="menu-item"><span class="name"><span data-en="Cappuccino" data-ne="क्यापुचिनो">Cappuccino</span> <span class="desc" data-en="Creamy foam" data-ne="क्रीमी फोम">Creamy foam</span></span><span class="price">Rs. 350</span></div>
@@ -1604,7 +1698,7 @@
             <div class="menu-item"><span class="name"><span data-en="Mocha" data-ne="मोचा">Mocha</span> <span class="desc" data-en="Chocolate twist" data-ne="चकलेट ट्विस्ट">Chocolate twist</span></span><span class="price">Rs. 420</span></div>
             <div class="menu-item"><span class="name"><span data-en="Caramel Macchiato" data-ne="क्यारामेल माकियाटो">Caramel Macchiato</span> <span class="desc" data-en="Sweet &amp; indulgent" data-ne="मिठो र लज्जतदार">Sweet &amp; indulgent</span></span><span class="price">Rs. 450</span></div>
           </div>
-          <div class="menu-category">
+          <div class="menu-category animate-from-right">
             <h3><i class="fas fa-sun"></i> <span data-en="Breakfast" data-ne="बिहानको खाजा">Breakfast</span></h3>
             <div class="menu-item"><span class="name"><span data-en="Avocado Toast" data-ne="एभोकाडो टोस्ट">Avocado Toast</span> <span class="desc" data-en="Sourdough, avocado, poached egg" data-ne="सावरडो, एभोकाडो, पोच्ड अण्डा">Sourdough, avocado, poached egg</span></span><span class="price">Rs. 550</span></div>
             <div class="menu-item"><span class="name"><span data-en="Pancakes" data-ne="प्यानकेक">Pancakes</span> <span class="desc" data-en="Maple syrup &amp; berries" data-ne="मेपल सिरप र जामुन">Maple syrup &amp; berries</span></span><span class="price">Rs. 500</span></div>
@@ -1612,7 +1706,7 @@
             <div class="menu-item"><span class="name"><span data-en="Croissant" data-ne="क्रोइसन्ट">Croissant</span> <span class="desc" data-en="Butter, flaky perfection" data-ne="बटर, फ्लेकी परफेक्शन">Butter, flaky perfection</span></span><span class="price">Rs. 350</span></div>
             <div class="menu-item"><span class="name"><span data-en="Fruit Bowl" data-ne="फलफूलको कचौरा">Fruit Bowl</span> <span class="desc" data-en="Fresh seasonal fruits" data-ne="ताजा मौसमी फलफूल">Fresh seasonal fruits</span></span><span class="price">Rs. 400</span></div>
           </div>
-          <div class="menu-category">
+          <div class="menu-category animate-from-left delay-1">
             <h3><i class="fas fa-utensil-spoon"></i> <span data-en="Mains" data-ne="मुख्य परिकार">Mains</span></h3>
             <div class="menu-item"><span class="name"><span data-en="Chicken Biryani" data-ne="चिकन बिर्यानी">Chicken Biryani</span> <span class="desc" data-en="Aromatic basmati rice" data-ne="सुगन्धित बासमती चामल">Aromatic basmati rice</span></span><span class="price">Rs. 750</span></div>
             <div class="menu-item"><span class="name"><span data-en="Pasta Alfredo" data-ne="पास्ता अल्फ्रेडो">Pasta Alfredo</span> <span class="desc" data-en="Creamy parmesan sauce" data-ne="क्रीमी परमेसन सस">Creamy parmesan sauce</span></span><span class="price">Rs. 680</span></div>
@@ -1620,7 +1714,7 @@
             <div class="menu-item"><span class="name"><span data-en="Momo (10 pcs)" data-ne="मःम (१० पिस)">Momo (10 pcs)</span> <span class="desc" data-en="Steamed or fried, chutney" data-ne="स्टिम वा फ्राइ, चटनी">Steamed or fried, chutney</span></span><span class="price">Rs. 450</span></div>
             <div class="menu-item"><span class="name"><span data-en="Grilled Sandwich" data-ne="ग्रिल गरिएको स्यान्डविच">Grilled Sandwich</span> <span class="desc" data-en="Chicken, cheese, veggies" data-ne="चिकन, चिज, तरकारी">Chicken, cheese, veggies</span></span><span class="price">Rs. 520</span></div>
           </div>
-          <div class="menu-category">
+          <div class="menu-category animate-from-right delay-1">
             <h3><i class="fas fa-cake"></i> <span data-en="Desserts &amp; Drinks" data-ne="मिठाई र पेय पदार्थ">Desserts &amp; Drinks</span></h3>
             <div class="menu-item"><span class="name"><span data-en="Cheesecake" data-ne="चिजकेक">Cheesecake</span> <span class="desc" data-en="New York style" data-ne="न्यु योर्क स्टाइल">New York style</span></span><span class="price">Rs. 450</span></div>
             <div class="menu-item"><span class="name"><span data-en="Chocolate Lava Cake" data-ne="चकलेट लाभा केक">Chocolate Lava Cake</span> <span class="desc" data-en="Warm, gooey center" data-ne="न्यानो, टाँसिने केन्द्र">Warm, gooey center</span></span><span class="price">Rs. 500</span></div>
@@ -1640,7 +1734,7 @@
       <div class="section-title animate-on-scroll"><i class="fas fa-bed"></i> <span data-en="Rooms &amp; Suites" data-ne="कोठा र सुइटहरू">Rooms &amp; Suites</span></div>
       <p class="section-sub animate-on-scroll" data-en="Comfortable stays with modern amenities. Perfect for your getaway in Damak, Jhapa." data-ne="आधुनिक सुविधाहरू सहित आरामदायी बसाइ। दमक, झापामा तपाईंको गेटवेको लागि उत्तम।">Comfortable stays with modern amenities. Perfect for your getaway in Damak, Jhapa.</p>
       <div class="rooms-grid">
-        <div class="room-card animate-on-scroll">
+        <div class="room-card animate-from-left">
           <div class="room-image">
             <img src="standard.jpeg" alt="Standard Room" loading="lazy" onerror="this.src='https://picsum.photos/seed/standard/600/400';" />
             <span class="room-badge" data-en="Standard" data-ne="स्ट्यान्डर्ड">Standard</span>
@@ -1661,7 +1755,7 @@
             </div>
           </div>
         </div>
-        <div class="room-card animate-on-scroll">
+        <div class="room-card animate-from-right">
           <div class="room-image">
             <img src="deluxe.jpeg" alt="Deluxe Room" loading="lazy" onerror="this.src='https://picsum.photos/seed/deluxe/600/400';" />
             <span class="room-badge popular" data-en="Popular" data-ne="लोकप्रिय">Popular</span>
@@ -1683,7 +1777,7 @@
             </div>
           </div>
         </div>
-        <div class="room-card animate-on-scroll">
+        <div class="room-card animate-from-left delay-1">
           <div class="room-image">
             <img src="suit.jpeg" alt="Suite Room" loading="lazy" onerror="this.src='https://picsum.photos/seed/suite/600/400';" />
             <span class="room-badge" style="background:#9b59b6; border-color:var(--gold);" data-en="Premium" data-ne="प्रिमियम">Premium</span>
@@ -1706,8 +1800,7 @@
             </div>
           </div>
         </div>
-        <!-- New Family Room -->
-        <div class="room-card animate-on-scroll">
+        <div class="room-card animate-from-right delay-1">
           <div class="room-image">
             <img src="family.jpeg" alt="Family Room" loading="lazy" onerror="this.src='https://picsum.photos/seed/family/600/400';" />
             <span class="room-badge" style="background:#2e7d32; border-color:var(--gold);" data-en="Family" data-ne="परिवार">Family</span>
@@ -1763,15 +1856,15 @@
       <div class="section-title animate-on-scroll"><i class="fas fa-concierge-bell"></i> <span data-en="Our Facilities" data-ne="हाम्रा सुविधाहरू">Our Facilities</span></div>
       <p class="section-sub animate-on-scroll" data-en="Everything we offer to make your visit comfortable and enjoyable — including free delivery within 1 km!" data-ne="तपाईंको भ्रमणलाई आरामदायी र रमाइलो बनाउन हामीले प्रदान गर्ने सबै कुरा — १ किमि भित्र नि:शुल्क डेलिभरी सहित!">Everything we offer to make your visit comfortable and enjoyable — including free delivery within 1 km!</p>
       <div class="facilities-grid">
-        <div class="facility-card animate-on-scroll"><i class="fas fa-wifi"></i><h4 data-en="Free Wi-Fi" data-ne="नि:शुल्क वाइफाई">Free Wi-Fi</h4><p data-en="High-speed internet throughout" data-ne="सबै ठाउँमा उच्च-गतिको इन्टरनेट">High-speed internet throughout</p></div>
-        <div class="facility-card animate-on-scroll"><i class="fas fa-parking"></i><h4 data-en="Free Parking" data-ne="नि:शुल्क पार्किङ">Free Parking</h4><p data-en="Ample space for vehicles" data-ne="सवारी साधनको लागि पर्याप्त ठाउँ">Ample space for vehicles</p></div>
-        <div class="facility-card animate-on-scroll"><i class="fas fa-wheelchair"></i><h4 data-en="Wheelchair Access" data-ne="पाङ्ग्रे कुर्सी पहुँच">Wheelchair Access</h4><p data-en="Ramps &amp; accessible seating" data-ne="र्याम्प र पहुँचयोग्य बस्ने ठाउँ">Ramps &amp; accessible seating</p></div>
-        <div class="facility-card animate-on-scroll"><i class="fas fa-tree"></i><h4 data-en="Outdoor Seating" data-ne="बाहिरी बस्ने स्थान">Outdoor Seating</h4><p data-en="Relax in the fresh air" data-ne="ताजा हावामा आराम गर्नुहोस्">Relax in the fresh air</p></div>
-        <div class="facility-card animate-on-scroll"><i class="fas fa-baby"></i><h4 data-en="Kids Friendly" data-ne="बालमैत्री">Kids Friendly</h4><p data-en="High chairs &amp; kids menu" data-ne="उच्च कुर्सी र बालबालिकाको मेनु">High chairs &amp; kids menu</p></div>
-        <div class="facility-card animate-on-scroll"><i class="fas fa-music"></i><h4 data-en="Live Music" data-ne="लाइभ संगीत">Live Music</h4><p data-en="Evenings with local artists" data-ne="स्थानीय कलाकारहरूसँग साँझ">Evenings with local artists</p></div>
-        <div class="facility-card animate-on-scroll"><i class="fas fa-coffee"></i><h4 data-en="Takeaway" data-ne="टेकअवे">Takeaway</h4><p data-en="Order &amp; pick up on the go" data-ne="अर्डर गर्नुहोस् र जाँदै लिनुहोस्">Order &amp; pick up on the go</p></div>
-        <div class="facility-card animate-on-scroll"><i class="fas fa-credit-card"></i><h4 data-en="Card Payment" data-ne="कार्ड भुक्तानी">Card Payment</h4><p data-en="Visa, Mastercard &amp; mobile" data-ne="भिसा, मास्टरकार्ड र मोबाइल">Visa, Mastercard &amp; mobile</p></div>
-        <div class="facility-card animate-on-scroll" style="border-color:var(--gold); background:var(--delivery-light);"><i class="fas fa-motorcycle" style="color:var(--delivery-green);"></i><h4 style="color:var(--delivery-green);" data-en="Free Delivery" data-ne="नि:शुल्क डेलिभरी">Free Delivery</h4><p data-en="Within 1 km radius" data-ne="१ किमि दायरा भित्र">Within 1 km radius</p></div>
+        <div class="facility-card animate-from-left"><i class="fas fa-wifi"></i><h4 data-en="Free Wi-Fi" data-ne="नि:शुल्क वाइफाई">Free Wi-Fi</h4><p data-en="High-speed internet throughout" data-ne="सबै ठाउँमा उच्च-गतिको इन्टरनेट">High-speed internet throughout</p></div>
+        <div class="facility-card animate-from-right"><i class="fas fa-parking"></i><h4 data-en="Free Parking" data-ne="नि:शुल्क पार्किङ">Free Parking</h4><p data-en="Ample space for vehicles" data-ne="सवारी साधनको लागि पर्याप्त ठाउँ">Ample space for vehicles</p></div>
+        <div class="facility-card animate-from-left delay-1"><i class="fas fa-wheelchair"></i><h4 data-en="Wheelchair Access" data-ne="पाङ्ग्रे कुर्सी पहुँच">Wheelchair Access</h4><p data-en="Ramps &amp; accessible seating" data-ne="र्याम्प र पहुँचयोग्य बस्ने ठाउँ">Ramps &amp; accessible seating</p></div>
+        <div class="facility-card animate-from-right delay-1"><i class="fas fa-tree"></i><h4 data-en="Outdoor Seating" data-ne="बाहिरी बस्ने स्थान">Outdoor Seating</h4><p data-en="Relax in the fresh air" data-ne="ताजा हावामा आराम गर्नुहोस्">Relax in the fresh air</p></div>
+        <div class="facility-card animate-from-left delay-2"><i class="fas fa-baby"></i><h4 data-en="Kids Friendly" data-ne="बालमैत्री">Kids Friendly</h4><p data-en="High chairs &amp; kids menu" data-ne="उच्च कुर्सी र बालबालिकाको मेनु">High chairs &amp; kids menu</p></div>
+        <div class="facility-card animate-from-right delay-2"><i class="fas fa-music"></i><h4 data-en="Live Music" data-ne="लाइभ संगीत">Live Music</h4><p data-en="Evenings with local artists" data-ne="स्थानीय कलाकारहरूसँग साँझ">Evenings with local artists</p></div>
+        <div class="facility-card animate-from-left delay-3"><i class="fas fa-coffee"></i><h4 data-en="Takeaway" data-ne="टेकअवे">Takeaway</h4><p data-en="Order &amp; pick up on the go" data-ne="अर्डर गर्नुहोस् र जाँदै लिनुहोस्">Order &amp; pick up on the go</p></div>
+        <div class="facility-card animate-from-right delay-3"><i class="fas fa-credit-card"></i><h4 data-en="Card Payment" data-ne="कार्ड भुक्तानी">Card Payment</h4><p data-en="Visa, Mastercard &amp; mobile" data-ne="भिसा, मास्टरकार्ड र मोबाइल">Visa, Mastercard &amp; mobile</p></div>
+        <div class="facility-card animate-from-left delay-3" style="border-color:var(--gold); background:var(--delivery-light);"><i class="fas fa-motorcycle" style="color:var(--delivery-green);"></i><h4 style="color:var(--delivery-green);" data-en="Free Delivery" data-ne="नि:शुल्क डेलिभरी">Free Delivery</h4><p data-en="Within 1 km radius" data-ne="१ किमि दायरा भित्र">Within 1 km radius</p></div>
       </div>
     </section>
 
@@ -1791,41 +1884,41 @@
     <section id="contact" style="margin: 40px 0 24px;">
       <div class="section-title animate-on-scroll"><i class="fas fa-headset"></i> <span data-en="Contact &amp; Hours" data-ne="सम्पर्क र समय">Contact &amp; Hours</span></div>
       <div class="contact-grid">
-        <div class="contact-card animate-on-scroll"><i class="fas fa-phone-alt"></i><h3 data-en="Call us" data-ne="हामीलाई कल गर्नुहोस्">Call us</h3><p>985-2630088 · 023-591588</p></div>
-        <div class="contact-card animate-on-scroll"><i class="fas fa-envelope"></i><h3 data-en="Email" data-ne="ईमेल">Email</h3><p>bellacafedamak5@gmail.com</p></div>
-        <div class="contact-card animate-on-scroll"><i class="fab fa-whatsapp"></i><h3 data-en="WhatsApp" data-ne="ह्वाट्सएप">WhatsApp</h3><p><a href="https://wa.me/9779852630088" target="_blank" style="color:var(--primary-dark); font-weight:500;">+977 985-2630088</a></p></div>
-        <div class="contact-card animate-on-scroll" style="border-color:var(--gold); background:var(--delivery-light);"><i class="fas fa-motorcycle" style="color:var(--delivery-green);"></i><h3 style="color:var(--delivery-green);" data-en="Free Delivery" data-ne="नि:शुल्क डेलिभरी">Free Delivery</h3><p data-en="Within 1 km · Call or WhatsApp to order" data-ne="१ किमि भित्र · अर्डर गर्न कल वा ह्वाट्सएप गर्नुहोस्">Within 1 km · Call or WhatsApp to order</p></div>
+        <div class="contact-card animate-from-left"><i class="fas fa-phone-alt"></i><h3 data-en="Call us" data-ne="हामीलाई कल गर्नुहोस्">Call us</h3><p>985-2630088 · 023-591588</p></div>
+        <div class="contact-card animate-from-right"><i class="fas fa-envelope"></i><h3 data-en="Email" data-ne="ईमेल">Email</h3><p>bellacafedamak5@gmail.com</p></div>
+        <div class="contact-card animate-from-left delay-1"><i class="fab fa-whatsapp"></i><h3 data-en="WhatsApp" data-ne="ह्वाट्सएप">WhatsApp</h3><p><a href="https://wa.me/9779852630088" target="_blank" style="color:var(--primary-dark); font-weight:500;">+977 985-2630088</a></p></div>
+        <div class="contact-card animate-from-right delay-1" style="border-color:var(--gold); background:var(--delivery-light);"><i class="fas fa-motorcycle" style="color:var(--delivery-green);"></i><h3 style="color:var(--delivery-green);" data-en="Free Delivery" data-ne="नि:शुल्क डेलिभरी">Free Delivery</h3><p data-en="Within 1 km · Call or WhatsApp to order" data-ne="१ किमि भित्र · अर्डर गर्न कल वा ह्वाट्सएप गर्नुहोस्">Within 1 km · Call or WhatsApp to order</p></div>
       </div>
     </section>
 
-    <!-- FAQ -->
+    <!-- FAQ (with toggle functionality) -->
     <section id="faq" style="margin: 40px 0 24px;">
       <div class="section-title animate-on-scroll"><i class="fas fa-question-circle"></i> <span data-en="Frequently Asked Questions" data-ne="बारम्बार सोधिने प्रश्नहरू">Frequently Asked Questions</span></div>
       <p class="section-sub animate-on-scroll" data-en="Quick answers to the most common questions about Bella Cafe — the best restaurant in Damak, Jhapa" data-ne="बेला क्याफेको बारेमा सबैभन्दा सामान्य प्रश्नहरूको द्रुत उत्तर — दमक, झापाको उत्कृष्ट रेस्टुरेन्ट">Quick answers to the most common questions about Bella Cafe — the best restaurant in Damak, Jhapa</p>
-      <div class="faq-grid">
-        <div class="faq-item animate-on-scroll">
+      <div class="faq-grid" id="faqList">
+        <div class="faq-item animate-from-left">
           <div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="What is the best restaurant in Damak for family dinner?" data-ne="दमकमा पारिवारिक भोजको लागि उत्कृष्ट रेस्टुरेन्ट कुन हो?">What is the best restaurant in Damak for family dinner?</span></div>
-          <div class="faq-a" data-en="Bella Cafe & Restaurant is the best family restaurant in Damak, Jhapa, offering authentic Nepali thali, fresh coffee, and a cozy atmosphere. We are located at MM6V+WJH, Damak 57217." data-ne="बेला क्याफे र रेस्टुरेन्ट दमक, झापाको उत्कृष्ट पारिवारिक रेस्टुरेन्ट हो, जसले प्रामाणिक नेपाली थाली, ताजा कफी र आरामदायी वातावरण प्रदान गर्दछ। हामी MM6V+WJH, दमक ५७२१७ मा अवस्थित छौं।">Bella Cafe & Restaurant is the best family restaurant in Damak, Jhapa, offering authentic Nepali thali, fresh coffee, and a cozy atmosphere. We are located at MM6V+WJH, Damak 57217.</div>
+          <div class="faq-a" data-en="Bella Cafe &amp; Restaurant is the best family restaurant in Damak, Jhapa, offering authentic Nepali thali, fresh coffee, and a cozy atmosphere at MM6V+WJH, Damak 57217." data-ne="बेला क्याफे र रेस्टुरेन्ट दमक, झापाको उत्कृष्ट पारिवारिक रेस्टुरेन्ट हो, MM6V+WJH, दमक ५७२१७ मा प्रामाणिक नेपाली थाली, ताजा कफी र आरामदायी वातावरण प्रदान गर्दछ।">Bella Cafe &amp; Restaurant is the best family restaurant in Damak, Jhapa, offering authentic Nepali thali, fresh coffee, and a cozy atmosphere at MM6V+WJH, Damak 57217.</div>
         </div>
-        <div class="faq-item animate-on-scroll">
-          <div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="Does Bella Cafe offer free delivery in Damak?" data-ne="के बेला क्याफेले दमकमा नि:शुल्क डेलिभरी प्रदान गर्दछ?">Does Bella Cafe offer free delivery in Damak?</span></div>
-          <div class="faq-a" data-en="Yes! Bella Cafe offers <strong>FREE delivery within 1 km radius</strong> of our location at MM6V+WJH, Damak 57217. Simply call us at <a href='tel:9852630088'>+977 985-2630088</a> or order via <a href='https://wa.me/9779852630088' target='_blank'>WhatsApp</a> to enjoy your favorite meals at home." data-ne="हो! बेला क्याफेले हाम्रो स्थान MM6V+WJH, दमक ५७२१७ को <strong>१ किमि दायरा भित्र नि:शुल्क डेलिभरी</strong> प्रदान गर्दछ। घरमै आफ्नो मनपर्ने खानाको आनन्द लिन <a href='tel:9852630088'>+977 985-2630088</a> मा कल गर्नुहोस् वा <a href='https://wa.me/9779852630088' target='_blank'>ह्वाट्सएप</a> मार्फत अर्डर गर्नुहोस्।">Yes! Bella Cafe offers <strong>FREE delivery within 1 km radius</strong> of our location at MM6V+WJH, Damak 57217. Simply call us at <a href="tel:9852630088">+977 985-2630088</a> or order via <a href="https://wa.me/9779852630088" target="_blank">WhatsApp</a> to enjoy your favorite meals at home.</div>
+        <div class="faq-item animate-from-right">
+          <div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="Does Bella Cafe offer free delivery?" data-ne="के बेला क्याफेले नि:शुल्क डेलिभरी प्रदान गर्दछ?">Does Bella Cafe offer free delivery?</span></div>
+          <div class="faq-a" data-en="Yes! Free delivery within 1 km radius. Call <a href='tel:9852630088'>+977 985-2630088</a> or order via <a href='https://wa.me/9779852630088' target='_blank'>WhatsApp</a>." data-ne="हो! १ किमि दायरा भित्र नि:शुल्क डेलिभरी। <a href='tel:9852630088'>+977 985-2630088</a> मा कल गर्नुहोस् वा <a href='https://wa.me/9779852630088' target='_blank'>ह्वाट्सएप</a> मार्फत अर्डर गर्नुहोस्।">Yes! Free delivery within 1 km radius. Call <a href="tel:9852630088">+977 985-2630088</a> or order via <a href="https://wa.me/9779852630088" target="_blank">WhatsApp</a>.</div>
         </div>
-        <div class="faq-item animate-on-scroll">
-          <div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="What are the opening hours of Bella Cafe in Damak?" data-ne="दमकमा बेला क्याफेको खुल्ने समय के हो?">What are the opening hours of Bella Cafe in Damak?</span></div>
-          <div class="faq-a" data-en="Bella Cafe is open Monday through Sunday from <strong>7:30 AM to 9:30 PM</strong>. We serve breakfast, lunch, dinner, and everything in between." data-ne="बेला क्याफे सोमबारदेखि आइतबारसम्म <strong>बिहान ७:३० बजेदेखि राति ९:३० बजेसम्म</strong> खुला रहन्छ। हामी बिहानको खाजा, दिउँसोको खाना, साँझको खाना र बीचका सबै कुरा सेवा गर्छौं।">Bella Cafe is open Monday through Sunday from <strong>7:30 AM to 9:30 PM</strong>. We serve breakfast, lunch, dinner, and everything in between.</div>
+        <div class="faq-item animate-from-left delay-1">
+          <div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="What are the opening hours?" data-ne="खुल्ने समय के हो?">What are the opening hours?</span></div>
+          <div class="faq-a" data-en="Open Monday–Sunday, 7:30 AM to 9:30 PM. Breakfast, lunch, dinner, and everything in between." data-ne="सोमबार–आइतबार, बिहान ७:३० बजेदेखि राति ९:३० बजेसम्म खुला। बिहानको खाजा, दिउँसोको खाना, साँझको खाना र बीचका सबै कुरा।">Open Monday–Sunday, 7:30 AM to 9:30 PM. Breakfast, lunch, dinner, and everything in between.</div>
         </div>
-        <div class="faq-item animate-on-scroll">
-          <div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="Where is Bella Cafe & Restaurant located in Jhapa?" data-ne="बेला क्याफे र रेस्टुरेन्ट झापामा कहाँ अवस्थित छ?">Where is Bella Cafe & Restaurant located in Jhapa?</span></div>
-          <div class="faq-a" data-en="Bella Cafe is located at <strong>MM6V+WJH, Damak 57217, Jhapa, Nepal</strong>. We are just a short walk from the Damak Bus Park and near the Damak Municipality office. <a href='https://www.google.com/maps?q=MM6V%2BWJH%20Damak%2057217' target='_blank'>View on Google Maps →</a>" data-ne="बेला क्याफे <strong>MM6V+WJH, दमक ५७२१७, झापा, नेपाल</strong> मा अवस्थित छ। हामी दमक बस पार्कबाट केही पैदल दूरीमा र दमक नगरपालिका कार्यालय नजिक छौं। <a href='https://www.google.com/maps?q=MM6V%2BWJH%20Damak%2057217' target='_blank'>गुगल नक्सामा हेर्नुहोस् →</a>">Bella Cafe is located at <strong>MM6V+WJH, Damak 57217, Jhapa, Nepal</strong>. We are just a short walk from the Damak Bus Park and near the Damak Municipality office. <a href="https://www.google.com/maps?q=MM6V%2BWJH%20Damak%2057217" target="_blank">View on Google Maps →</a></div>
+        <div class="faq-item animate-from-right delay-1">
+          <div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="Does Bella Cafe have hotel rooms?" data-ne="के बेला क्याफेमा होटल कोठाहरू छन्?">Does Bella Cafe have hotel rooms?</span></div>
+          <div class="faq-a" data-en="Yes! Standard, Deluxe, Suite, and Family rooms with modern amenities including free Wi-Fi, AC, smart TV, and attached bathrooms. <a href='#rooms'>Book your stay →</a>" data-ne="हो! स्ट्यान्डर्ड, डिलक्स, सुइट र पारिवारिक कोठाहरू नि:शुल्क वाइफाई, एसी, स्मार्ट टिभी र संलग्न बाथरुम सहित आधुनिक सुविधाहरूको साथ। <a href='#rooms'>आफ्नो बसाइ बुक गर्नुहोस् →</a>">Yes! Standard, Deluxe, Suite, and Family rooms with modern amenities including free Wi-Fi, AC, smart TV, and attached bathrooms. <a href="#rooms">Book your stay →</a></div>
         </div>
-        <div class="faq-item animate-on-scroll">
-          <div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="Does Bella Cafe have hotel rooms for stay?" data-ne="के बेला क्याफेमा बस्नको लागि होटल कोठाहरू छन्?">Does Bella Cafe have hotel rooms for stay?</span></div>
-          <div class="faq-a" data-en="Yes! Bella Cafe offers comfortable Standard Rooms, Deluxe Rooms, Executive Suites, and Family Rooms with modern amenities including free Wi-Fi, AC, smart TV, and attached bathrooms. <a href='#rooms'>Book your stay with us today →</a>" data-ne="हो! बेला क्याफेले नि:शुल्क वाइफाई, एसी, स्मार्ट टिभी र संलग्न बाथरुम सहित आधुनिक सुविधाहरूको साथ आरामदायी स्ट्यान्डर्ड कोठा, डिलक्स कोठा, कार्यकारी सुइट र पारिवारिक कोठा प्रदान गर्दछ। <a href='#rooms'>आजै हामीसँग आफ्नो बसाइ बुक गर्नुहोस् →</a>">Yes! Bella Cafe offers comfortable Standard Rooms, Deluxe Rooms, Executive Suites, and Family Rooms with modern amenities including free Wi-Fi, AC, smart TV, and attached bathrooms. <a href="#rooms">Book your stay with us today →</a></div>
-        </div>
-        <div class="faq-item animate-on-scroll">
+        <div class="faq-item animate-from-left delay-2">
           <div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="What cuisines does Bella Cafe serve?" data-ne="बेला क्याफेले कस्तो खाना सेवा गर्दछ?">What cuisines does Bella Cafe serve?</span></div>
-          <div class="faq-a" data-en="Bella Cafe serves a delicious blend of <strong>Nepali, Continental, and Asian cuisine</strong>. From authentic Nepali thali and momo to pasta, pizza, biryani, and specialty coffee — we have something for everyone." data-ne="बेला क्याफेले <strong>नेपाली, कन्टिनेन्टल र एसियाली खाना</strong> को स्वादिष्ट मिश्रण सेवा गर्दछ। प्रामाणिक नेपाली थाली र मःमदेखि पास्ता, पिज्जा, बिर्यानी र विशेष कफीसम्म — हामीसँग सबैको लागि केही न केही छ।">Bella Cafe serves a delicious blend of <strong>Nepali, Continental, and Asian cuisine</strong>. From authentic Nepali thali and momo to pasta, pizza, biryani, and specialty coffee — we have something for everyone.</div>
+          <div class="faq-a" data-en="Nepali, Continental, and Asian cuisine — from authentic thali and momo to pasta, pizza, biryani, and specialty coffee." data-ne="नेपाली, कन्टिनेन्टल र एसियाली खाना — प्रामाणिक थाली र मःमदेखि पास्ता, पिज्जा, बिर्यानी र विशेष कफीसम्म।">Nepali, Continental, and Asian cuisine — from authentic thali and momo to pasta, pizza, biryani, and specialty coffee.</div>
+        </div>
+        <div class="faq-item animate-from-right delay-2">
+          <div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="Where is Bella Cafe located?" data-ne="बेला क्याफे कहाँ अवस्थित छ?">Where is Bella Cafe located?</span></div>
+          <div class="faq-a" data-en="Bella Cafe is located at <strong>MM6V+WJH, Damak 57217, Jhapa, Nepal</strong>. <a href='https://www.google.com/maps?q=MM6V%2BWJH%20Damak%2057217' target='_blank'>View on Google Maps →</a>" data-ne="बेला क्याफे <strong>MM6V+WJH, दमक ५७२१७, झापा, नेपाल</strong> मा अवस्थित छ। <a href='https://www.google.com/maps?q=MM6V%2BWJH%20Damak%2057217' target='_blank'>गुगल नक्सामा हेर्नुहोस् →</a>">Bella Cafe is located at <strong>MM6V+WJH, Damak 57217, Jhapa, Nepal</strong>. <a href="https://www.google.com/maps?q=MM6V%2BWJH%20Damak%2057217" target="_blank">View on Google Maps →</a></div>
         </div>
       </div>
     </section>
@@ -1908,7 +2001,7 @@
   </div>
 
   <!-- ============================================ -->
-  <!-- SCRIPTS (unchanged logic)                    -->
+  <!-- SCRIPTS                                      -->
   <!-- ============================================ -->
   <script>
     const CLOUDINARY_CONFIG = { cloudName: 'demo' };
@@ -1928,6 +2021,7 @@
       if (e.target === this) closeNotice();
     });
 
+    // Hero Slider
     function createSlider(trackId, dotsId, prevId, nextId, auto = true) {
       const track = document.getElementById(trackId);
       const slides = track.querySelectorAll('.slider-slide');
@@ -1958,6 +2052,7 @@
     }
     createSlider('heroTrack', 'heroDots', 'heroPrev', 'heroNext', true);
 
+    // Review Slider
     function createReviewSlider(trackId, dotsId, prevId, nextId) {
       const track = document.getElementById(trackId);
       const slides = track.querySelectorAll('.review-card');
@@ -1997,6 +2092,7 @@
     }
     createReviewSlider('reviewTrack', 'reviewDots', 'reviewPrev', 'reviewNext');
 
+    // Mobile Menu
     document.getElementById('menuToggle').addEventListener('click', function() {
       document.getElementById('navLinks').classList.toggle('open');
     });
@@ -2004,6 +2100,17 @@
       link.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
     });
 
+    // FAQ Toggle
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const question = item.querySelector('.faq-q');
+      if (question) {
+        question.addEventListener('click', function(e) {
+          item.classList.toggle('open');
+        });
+      }
+    });
+
+    // Lightbox
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightboxImg');
     const lightboxCaption = document.getElementById('lightboxCaption');
@@ -2027,6 +2134,7 @@
     lightbox.addEventListener('click', function(e) { if (e.target === this) closeLightboxFn(); });
     document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightboxFn(); });
 
+    // Scroll Animations
     document.addEventListener('DOMContentLoaded', function() {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -2036,9 +2144,13 @@
           }
         });
       }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-      document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+      
+      document.querySelectorAll('.animate-on-scroll, .animate-from-left, .animate-from-right').forEach(el => {
+        observer.observe(el);
+      });
     });
 
+    // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         const target = document.querySelector(this.getAttribute('href'));
@@ -2050,6 +2162,7 @@
       });
     });
 
+    // Language toggle
     function setLanguage(lang) {
       document.documentElement.lang = lang;
       document.querySelectorAll('[data-en][data-ne]').forEach(el => {
@@ -2121,6 +2234,7 @@
 
     setLanguage('en');
 
+    // Notice images
     function setNoticeImage(id, publicId) {
       const img = document.getElementById(id);
       if (img) {
@@ -2138,7 +2252,7 @@
     setNoticeImage('noticeImg2', 'cafe');
     setNoticeImage('noticeImg3', 'coffee');
 
-    console.log('☕ Bella Cafe · Green theme + Gold outlines · Bilingual · Free Delivery 1km');
+    console.log('☕ Bella Cafe · Green theme + Gold outlines · Bilingual · Free Delivery 1km · FAQ Toggle · Button Bounce Animation');
   </script>
 </body>
 </html>
