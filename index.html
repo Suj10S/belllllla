@@ -1157,7 +1157,7 @@
     }
     .review-dot:hover { transform: scale(1.2); }
 
-    /* ----- GALLERY (green + gold) ----- */
+    /* ----- GALLERY (green + gold) - No text labels ----- */
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -1188,21 +1188,6 @@
       transition: transform 0.7s ease;
     }
     .gallery-item:hover img { transform: scale(1.04); }
-    .gallery-item .gallery-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(0deg, rgba(26,56,34,0.6) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      display: flex;
-      align-items: flex-end;
-      padding: 20px;
-      color: #f5f2e0;
-      font-weight: 500;
-      font-size: 0.9rem;
-    }
-    .gallery-item:hover .gallery-overlay { opacity: 1; }
-    .gallery-item .gallery-overlay i { margin-right: 10px; color: var(--gold); }
 
     /* ----- MENU (green + gold) - Mobile Optimized ----- */
     .menu-section {
@@ -1865,7 +1850,7 @@
       color: #fff;
     }
 
-    /* ----- LIGHTBOX (green + gold) ----- */
+    /* ----- LIGHTBOX (green + gold) - No caption ----- */
     .lightbox {
       position: fixed;
       inset: 0;
@@ -1912,19 +1897,9 @@
       color: var(--gold);
       transform: rotate(90deg) scale(1.05);
     }
+    /* Lightbox caption hidden */
     .lightbox .lightbox-caption {
-      position: absolute;
-      bottom: 32px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: #f5f2e0;
-      font-weight: 400;
-      background: rgba(26,56,34,0.6);
-      backdrop-filter: blur(12px);
-      padding: 8px 28px;
-      border-radius: 40px;
-      font-size: 0.9rem;
-      border: 1px solid var(--gold);
+      display: none;
     }
 
     /* ----- RESPONSIVE (adjusted) ----- */
@@ -2103,7 +2078,6 @@
       <div class="hero-slider animate-from-right">
         <div class="slider-container" id="heroSlider">
           <div class="slider-track" id="heroTrack">
-            <!-- Replaced with gallery images as requested -->
             <img class="slider-slide" src="gallery9.jpeg" alt="Bella Cafe interior" />
             <img class="slider-slide" src="gallery10.jpeg" alt="Bella Cafe food" />
             <img class="slider-slide" src="gallery11.jpeg" alt="Bella Cafe coffee" />
@@ -2193,70 +2167,55 @@
     </div>
   </section>
 
-  <!-- Gallery -->
+  <!-- Gallery - No text labels, clean image grid -->
   <section id="gallery" style="margin: 40px 0 24px;">
     <div class="section-title animate-on-scroll"><i class="fas fa-images"></i> <span data-en="Our Gallery" data-ne="हाम्रो ग्यालरी">Our Gallery</span></div>
     <p class="section-sub animate-on-scroll" data-en="A glimpse of our food, ambiance, and moments at Hotel Bella Cafe — the best hotel and restaurant in Damak, Jhapa" data-ne="होटल बेला क्याफेको खाना, वातावरण र क्षणहरूको झलक — दमक, झापाको उत्कृष्ट होटल र रेस्टुरेन्ट">A glimpse of our food, ambiance, and moments at Hotel Bella Cafe — the best hotel and restaurant in Damak, Jhapa</p>
     <div class="gallery-grid" id="galleryGrid">
-      <div class="gallery-item animate-from-left" data-img="gallery1.jpeg" data-caption-en="Cozy Interior" data-caption-ne="आरामदायी भित्री भाग">
-        <img src="gallery1.jpeg" alt="Cozy Interior" />
-        <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Cozy Interior" data-ne="आरामदायी भित्री भाग">Cozy Interior</span></div>
+      <div class="gallery-item animate-from-left" data-img="gallery1.jpeg">
+        <img src="gallery1.jpeg" alt="Gallery image" />
       </div>
-      <div class="gallery-item animate-from-right" data-img="gallery2.jpeg" data-caption-en="Delicious Food" data-caption-ne="स्वादिष्ट खाना">
-        <img src="gallery2.jpeg" alt="Delicious Food" />
-        <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Delicious Food" data-ne="स्वादिष्ट खाना">Delicious Food</span></div>
+      <div class="gallery-item animate-from-right" data-img="gallery2.jpeg">
+        <img src="gallery2.jpeg" alt="Gallery image" />
       </div>
-      <div class="gallery-item animate-from-left delay-1" data-img="gallery3.jpeg" data-caption-en="Fresh Coffee" data-caption-ne="ताजा कफी">
-        <img src="gallery3.jpeg" alt="Fresh Coffee" />
-        <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Fresh Coffee" data-ne="ताजा कफी">Fresh Coffee</span></div>
+      <div class="gallery-item animate-from-left delay-1" data-img="gallery3.jpeg">
+        <img src="gallery3.jpeg" alt="Gallery image" />
       </div>
-      <div class="gallery-item animate-from-right delay-1" data-img="gallery4.jpeg" data-caption-en="Pasta &amp; More" data-caption-ne="पास्ता र थप">
-        <img src="gallery4.jpeg" alt="Pasta" />
-        <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Pasta &amp; More" data-ne="पास्ता र थप">Pasta &amp; More</span></div>
+      <div class="gallery-item animate-from-right delay-1" data-img="gallery4.jpeg">
+        <img src="gallery4.jpeg" alt="Gallery image" />
       </div>
-      <div class="gallery-item animate-from-left delay-2" data-img="gallery5.jpeg" data-caption-en="Sweet Treats" data-caption-ne="मिठाईहरू">
-        <img src="gallery5.jpeg" alt="Sweet Treats" />
-        <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Sweet Treats" data-ne="मिठाईहरू">Sweet Treats</span></div>
+      <div class="gallery-item animate-from-left delay-2" data-img="gallery5.jpeg">
+        <img src="gallery5.jpeg" alt="Gallery image" />
       </div>
-      <div class="gallery-item animate-from-right delay-2" data-img="gallery6.jpeg" data-caption-en="Warm Ambiance" data-caption-ne="न्यानो वातावरण">
-        <img src="gallery6.jpeg" alt="Warm Ambiance" />
-        <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Warm Ambiance" data-ne="न्यानो वातावरण">Warm Ambiance</span></div>
+      <div class="gallery-item animate-from-right delay-2" data-img="gallery6.jpeg">
+        <img src="gallery6.jpeg" alt="Gallery image" />
       </div>
-      <div class="gallery-item animate-from-left delay-3" data-img="gallery7.jpeg" data-caption-en="Tasty Momo" data-caption-ne="स्वादिलो मःम">
-        <img src="gallery7.jpeg" alt="Tasty Momo" />
-        <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Tasty Momo" data-ne="स्वादिलो मःम">Tasty Momo</span></div>
+      <div class="gallery-item animate-from-left delay-3" data-img="gallery7.jpeg">
+        <img src="gallery7.jpeg" alt="Gallery image" />
       </div>
-      <div class="gallery-item animate-from-right delay-3" data-img="gallery8.jpeg" data-caption-en="Outdoor Seating" data-caption-ne="बाहिरी बस्ने स्थान">
-        <img src="gallery8.jpeg" alt="Outdoor Seating" />
-        <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Outdoor Seating" data-ne="बाहिरी बस्ने स्थान">Outdoor Seating</span></div>
+      <div class="gallery-item animate-from-right delay-3" data-img="gallery8.jpeg">
+        <img src="gallery8.jpeg" alt="Gallery image" />
       </div>
-      <div class="gallery-item animate-from-left" data-img="gallery9.jpeg" data-caption-en="Signature Dishes" data-caption-ne="सिग्नेचर परिकार">
-        <img src="gallery9.jpeg" alt="Signature Dishes" />
-        <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Signature Dishes" data-ne="सिग्नेचर परिकार">Signature Dishes</span></div>
+      <div class="gallery-item animate-from-left" data-img="gallery9.jpeg">
+        <img src="gallery9.jpeg" alt="Gallery image" />
       </div>
-      <div class="gallery-item animate-from-right" data-img="gallery10.jpeg" data-caption-en="Cozy Cafe Vibes" data-caption-ne="आरामदायी क्याफे वातावरण">
-        <img src="gallery10.jpeg" alt="Cozy Cafe Vibes" />
-        <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Cozy Cafe Vibes" data-ne="आरामदायी क्याफे वातावरण">Cozy Cafe Vibes</span></div>
+      <div class="gallery-item animate-from-right" data-img="gallery10.jpeg">
+        <img src="gallery10.jpeg" alt="Gallery image" />
       </div>
-      <div class="gallery-item animate-from-left delay-1" data-img="gallery11.jpeg" data-caption-en="Freshly Brewed" data-caption-ne="ताजा पकाएको">
-        <img src="gallery11.jpeg" alt="Freshly Brewed" />
-        <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Freshly Brewed" data-ne="ताजा पकाएको">Freshly Brewed</span></div>
+      <div class="gallery-item animate-from-left delay-1" data-img="gallery11.jpeg">
+        <img src="gallery11.jpeg" alt="Gallery image" />
       </div>
-      <div class="gallery-item animate-from-right delay-1" data-img="gallery12.jpeg" data-caption-en="Gourmet Plates" data-caption-ne="गोरमेट प्लेटहरू">
-        <img src="gallery12.jpeg" alt="Gourmet Plates" />
-        <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Gourmet Plates" data-ne="गोरमेट प्लेटहरू">Gourmet Plates</span></div>
+      <div class="gallery-item animate-from-right delay-1" data-img="gallery12.jpeg">
+        <img src="gallery12.jpeg" alt="Gallery image" />
       </div>
-      <div class="gallery-item animate-from-left delay-2" data-img="gallery13.jpeg" data-caption-en="Evening Ambiance" data-caption-ne="साँझको वातावरण">
-        <img src="gallery13.jpeg" alt="Evening Ambiance" />
-        <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Evening Ambiance" data-ne="साँझको वातावरण">Evening Ambiance</span></div>
+      <div class="gallery-item animate-from-left delay-2" data-img="gallery13.jpeg">
+        <img src="gallery13.jpeg" alt="Gallery image" />
       </div>
-      <div class="gallery-item animate-from-right delay-2" data-img="gallery14.jpeg" data-caption-en="Tasty Treats" data-caption-ne="स्वादिलो मिठाई">
-        <img src="gallery14.jpeg" alt="Tasty Treats" />
-        <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Tasty Treats" data-ne="स्वादिलो मिठाई">Tasty Treats</span></div>
+      <div class="gallery-item animate-from-right delay-2" data-img="gallery14.jpeg">
+        <img src="gallery14.jpeg" alt="Gallery image" />
       </div>
-      <div class="gallery-item animate-from-left delay-3" data-img="gallery15.jpeg" data-caption-en="Bella Experience" data-caption-ne="बेला अनुभव">
-        <img src="gallery15.jpeg" alt="Bella Experience" />
-        <div class="gallery-overlay"><i class="fas fa-expand"></i> <span class="gallery-label" data-en="Bella Experience" data-ne="बेला अनुभव">Bella Experience</span></div>
+      <div class="gallery-item animate-from-left delay-3" data-img="gallery15.jpeg">
+        <img src="gallery15.jpeg" alt="Gallery image" />
       </div>
     </div>
   </section>
@@ -2750,7 +2709,6 @@
         <h4 data-en="Conference Hall" data-ne="सम्मेलन हल">Conference Hall</h4>
         <p data-en="Corporate events &amp; meetings" data-ne="कर्पोरेट कार्यक्रम र बैठकहरू">Corporate events &amp; meetings</p>
       </div>
-      <!-- Swimming Pool removed as requested -->
     </div>
   </section>
 
@@ -2900,12 +2858,12 @@
 </div>
 
 <!-- ============================================ -->
-<!-- LIGHTBOX                                     -->
+<!-- LIGHTBOX (no caption)                       -->
 <!-- ============================================ -->
 <div class="lightbox" id="lightbox">
   <button class="close-lightbox" id="closeLightbox"><i class="fas fa-times"></i></button>
   <img id="lightboxImg" src="" alt="Gallery" />
-  <div class="lightbox-caption" id="lightboxCaption">Caption</div>
+  <div class="lightbox-caption" id="lightboxCaption"></div>
 </div>
 
 <!-- ============================================ -->
@@ -3029,18 +2987,13 @@
     }
   });
 
-  // Lightbox
+  // Lightbox - no captions
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
-  const lightboxCaption = document.getElementById('lightboxCaption');
   const closeLightbox = document.getElementById('closeLightbox');
   document.querySelectorAll('.gallery-item').forEach(item => {
     item.addEventListener('click', function() {
       lightboxImg.src = this.dataset.img;
-      const captionEn = this.dataset.captionEn || 'Hotel Bella Cafe';
-      const captionNe = this.dataset.captionNe || 'होटल बेला क्याफे';
-      const currentLang = document.documentElement.lang || 'en';
-      lightboxCaption.textContent = currentLang === 'ne' ? captionNe : captionEn;
       lightbox.classList.add('open');
       document.body.style.overflow = 'hidden';
     });
@@ -3104,14 +3057,6 @@
         const key = lang === 'ne' ? 'data-ne' : 'data-en';
         const val = link.getAttribute(key);
         if (val) span.textContent = val;
-      }
-    });
-    document.querySelectorAll('.gallery-item').forEach(item => {
-      const overlay = item.querySelector('.gallery-overlay .gallery-label');
-      if (overlay) {
-        const key = lang === 'ne' ? 'data-ne' : 'data-en';
-        const val = overlay.getAttribute(key);
-        if (val) overlay.textContent = val;
       }
     });
     document.querySelectorAll('.float-btn').forEach(btn => {
