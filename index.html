@@ -8,10 +8,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Primary SEO Title (optimized) -->
+  <!-- Primary SEO Title (optimized, bilingual handling via JS) -->
   <title>Hotel Bella Cafe Damak | Rooms, Restaurant &amp; Cafe in Jhapa</title>
 
-  <!-- Meta Description (optimized, factual) -->
+  <!-- Meta Description (optimized) -->
   <meta name="description" content="Hotel Bella Cafe, Damak: AC rooms from Rs 3,500/night, Nepali &amp; continental restaurant, cafe and banquet hall. Open 7:30 AM to 9:30 PM. Free delivery within 1 km." />
 
   <!-- ===== FAVICONS & THUMBNAIL ===== -->
@@ -22,7 +22,7 @@
   <link rel="icon" href="fav.png" sizes="32x32" type="image/png" />
   <link rel="icon" href="fav.png" sizes="180x180" type="image/png" />
 
-  <!-- Open Graph / Thumbnail (optimized) -->
+  <!-- Open Graph / Thumbnail -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Hotel Bella Cafe" />
   <meta property="og:title" content="Hotel Bella Cafe &amp; Restaurant, Damak, Jhapa" />
@@ -40,7 +40,7 @@
   <meta name="twitter:description" content="AC rooms from Rs 3,500/night, Nepali and continental restaurant, cafe and banquet hall in Damak. Free delivery within 1 km." />
   <meta name="twitter:image" content="https://hotelbellacafedmk.com/og-bella-cafe-damak.jpg" />
 
-  <!-- Meta keywords removed (ignored by Google since 2009) -->
+  <!-- Meta keywords removed -->
 
   <meta name="author" content="Hotel Bella Cafe" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -56,7 +56,7 @@
 
   <link rel="canonical" href="https://hotelbellacafedmk.com/" />
 
-  <!-- ===== SCHEMA MARKUP (optimized, factual) ===== -->
+  <!-- ===== SCHEMA MARKUP (unchanged) ===== -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -91,31 +91,14 @@
           "opens": "07:30",
           "closes": "21:30"
         },
-        "amenityFeature": [{
-          "@type": "LocationFeatureSpecification",
-          "name": "Free Wi-Fi",
-          "value": true
-        }, {
-          "@type": "LocationFeatureSpecification",
-          "name": "Free parking",
-          "value": true
-        }, {
-          "@type": "LocationFeatureSpecification",
-          "name": "Air conditioning",
-          "value": true
-        }, {
-          "@type": "LocationFeatureSpecification",
-          "name": "Wheelchair accessible",
-          "value": true
-        }, {
-          "@type": "LocationFeatureSpecification",
-          "name": "Outdoor seating",
-          "value": true
-        }, {
-          "@type": "LocationFeatureSpecification",
-          "name": "Banquet hall",
-          "value": true
-        }],
+        "amenityFeature": [
+          { "@type": "LocationFeatureSpecification", "name": "Free Wi-Fi", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Free parking", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Air conditioning", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Wheelchair accessible", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Outdoor seating", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Banquet hall", "value": true }
+        ],
         "sameAs": [
           "https://www.facebook.com/profile.php?id=61568305661332",
           "https://www.instagram.com/bellacaferestaurant/",
@@ -145,7 +128,7 @@
     }
   </script>
 
-  <!-- FAQ Schema (factual answers) -->
+  <!-- FAQ Schema (unchanged) -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -358,7 +341,9 @@
     .lang-btn,
     .close-notice,
     .hamburger,
-    .gallery-item {
+    .gallery-item,
+    .blog-card .read-more-btn,
+    .blog-modal .close-modal {
       transition: all 0.3s var(--transition-smooth);
     }
     .btn:hover,
@@ -373,7 +358,9 @@
     .lang-btn:hover,
     .close-notice:hover,
     .hamburger:hover,
-    .gallery-item:hover {
+    .gallery-item:hover,
+    .blog-card .read-more-btn:hover,
+    .blog-modal .close-modal:hover {
       animation: bounce 0.6s var(--transition-smooth);
     }
 
@@ -640,7 +627,7 @@
     .logo-text span { color: var(--gold); font-weight: 400; }
     .nav-links {
       display: flex;
-      gap: 24px;
+      gap: 18px;
       font-weight: 500;
       align-items: center;
       flex-wrap: wrap;
@@ -648,17 +635,17 @@
     .nav-links a {
       color: rgba(245, 242, 224, 0.8);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       transition: all 0.3s ease;
       border-bottom: 2px solid transparent;
       padding-bottom: 4px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       letter-spacing: 0.3px;
     }
     .nav-links a:hover { color: #fff; border-bottom-color: var(--gold); }
-    .nav-links a i { color: var(--gold); font-size: 0.75rem; opacity: 0.8; }
+    .nav-links a i { color: var(--gold); font-size: 0.7rem; opacity: 0.8; }
     .lang-toggle {
       display: flex;
       gap: 4px;
@@ -1574,6 +1561,242 @@
     }
     .events-features span i { color: var(--gold-dark); margin-right: 8px; }
 
+    /* ----- BLOG SECTION (green + gold) ----- */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      margin: 28px 0 40px;
+    }
+    .blog-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      border: 2px solid var(--gold);
+      overflow: hidden;
+      transition: all 0.5s var(--transition-smooth);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+      border-color: var(--gold-dark);
+    }
+    .blog-card .blog-image {
+      height: 220px;
+      overflow: hidden;
+      position: relative;
+    }
+    .blog-card .blog-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+    .blog-card:hover .blog-image img { transform: scale(1.04); }
+    .blog-card .blog-image .blog-category {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      background: var(--gold);
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 0.6rem;
+      padding: 4px 14px;
+      border-radius: 30px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: 1px solid var(--gold);
+    }
+    .blog-card .blog-body {
+      padding: 24px 28px 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-card .blog-body .blog-date {
+      font-size: 0.75rem;
+      color: #6d7f5e;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .blog-card .blog-body .blog-date i { color: var(--gold-dark); font-size: 0.7rem; }
+    .blog-card .blog-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--primary-dark);
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+    .blog-card .blog-body .blog-excerpt {
+      font-size: 0.92rem;
+      color: var(--text-soft);
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: 16px;
+    }
+    .blog-card .blog-body .read-more-btn {
+      background: transparent;
+      color: var(--primary-dark);
+      border: 2px solid var(--gold);
+      padding: 10px 24px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.4s var(--transition-smooth);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      align-self: flex-start;
+      text-decoration: none;
+    }
+    .blog-card .blog-body .read-more-btn:hover {
+      background: var(--gold);
+      color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(184, 148, 76, 0.2);
+    }
+    .blog-card .blog-body .read-more-btn i { font-size: 0.8rem; }
+
+    /* ----- BLOG MODAL (green + gold) ----- */
+    .blog-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(12px);
+      z-index: 99999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      animation: modalFadeIn 0.4s ease;
+    }
+    .blog-modal-overlay.open { display: flex; }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .blog-modal {
+      background: var(--cream);
+      border-radius: 32px;
+      max-width: 820px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      border: 3px solid var(--gold);
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.2);
+      position: relative;
+      padding: 40px 44px 44px;
+    }
+    .blog-modal .close-modal {
+      position: sticky;
+      top: 0;
+      float: right;
+      background: rgba(26, 56, 34, 0.08);
+      border: 2px solid var(--gold);
+      font-size: 1.3rem;
+      color: var(--primary-dark);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 6px 14px;
+      border-radius: 40px;
+      line-height: 1;
+      backdrop-filter: blur(4px);
+      margin-bottom: 12px;
+      z-index: 10;
+    }
+    .blog-modal .close-modal:hover {
+      background: var(--gold);
+      color: var(--primary-dark);
+      transform: rotate(90deg);
+    }
+    .blog-modal .modal-image {
+      width: 100%;
+      height: 280px;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 24px;
+      border: 2px solid var(--gold);
+    }
+    .blog-modal .modal-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .blog-modal .modal-category {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-size: 0.65rem;
+      padding: 4px 16px;
+      border-radius: 30px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .blog-modal .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--primary-dark);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .blog-modal .modal-date {
+      font-size: 0.8rem;
+      color: #6d7f5e;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .blog-modal .modal-date i { color: var(--gold-dark); }
+    .blog-modal .modal-content {
+      font-size: 1rem;
+      color: var(--text-soft);
+      line-height: 1.9;
+    }
+    .blog-modal .modal-content p { margin-bottom: 16px; }
+    .blog-modal .modal-content h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--primary-dark);
+      margin: 24px 0 12px;
+    }
+    .blog-modal .modal-content ul {
+      padding-left: 24px;
+      margin-bottom: 16px;
+    }
+    .blog-modal .modal-content ul li { margin-bottom: 6px; }
+    .blog-modal .modal-content .highlight-box {
+      background: rgba(212, 184, 122, 0.1);
+      border-left: 4px solid var(--gold);
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+
+    @media (max-width: 768px) {
+      .blog-modal { padding: 24px 20px 28px; }
+      .blog-modal .modal-image { height: 200px; }
+      .blog-modal .modal-title { font-size: 1.5rem; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .blog-card .blog-image { height: 180px; }
+    }
+    @media (max-width: 480px) {
+      .blog-modal { padding: 16px 14px 20px; }
+      .blog-modal .modal-image { height: 160px; }
+      .blog-modal .modal-title { font-size: 1.2rem; }
+      .blog-modal .modal-content { font-size: 0.92rem; }
+      .blog-card .blog-body { padding: 18px 18px 22px; }
+      .blog-card .blog-body h3 { font-size: 1.1rem; }
+    }
+
     /* ----- FOOTER (green + gold) ----- */
     .footer {
       background: var(--primary-dark);
@@ -1829,6 +2052,7 @@
       #notice-popup { top: 16px; right: 16px; max-width: 380px; }
       .faq-grid { grid-template-columns: 1fr 1fr; }
       .destinations-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+      .blog-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
     }
     @media (max-width: 768px) {
       .nav-links { display: none; flex-direction: column; width: 100%; padding-top: 16px; gap: 12px; }
@@ -1865,6 +2089,8 @@
       .menu-category { padding: 20px 16px 16px; border-radius: 18px; }
       .menu-category h3 { font-size: 1.2rem; padding-bottom: 10px; margin-bottom: 14px; }
       .menu-item { padding: 10px 0; font-size: 0.85rem; min-height: 44px; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .blog-card .blog-image { height: 180px; }
     }
     @media (max-width: 480px) {
       .float-buttons { bottom: 16px; right: 16px; gap: 10px; }
@@ -1896,6 +2122,8 @@
       .menu-item .name { font-size: 0.8rem; }
       .menu-item .price { font-size: 0.8rem; }
       .menu-item .desc { font-size: 0.65rem; }
+      .blog-card .blog-body { padding: 18px 16px 20px; }
+      .blog-card .blog-body h3 { font-size: 1rem; }
     }
   </style>
 </head>
@@ -1918,21 +2146,21 @@
   <div id="notice-popup">
     <div class="notice-card">
       <button class="close-notice" id="closeNoticeBtn" aria-label="Close notice"><i class="fas fa-times"></i></button>
-      <span class="notice-badge">🎉 Limited Offer</span>
-      <h3>🌿 Welcome to Bella Cafe!</h3>
-      <div class="notice-sub">Authentic Nepali flavors &amp; premium coffee</div>
+      <span class="notice-badge" data-en="🎉 Limited Offer" data-ne="🎉 सीमित अफर">🎉 Limited Offer</span>
+      <h3 data-en="🌿 Welcome to Bella Cafe!" data-ne="🌿 बेला क्याफेमा स्वागत छ!">🌿 Welcome to Bella Cafe!</h3>
+      <div class="notice-sub" data-en="Authentic Nepali flavors &amp; premium coffee" data-ne="प्रामाणिक नेपाली स्वाद र प्रिमियम कफी">Authentic Nepali flavors &amp; premium coffee</div>
       <div class="notice-image-grid">
         <img src="https://res.cloudinary.com/demo/image/upload/w_200,h_200,c_fill,q_auto,f_auto/sample" alt="Bella Food" id="noticeImg1" />
         <img src="https://res.cloudinary.com/demo/image/upload/w_200,h_200,c_fill,q_auto,f_auto/cafe" alt="Bella Coffee" id="noticeImg2" />
         <img src="https://res.cloudinary.com/demo/image/upload/w_200,h_200,c_fill,q_auto,f_auto/coffee" alt="Bella Treat" id="noticeImg3" />
       </div>
-      <div class="offer-tag"><i class="fas fa-tag"></i> 20% off on first dine-in + free delivery 1km</div>
-      <div style="font-size:0.85rem; opacity:0.9; margin-bottom:10px;">Try our new <strong>Nepali Thali</strong> &amp; <strong>Signature Lattes</strong></div>
+      <div class="offer-tag"><i class="fas fa-tag"></i> <span data-en="20% off on first dine-in + free delivery 1km" data-ne="पहिलो डाइन-इनमा २०% छुट + १ किमि नि:शुल्क डेलिभरी">20% off on first dine-in + free delivery 1km</span></div>
+      <div style="font-size:0.85rem; opacity:0.9; margin-bottom:10px;"><span data-en="Try our new" data-ne="हाम्रो नयाँ चाख्नुहोस्">Try our new</span> <strong data-en="Nepali Thali" data-ne="नेपाली थाली">Nepali Thali</strong> &amp; <strong data-en="Signature Lattes" data-ne="सिग्नेचर ल्याटे">Signature Lattes</strong></div>
       <div class="notice-actions">
-        <a href="#menu" class="btn-notice btn-notice-gold"><i class="fas fa-utensils"></i> Menu</a>
-        <a href="#rooms" class="btn-notice"><i class="fas fa-bed"></i> Rooms</a>
-        <a href="https://wa.me/9779852630088" target="_blank" class="btn-notice btn-notice-outline"><i class="fab fa-whatsapp"></i> Order</a>
-        <button class="btn-notice btn-notice-outline" id="closeNoticeBtn2">Close</button>
+        <a href="#menu" class="btn-notice btn-notice-gold" data-en="Menu" data-ne="मेनु"><i class="fas fa-utensils"></i> <span>Menu</span></a>
+        <a href="#rooms" class="btn-notice" data-en="Rooms" data-ne="कोठाहरू"><i class="fas fa-bed"></i> <span>Rooms</span></a>
+        <a href="https://wa.me/9779852630088" target="_blank" class="btn-notice btn-notice-outline" data-en="Order" data-ne="अर्डर गर्नुहोस्"><i class="fab fa-whatsapp"></i> <span>Order</span></a>
+        <button class="btn-notice btn-notice-outline" id="closeNoticeBtn2" data-en="Close" data-ne="बन्द गर्नुहोस्">Close</button>
       </div>
     </div>
   </div>
@@ -1957,6 +2185,7 @@
         <a href="#facilities" data-en="Facilities" data-ne="सुविधाहरू"><i class="fas fa-concierge-bell"></i> <span class="nav-text">Facilities</span></a>
         <a href="#destinations" data-en="Destinations" data-ne="गन्तव्यहरू"><i class="fas fa-map-marked-alt"></i> <span class="nav-text">Destinations</span></a>
         <a href="#events" data-en="Events" data-ne="कार्यक्रमहरू"><i class="fas fa-calendar-plus"></i> <span class="nav-text">Events</span></a>
+        <a href="#blog" data-en="Blog" data-ne="ब्लग"><i class="fas fa-newspaper"></i> <span class="nav-text">Blog</span></a>
         <a href="#book-now" data-en="Book Now" data-ne="बुक गर्नुहोस्"><i class="fas fa-calendar-check"></i> <span class="nav-text">Book Now</span></a>
         <a href="#contact" data-en="Contact" data-ne="सम्पर्क"><i class="fas fa-phone"></i> <span class="nav-text">Contact</span></a>
         <div class="lang-toggle">
@@ -1977,7 +2206,7 @@
         <div class="tagline" data-en="Rooms, restaurant, cafe and banquet hall on one property. Open daily 7:30 AM to 9:30 PM. Free delivery within 1 km." data-ne="एउटै प्रोपर्टीमा कोठा, रेस्टुरेन्ट, क्याफे र बैंक्वेट हल। दैनिक बिहान ७:३० देखि राति ९:३० बजेसम्म खुला। १ किमि भित्र नि:शुल्क डेलिभरी।">Rooms, restaurant, cafe and banquet hall on one property. Open daily 7:30 AM to 9:30 PM. Free delivery within 1 km.</div>
         <div class="hero-stats">
           <span class="stat-item"><i class="fas fa-utensils"></i> <span data-en="Dine-in · Takeaway · Delivery" data-ne="डाइन-इन · टेकअवे · डेलिभरी">Dine-in · Takeaway · Delivery</span></span>
-          <span class="stat-item"><i class="fas fa-bed"></i> <span data-en="Rooms from Rs 3,500" data-ne="कोठा रु. ३,५०० देखि">Rooms from Rs 3,500</span></span>
+          <span class="stat-item"><i class="fas fa-bed"></i> <span data-en="Rooms from Rs 3,500" data-ne="रु. ३,५०० देखि कोठा">Rooms from Rs 3,500</span></span>
           <span class="stat-item"><i class="fas fa-parking"></i> <span data-en="Free parking" data-ne="नि:शुल्क पार्किङ">Free parking</span></span>
           <span class="stat-item"><i class="fas fa-wifi"></i> <span data-en="Free Wi-Fi" data-ne="नि:शुल्क वाइफाई">Free Wi-Fi</span></span>
           <span class="stat-item"><i class="fas fa-credit-card"></i> <span data-en="Card &amp; mobile payment accepted" data-ne="कार्ड र मोबाइल भुक्तानी स्वीकार गरिन्छ">Card &amp; mobile payment accepted</span></span>
@@ -2056,56 +2285,26 @@
     </div>
   </section>
 
-  <!-- Gallery - No text labels, clean image grid -->
+  <!-- Gallery -->
   <section id="gallery" style="margin: 40px 0 24px;">
     <div class="section-title animate-on-scroll"><i class="fas fa-images"></i> <span data-en="Our Gallery" data-ne="हाम्रो ग्यालरी">Our Gallery</span></div>
     <p class="section-sub animate-on-scroll" data-en="A glimpse of our food, ambiance, and moments at Hotel Bella Cafe — rooms, restaurant and cafe in Damak, Jhapa" data-ne="होटल बेला क्याफेको खाना, वातावरण र क्षणहरूको झलक — दमक, झापामा कोठा, रेस्टुरेन्ट र क्याफे">A glimpse of our food, ambiance, and moments at Hotel Bella Cafe — rooms, restaurant and cafe in Damak, Jhapa</p>
     <div class="gallery-grid" id="galleryGrid">
-      <div class="gallery-item animate-from-left" data-img="gallery1.jpeg">
-        <img src="gallery1.jpeg" alt="Hotel Bella Cafe & Restaurant building in Damak, Jhapa" />
-      </div>
-      <div class="gallery-item animate-from-right" data-img="gallery2.jpeg">
-        <img src="gallery2.jpeg" alt="Indoor dining area at Hotel Bella Cafe, Damak" />
-      </div>
-      <div class="gallery-item animate-from-left delay-1" data-img="gallery3.jpeg">
-        <img src="gallery3.jpeg" alt="Nepali thali served at Hotel Bella Cafe, Damak" />
-      </div>
-      <div class="gallery-item animate-from-right delay-1" data-img="gallery4.jpeg">
-        <img src="gallery4.jpeg" alt="Outdoor seating at Hotel Bella Cafe in Damak" />
-      </div>
-      <div class="gallery-item animate-from-left delay-2" data-img="gallery5.jpeg">
-        <img src="gallery5.jpeg" alt="Sizzling brownie dessert at Bella Cafe, Damak" />
-      </div>
-      <div class="gallery-item animate-from-right delay-2" data-img="gallery6.jpeg">
-        <img src="gallery6.jpeg" alt="Coffee and beverages at Bella Cafe coffee bar, Damak" />
-      </div>
-      <div class="gallery-item animate-from-left delay-3" data-img="gallery7.jpeg">
-        <img src="gallery7.jpeg" alt="Deluxe Double Room with king bed at Hotel Bella Cafe, Damak" />
-      </div>
-      <div class="gallery-item animate-from-right delay-3" data-img="gallery8.jpeg">
-        <img src="gallery8.jpeg" alt="Banquet hall set up for a wedding at Hotel Bella Cafe, Damak" />
-      </div>
-      <div class="gallery-item animate-from-left" data-img="gallery9.jpeg">
-        <img src="gallery9.jpeg" alt="Hotel Bella Cafe exterior view in Damak, Jhapa" />
-      </div>
-      <div class="gallery-item animate-from-right" data-img="gallery10.jpeg">
-        <img src="gallery10.jpeg" alt="Freshly prepared food at Hotel Bella Cafe restaurant, Damak" />
-      </div>
-      <div class="gallery-item animate-from-left delay-1" data-img="gallery11.jpeg">
-        <img src="gallery11.jpeg" alt="Cappuccino served at the Bella Cafe coffee bar, Damak" />
-      </div>
-      <div class="gallery-item animate-from-right delay-1" data-img="gallery12.jpeg">
-        <img src="gallery12.jpeg" alt="Margherita pizza at Hotel Bella Cafe, Damak" />
-      </div>
-      <div class="gallery-item animate-from-left delay-2" data-img="gallery13.jpeg">
-        <img src="gallery13.jpeg" alt="Family Room at Hotel Bella Cafe, Damak" />
-      </div>
-      <div class="gallery-item animate-from-right delay-2" data-img="gallery14.jpeg">
-        <img src="gallery14.jpeg" alt="Suite Room with jacuzzi at Hotel Bella Cafe, Damak" />
-      </div>
-      <div class="gallery-item animate-from-left delay-3" data-img="gallery15.jpeg">
-        <img src="gallery15.jpeg" alt="Outdoor dining area at Hotel Bella Cafe, Damak" />
-      </div>
+      <div class="gallery-item animate-from-left" data-img="gallery1.jpeg"><img src="gallery1.jpeg" alt="Hotel Bella Cafe & Restaurant building in Damak, Jhapa" /></div>
+      <div class="gallery-item animate-from-right" data-img="gallery2.jpeg"><img src="gallery2.jpeg" alt="Indoor dining area at Hotel Bella Cafe, Damak" /></div>
+      <div class="gallery-item animate-from-left delay-1" data-img="gallery3.jpeg"><img src="gallery3.jpeg" alt="Nepali thali served at Hotel Bella Cafe, Damak" /></div>
+      <div class="gallery-item animate-from-right delay-1" data-img="gallery4.jpeg"><img src="gallery4.jpeg" alt="Outdoor seating at Hotel Bella Cafe in Damak" /></div>
+      <div class="gallery-item animate-from-left delay-2" data-img="gallery5.jpeg"><img src="gallery5.jpeg" alt="Sizzling brownie dessert at Bella Cafe, Damak" /></div>
+      <div class="gallery-item animate-from-right delay-2" data-img="gallery6.jpeg"><img src="gallery6.jpeg" alt="Coffee and beverages at Bella Cafe coffee bar, Damak" /></div>
+      <div class="gallery-item animate-from-left delay-3" data-img="gallery7.jpeg"><img src="gallery7.jpeg" alt="Deluxe Double Room with king bed at Hotel Bella Cafe, Damak" /></div>
+      <div class="gallery-item animate-from-right delay-3" data-img="gallery8.jpeg"><img src="gallery8.jpeg" alt="Banquet hall set up for a wedding at Hotel Bella Cafe, Damak" /></div>
+      <div class="gallery-item animate-from-left" data-img="gallery9.jpeg"><img src="gallery9.jpeg" alt="Hotel Bella Cafe exterior view in Damak, Jhapa" /></div>
+      <div class="gallery-item animate-from-right" data-img="gallery10.jpeg"><img src="gallery10.jpeg" alt="Freshly prepared food at Hotel Bella Cafe restaurant, Damak" /></div>
+      <div class="gallery-item animate-from-left delay-1" data-img="gallery11.jpeg"><img src="gallery11.jpeg" alt="Cappuccino served at the Bella Cafe coffee bar, Damak" /></div>
+      <div class="gallery-item animate-from-right delay-1" data-img="gallery12.jpeg"><img src="gallery12.jpeg" alt="Margherita pizza at Hotel Bella Cafe, Damak" /></div>
+      <div class="gallery-item animate-from-left delay-2" data-img="gallery13.jpeg"><img src="gallery13.jpeg" alt="Family Room at Hotel Bella Cafe, Damak" /></div>
+      <div class="gallery-item animate-from-right delay-2" data-img="gallery14.jpeg"><img src="gallery14.jpeg" alt="Suite Room with jacuzzi at Hotel Bella Cafe, Damak" /></div>
+      <div class="gallery-item animate-from-left delay-3" data-img="gallery15.jpeg"><img src="gallery15.jpeg" alt="Outdoor dining area at Hotel Bella Cafe, Damak" /></div>
     </div>
   </section>
 
@@ -2116,215 +2315,170 @@
     <div class="menu-section animate-on-scroll">
       <div class="menu-grid">
         <!-- Pizza -->
-        <div class="menu-category animate-from-left">
-          <h3><i class="fas fa-pizza-slice"></i> Pizza</h3>
-          <div class="menu-item"><span class="name">Margherita</span><span class="price">Rs. 550</span></div>
-          <div class="menu-item"><span class="name">Mix-Veg</span><span class="price">Rs. 600</span></div>
-          <div class="menu-item"><span class="name">Chicken</span><span class="price">Rs. 650</span></div>
-          <div class="menu-item"><span class="name">Pepperoni</span><span class="price">Rs. 700</span></div>
-          <div class="menu-item"><span class="name">Meat Lover</span><span class="price">Rs. 750</span></div>
+        <div class="menu-category animate-from-left"><h3><i class="fas fa-pizza-slice"></i> <span data-en="Pizza" data-ne="पिज्जा">Pizza</span></h3>
+          <div class="menu-item"><span class="name" data-en="Margherita" data-ne="मार्गेरिटा">Margherita</span><span class="price">Rs. 550</span></div>
+          <div class="menu-item"><span class="name" data-en="Mix-Veg" data-ne="मिक्स-भेज">Mix-Veg</span><span class="price">Rs. 600</span></div>
+          <div class="menu-item"><span class="name" data-en="Chicken" data-ne="चिकन">Chicken</span><span class="price">Rs. 650</span></div>
+          <div class="menu-item"><span class="name" data-en="Pepperoni" data-ne="पेपरोनी">Pepperoni</span><span class="price">Rs. 700</span></div>
+          <div class="menu-item"><span class="name" data-en="Meat Lover" data-ne="मिट लभर">Meat Lover</span><span class="price">Rs. 750</span></div>
         </div>
-
-        <!-- Bella's Snacks -->
-        <div class="menu-category animate-from-right">
-          <h3><i class="fas fa-utensil-spoon"></i> Bella's Snacks</h3>
-          <div class="menu-item"><span class="name">Roasted Cashewnut</span><span class="price">Rs. 450</span></div>
-          <div class="menu-item"><span class="name">Peanuts</span><span class="price">Rs. 200</span></div>
-          <div class="menu-item"><span class="name">Sadeko Wai-Wai</span><span class="price">Rs. 150</span></div>
-          <div class="menu-item"><span class="name">Sadeko French Fries</span><span class="price">Rs. 200</span></div>
-          <div class="menu-item"><span class="name">Crispy Onion Rings</span><span class="price">Rs. 220</span></div>
-          <div class="menu-item"><span class="name">Corn-Dog</span><span class="price">Rs. 250</span></div>
-          <div class="menu-item"><span class="name">Veg Pakoda</span><span class="price">Rs. 175</span></div>
-          <div class="menu-item"><span class="name">Paneer Pakoda Chilly</span><span class="price">Rs. 350</span></div>
-          <div class="menu-item"><span class="name">Potato Cheese Ball</span><span class="price">Rs. 300</span></div>
-          <div class="menu-item"><span class="name">Corn Salt & Pepper</span><span class="price">Rs. 250</span></div>
-          <div class="menu-item"><span class="name">Veg Tempura</span><span class="price">Rs. 245</span></div>
+        <div class="menu-category animate-from-right"><h3><i class="fas fa-utensil-spoon"></i> <span data-en="Bella's Snacks" data-ne="बेलाका स्न्याक्स">Bella's Snacks</span></h3>
+          <div class="menu-item"><span class="name" data-en="Roasted Cashewnut" data-ne="भुटेको काजु">Roasted Cashewnut</span><span class="price">Rs. 450</span></div>
+          <div class="menu-item"><span class="name" data-en="Peanuts" data-ne="बदाम">Peanuts</span><span class="price">Rs. 200</span></div>
+          <div class="menu-item"><span class="name" data-en="Sadeko Wai-Wai" data-ne="सदेको वाइ-वाइ">Sadeko Wai-Wai</span><span class="price">Rs. 150</span></div>
+          <div class="menu-item"><span class="name" data-en="Sadeko French Fries" data-ne="सदेको फ्रेन्च फ्राइज">Sadeko French Fries</span><span class="price">Rs. 200</span></div>
+          <div class="menu-item"><span class="name" data-en="Crispy Onion Rings" data-ne="क्रिस्पी अनियन रिङ्स">Crispy Onion Rings</span><span class="price">Rs. 220</span></div>
+          <div class="menu-item"><span class="name" data-en="Corn-Dog" data-ne="कर्न-डग">Corn-Dog</span><span class="price">Rs. 250</span></div>
+          <div class="menu-item"><span class="name" data-en="Veg Pakoda" data-ne="भेज पकौडा">Veg Pakoda</span><span class="price">Rs. 175</span></div>
+          <div class="menu-item"><span class="name" data-en="Paneer Pakoda Chilly" data-ne="पनीर पकौडा चिल्ली">Paneer Pakoda Chilly</span><span class="price">Rs. 350</span></div>
+          <div class="menu-item"><span class="name" data-en="Potato Cheese Ball" data-ne="आलु चिज बल">Potato Cheese Ball</span><span class="price">Rs. 300</span></div>
+          <div class="menu-item"><span class="name" data-en="Corn Salt & Pepper" data-ne="कर्न सल्ट एण्ड पेपर">Corn Salt & Pepper</span><span class="price">Rs. 250</span></div>
+          <div class="menu-item"><span class="name" data-en="Veg Tempura" data-ne="भेज टेम्पुरा">Veg Tempura</span><span class="price">Rs. 245</span></div>
         </div>
-
-        <!-- Non-Veg Snacks -->
-        <div class="menu-category animate-from-left delay-1">
-          <h3><i class="fas fa-drumstick-bite"></i> Non-Veg Snacks</h3>
-          <div class="menu-item"><span class="name">Timur Chicken</span><span class="price">Rs. 400</span></div>
-          <div class="menu-item"><span class="name">Chicken Chilly</span><span class="price">Rs. 400</span></div>
-          <div class="menu-item"><span class="name">Chicken Roast</span><span class="price">Rs. 350</span></div>
-          <div class="menu-item"><span class="name">Chicken 65</span><span class="price">Rs. 450</span></div>
-          <div class="menu-item"><span class="name">Dragon Chicken</span><span class="price">Rs. 450</span></div>
-          <div class="menu-item"><span class="name">Hot Wings</span><span class="price">Rs. 450</span></div>
-          <div class="menu-item"><span class="name">Chicken Choila</span><span class="price">Rs. 400</span></div>
-          <div class="menu-item"><span class="name">Wings Poleko</span><span class="price">Rs. 450</span></div>
-          <div class="menu-item"><span class="name">Chicken Tikka</span><span class="price">Rs. 450</span></div>
-          <div class="menu-item"><span class="name">Chicken Sekuwa</span><span class="price">Rs. 450</span></div>
-          <div class="menu-item"><span class="name">Chicken Sadeko (Fry/Boil)</span><span class="price">Rs. 400</span></div>
-          <div class="menu-item"><span class="name">Pork (Chilly/Tawa/Sekuwa)</span><span class="price">Rs. 400</span></div>
-          <div class="menu-item"><span class="name">Badel (Chilly/Tawa/Sekuwa)</span><span class="price">Rs. 500</span></div>
-          <div class="menu-item"><span class="name">Mutton (Fry/Sekuwa)</span><span class="price">Rs. 500</span></div>
-          <div class="menu-item"><span class="name">Mutton Jhaneko Sekuwa</span><span class="price">Rs. 550</span></div>
-          <div class="menu-item"><span class="name">Fish Finger</span><span class="price">Rs. 400</span></div>
-          <div class="menu-item"><span class="name">Fish & Chips</span><span class="price">Rs. 450</span></div>
+        <div class="menu-category animate-from-left delay-1"><h3><i class="fas fa-drumstick-bite"></i> <span data-en="Non-Veg Snacks" data-ne="नन-भेज स्न्याक्स">Non-Veg Snacks</span></h3>
+          <div class="menu-item"><span class="name" data-en="Timur Chicken" data-ne="टिमुर चिकन">Timur Chicken</span><span class="price">Rs. 400</span></div>
+          <div class="menu-item"><span class="name" data-en="Chicken Chilly" data-ne="चिकन चिल्ली">Chicken Chilly</span><span class="price">Rs. 400</span></div>
+          <div class="menu-item"><span class="name" data-en="Chicken Roast" data-ne="चिकन रोस्ट">Chicken Roast</span><span class="price">Rs. 350</span></div>
+          <div class="menu-item"><span class="name" data-en="Chicken 65" data-ne="चिकन ६५">Chicken 65</span><span class="price">Rs. 450</span></div>
+          <div class="menu-item"><span class="name" data-en="Dragon Chicken" data-ne="ड्रागन चिकन">Dragon Chicken</span><span class="price">Rs. 450</span></div>
+          <div class="menu-item"><span class="name" data-en="Hot Wings" data-ne="हट विङ्स">Hot Wings</span><span class="price">Rs. 450</span></div>
+          <div class="menu-item"><span class="name" data-en="Chicken Choila" data-ne="चिकन चोइला">Chicken Choila</span><span class="price">Rs. 400</span></div>
+          <div class="menu-item"><span class="name" data-en="Wings Poleko" data-ne="विङ्स पोलेको">Wings Poleko</span><span class="price">Rs. 450</span></div>
+          <div class="menu-item"><span class="name" data-en="Chicken Tikka" data-ne="चिकन टिक्का">Chicken Tikka</span><span class="price">Rs. 450</span></div>
+          <div class="menu-item"><span class="name" data-en="Chicken Sekuwa" data-ne="चिकन सेकुवा">Chicken Sekuwa</span><span class="price">Rs. 450</span></div>
+          <div class="menu-item"><span class="name" data-en="Chicken Sadeko (Fry/Boil)" data-ne="चिकन सदेको (फ्राइ/बोइल)">Chicken Sadeko (Fry/Boil)</span><span class="price">Rs. 400</span></div>
+          <div class="menu-item"><span class="name" data-en="Pork (Chilly/Tawa/Sekuwa)" data-ne="पोर्क (चिल्ली/तवा/सेकुवा)">Pork (Chilly/Tawa/Sekuwa)</span><span class="price">Rs. 400</span></div>
+          <div class="menu-item"><span class="name" data-en="Badel (Chilly/Tawa/Sekuwa)" data-ne="बडेल (चिल्ली/तवा/सेकुवा)">Badel (Chilly/Tawa/Sekuwa)</span><span class="price">Rs. 500</span></div>
+          <div class="menu-item"><span class="name" data-en="Mutton (Fry/Sekuwa)" data-ne="मटन (फ्राइ/सेकुवा)">Mutton (Fry/Sekuwa)</span><span class="price">Rs. 500</span></div>
+          <div class="menu-item"><span class="name" data-en="Mutton Jhaneko Sekuwa" data-ne="मटन झानेको सेकुवा">Mutton Jhaneko Sekuwa</span><span class="price">Rs. 550</span></div>
+          <div class="menu-item"><span class="name" data-en="Fish Finger" data-ne="फिस फिङ्गर">Fish Finger</span><span class="price">Rs. 400</span></div>
+          <div class="menu-item"><span class="name" data-en="Fish & Chips" data-ne="फिस एण्ड चिप्स">Fish & Chips</span><span class="price">Rs. 450</span></div>
         </div>
-
-        <!-- Burgers & Sandwiches -->
-        <div class="menu-category animate-from-right delay-1">
-          <h3><i class="fas fa-hamburger"></i> Burgers &amp; Sandwiches</h3>
-          <div class="menu-item"><span class="name">Veg Burger</span><span class="price">Rs. 200</span></div>
-          <div class="menu-item"><span class="name">Chicken Burger</span><span class="price">Rs. 250</span></div>
-          <div class="menu-item"><span class="name">Crunchy Burger</span><span class="price">Rs. 300</span></div>
-          <div class="menu-item"><span class="name">Veg Sandwich</span><span class="price">Rs. 200</span></div>
-          <div class="menu-item"><span class="name">Chicken Sandwich</span><span class="price">Rs. 250</span></div>
-          <div class="menu-item"><span class="name">Club Sandwich</span><span class="price">Rs. 300</span></div>
+        <div class="menu-category animate-from-right delay-1"><h3><i class="fas fa-hamburger"></i> <span data-en="Burgers &amp; Sandwiches" data-ne="बर्गर र स्यान्डविच">Burgers &amp; Sandwiches</span></h3>
+          <div class="menu-item"><span class="name" data-en="Veg Burger" data-ne="भेज बर्गर">Veg Burger</span><span class="price">Rs. 200</span></div>
+          <div class="menu-item"><span class="name" data-en="Chicken Burger" data-ne="चिकन बर्गर">Chicken Burger</span><span class="price">Rs. 250</span></div>
+          <div class="menu-item"><span class="name" data-en="Crunchy Burger" data-ne="क्रन्ची बर्गर">Crunchy Burger</span><span class="price">Rs. 300</span></div>
+          <div class="menu-item"><span class="name" data-en="Veg Sandwich" data-ne="भेज स्यान्डविच">Veg Sandwich</span><span class="price">Rs. 200</span></div>
+          <div class="menu-item"><span class="name" data-en="Chicken Sandwich" data-ne="चिकन स्यान्डविच">Chicken Sandwich</span><span class="price">Rs. 250</span></div>
+          <div class="menu-item"><span class="name" data-en="Club Sandwich" data-ne="क्लब स्यान्डविच">Club Sandwich</span><span class="price">Rs. 300</span></div>
         </div>
-
-        <!-- Pasta -->
-        <div class="menu-category animate-from-left delay-2">
-          <h3><i class="fas fa-utensils"></i> Pasta</h3>
-          <div class="menu-item"><span class="name">White Sauce (Veg)</span><span class="price">Rs. 400</span></div>
-          <div class="menu-item"><span class="name">White Sauce (Chicken)</span><span class="price">Rs. 500</span></div>
-          <div class="menu-item"><span class="name">Red Sauce (Veg)</span><span class="price">Rs. 400</span></div>
-          <div class="menu-item"><span class="name">Red Sauce (Chicken)</span><span class="price">Rs. 500</span></div>
-          <div class="menu-item"><span class="name">Carbonara (Veg)</span><span class="price">Rs. 450</span></div>
-          <div class="menu-item"><span class="name">Carbonara (Chicken)</span><span class="price">Rs. 550</span></div>
+        <div class="menu-category animate-from-left delay-2"><h3><i class="fas fa-utensils"></i> <span data-en="Pasta" data-ne="पास्ता">Pasta</span></h3>
+          <div class="menu-item"><span class="name" data-en="White Sauce (Veg)" data-ne="सेतो सस (भेज)">White Sauce (Veg)</span><span class="price">Rs. 400</span></div>
+          <div class="menu-item"><span class="name" data-en="White Sauce (Chicken)" data-ne="सेतो सस (चिकन)">White Sauce (Chicken)</span><span class="price">Rs. 500</span></div>
+          <div class="menu-item"><span class="name" data-en="Red Sauce (Veg)" data-ne="रातो सस (भेज)">Red Sauce (Veg)</span><span class="price">Rs. 400</span></div>
+          <div class="menu-item"><span class="name" data-en="Red Sauce (Chicken)" data-ne="रातो सस (चिकन)">Red Sauce (Chicken)</span><span class="price">Rs. 500</span></div>
+          <div class="menu-item"><span class="name" data-en="Carbonara (Veg)" data-ne="कार्बोनारा (भेज)">Carbonara (Veg)</span><span class="price">Rs. 450</span></div>
+          <div class="menu-item"><span class="name" data-en="Carbonara (Chicken)" data-ne="कार्बोनारा (चिकन)">Carbonara (Chicken)</span><span class="price">Rs. 550</span></div>
         </div>
-
-        <!-- Sizzlers -->
-        <div class="menu-category animate-from-right delay-2">
-          <h3><i class="fas fa-fire"></i> Sizzlers</h3>
-          <div class="menu-item"><span class="name">Paneer Sizzler</span><span class="price">Rs. 500</span></div>
-          <div class="menu-item"><span class="name">Chicken Sizzler</span><span class="price">Rs. 500</span></div>
-          <div class="menu-item"><span class="name">Paneer Tikka Sizzler</span><span class="price">Rs. 450</span></div>
-          <div class="menu-item"><span class="name">Mix Veg Tikka Sizzler</span><span class="price">Rs. 450</span></div>
-          <div class="menu-item"><span class="name">Chicken Tandoor (Half)</span><span class="price">Rs. 700</span></div>
-          <div class="menu-item"><span class="name">Chicken Tandoor (Full)</span><span class="price">Rs. 1200</span></div>
-          <div class="menu-item"><span class="name">Baked Grill (Half)</span><span class="price">Rs. 700</span></div>
-          <div class="menu-item"><span class="name">Baked Grill (Full)</span><span class="price">Rs. 1200</span></div>
+        <div class="menu-category animate-from-right delay-2"><h3><i class="fas fa-fire"></i> <span data-en="Sizzlers" data-ne="सिजलर">Sizzlers</span></h3>
+          <div class="menu-item"><span class="name" data-en="Paneer Sizzler" data-ne="पनीर सिजलर">Paneer Sizzler</span><span class="price">Rs. 500</span></div>
+          <div class="menu-item"><span class="name" data-en="Chicken Sizzler" data-ne="चिकन सिजलर">Chicken Sizzler</span><span class="price">Rs. 500</span></div>
+          <div class="menu-item"><span class="name" data-en="Paneer Tikka Sizzler" data-ne="पनीर टिक्का सिजलर">Paneer Tikka Sizzler</span><span class="price">Rs. 450</span></div>
+          <div class="menu-item"><span class="name" data-en="Mix Veg Tikka Sizzler" data-ne="मिक्स भेज टिक्का सिजलर">Mix Veg Tikka Sizzler</span><span class="price">Rs. 450</span></div>
+          <div class="menu-item"><span class="name" data-en="Chicken Tandoor (Half)" data-ne="चिकन तन्दुर (आधा)">Chicken Tandoor (Half)</span><span class="price">Rs. 700</span></div>
+          <div class="menu-item"><span class="name" data-en="Chicken Tandoor (Full)" data-ne="चिकन तन्दुर (पूर्ण)">Chicken Tandoor (Full)</span><span class="price">Rs. 1200</span></div>
+          <div class="menu-item"><span class="name" data-en="Baked Grill (Half)" data-ne="बेक्ड ग्रिल (आधा)">Baked Grill (Half)</span><span class="price">Rs. 700</span></div>
+          <div class="menu-item"><span class="name" data-en="Baked Grill (Full)" data-ne="बेक्ड ग्रिल (पूर्ण)">Baked Grill (Full)</span><span class="price">Rs. 1200</span></div>
         </div>
-
-        <!-- Biryani & Rice -->
-        <div class="menu-category animate-from-left delay-3">
-          <h3><i class="fas fa-utensil-spoon"></i> Biryani &amp; Rice</h3>
-          <div class="menu-item"><span class="name">Veg Biryani</span><span class="price">Rs. 300</span></div>
-          <div class="menu-item"><span class="name">Chicken Biryani</span><span class="price">Rs. 400</span></div>
-          <div class="menu-item"><span class="name">Mutton Biryani</span><span class="price">Rs. 500</span></div>
-          <div class="menu-item"><span class="name">Plain Rice</span><span class="price">Rs. 150</span></div>
-          <div class="menu-item"><span class="name">Jeera Rice</span><span class="price">Rs. 200</span></div>
-          <div class="menu-item"><span class="name">Veg Fried Rice</span><span class="price">Rs. 180</span></div>
-          <div class="menu-item"><span class="name">Egg Fried Rice</span><span class="price">Rs. 220</span></div>
-          <div class="menu-item"><span class="name">Chicken Fried Rice</span><span class="price">Rs. 250</span></div>
-          <div class="menu-item"><span class="name">Pork Fried Rice</span><span class="price">Rs. 270</span></div>
-          <div class="menu-item"><span class="name">Mix Fried Rice</span><span class="price">Rs. 300</span></div>
+        <div class="menu-category animate-from-left delay-3"><h3><i class="fas fa-utensil-spoon"></i> <span data-en="Biryani &amp; Rice" data-ne="बिर्यानी र चामल">Biryani &amp; Rice</span></h3>
+          <div class="menu-item"><span class="name" data-en="Veg Biryani" data-ne="भेज बिर्यानी">Veg Biryani</span><span class="price">Rs. 300</span></div>
+          <div class="menu-item"><span class="name" data-en="Chicken Biryani" data-ne="चिकन बिर्यानी">Chicken Biryani</span><span class="price">Rs. 400</span></div>
+          <div class="menu-item"><span class="name" data-en="Mutton Biryani" data-ne="मटन बिर्यानी">Mutton Biryani</span><span class="price">Rs. 500</span></div>
+          <div class="menu-item"><span class="name" data-en="Plain Rice" data-ne="सादा चामल">Plain Rice</span><span class="price">Rs. 150</span></div>
+          <div class="menu-item"><span class="name" data-en="Jeera Rice" data-ne="जीरा चामल">Jeera Rice</span><span class="price">Rs. 200</span></div>
+          <div class="menu-item"><span class="name" data-en="Veg Fried Rice" data-ne="भेज फ्राइड राइस">Veg Fried Rice</span><span class="price">Rs. 180</span></div>
+          <div class="menu-item"><span class="name" data-en="Egg Fried Rice" data-ne="अण्डा फ्राइड राइस">Egg Fried Rice</span><span class="price">Rs. 220</span></div>
+          <div class="menu-item"><span class="name" data-en="Chicken Fried Rice" data-ne="चिकन फ्राइड राइस">Chicken Fried Rice</span><span class="price">Rs. 250</span></div>
+          <div class="menu-item"><span class="name" data-en="Pork Fried Rice" data-ne="पोर्क फ्राइड राइस">Pork Fried Rice</span><span class="price">Rs. 270</span></div>
+          <div class="menu-item"><span class="name" data-en="Mix Fried Rice" data-ne="मिक्स फ्राइड राइस">Mix Fried Rice</span><span class="price">Rs. 300</span></div>
         </div>
-
-        <!-- Noodles & Soups -->
-        <div class="menu-category animate-from-right delay-3">
-          <h3><i class="fas fa-utensils"></i> Noodles &amp; Soups</h3>
-          <div class="menu-item"><span class="name">Chowmein (Veg)</span><span class="price">Rs. 150</span></div>
-          <div class="menu-item"><span class="name">Chowmein (Egg)</span><span class="price">Rs. 200</span></div>
-          <div class="menu-item"><span class="name">Chowmein (Chicken)</span><span class="price">Rs. 220</span></div>
-          <div class="menu-item"><span class="name">Chowmein (Pork)</span><span class="price">Rs. 250</span></div>
-          <div class="menu-item"><span class="name">Thukpa (Veg)</span><span class="price">Rs. 150</span></div>
-          <div class="menu-item"><span class="name">Thukpa (Egg)</span><span class="price">Rs. 200</span></div>
-          <div class="menu-item"><span class="name">Thukpa (Chicken)</span><span class="price">Rs. 220</span></div>
-          <div class="menu-item"><span class="name">Thukpa (Pork)</span><span class="price">Rs. 250</span></div>
-          <div class="menu-item"><span class="name">Keema Noodles (Veg)</span><span class="price">Rs. 300</span></div>
-          <div class="menu-item"><span class="name">Keema Noodles (Chicken)</span><span class="price">Rs. 350</span></div>
-          <div class="menu-item"><span class="name">Hot & Sour Soup (Veg)</span><span class="price">Rs. 150</span></div>
-          <div class="menu-item"><span class="name">Hot & Sour Soup (Chicken)</span><span class="price">Rs. 200</span></div>
-          <div class="menu-item"><span class="name">Clear Soup (Veg)</span><span class="price">Rs. 150</span></div>
-          <div class="menu-item"><span class="name">Clear Soup (Chicken)</span><span class="price">Rs. 200</span></div>
+        <div class="menu-category animate-from-right delay-3"><h3><i class="fas fa-utensils"></i> <span data-en="Noodles &amp; Soups" data-ne="नूडल्स र सूप">Noodles &amp; Soups</span></h3>
+          <div class="menu-item"><span class="name" data-en="Chowmein (Veg)" data-ne="चाउमिन (भेज)">Chowmein (Veg)</span><span class="price">Rs. 150</span></div>
+          <div class="menu-item"><span class="name" data-en="Chowmein (Egg)" data-ne="चाउमिन (अण्डा)">Chowmein (Egg)</span><span class="price">Rs. 200</span></div>
+          <div class="menu-item"><span class="name" data-en="Chowmein (Chicken)" data-ne="चाउमिन (चिकन)">Chowmein (Chicken)</span><span class="price">Rs. 220</span></div>
+          <div class="menu-item"><span class="name" data-en="Chowmein (Pork)" data-ne="चाउमिन (पोर्क)">Chowmein (Pork)</span><span class="price">Rs. 250</span></div>
+          <div class="menu-item"><span class="name" data-en="Thukpa (Veg)" data-ne="थुक्पा (भेज)">Thukpa (Veg)</span><span class="price">Rs. 150</span></div>
+          <div class="menu-item"><span class="name" data-en="Thukpa (Egg)" data-ne="थुक्पा (अण्डा)">Thukpa (Egg)</span><span class="price">Rs. 200</span></div>
+          <div class="menu-item"><span class="name" data-en="Thukpa (Chicken)" data-ne="थुक्पा (चिकन)">Thukpa (Chicken)</span><span class="price">Rs. 220</span></div>
+          <div class="menu-item"><span class="name" data-en="Thukpa (Pork)" data-ne="थुक्पा (पोर्क)">Thukpa (Pork)</span><span class="price">Rs. 250</span></div>
+          <div class="menu-item"><span class="name" data-en="Keema Noodles (Veg)" data-ne="किमा नूडल्स (भेज)">Keema Noodles (Veg)</span><span class="price">Rs. 300</span></div>
+          <div class="menu-item"><span class="name" data-en="Keema Noodles (Chicken)" data-ne="किमा नूडल्स (चिकन)">Keema Noodles (Chicken)</span><span class="price">Rs. 350</span></div>
+          <div class="menu-item"><span class="name" data-en="Hot & Sour Soup (Veg)" data-ne="हट एण्ड सोर सूप (भेज)">Hot & Sour Soup (Veg)</span><span class="price">Rs. 150</span></div>
+          <div class="menu-item"><span class="name" data-en="Hot & Sour Soup (Chicken)" data-ne="हट एण्ड सोर सूप (चिकन)">Hot & Sour Soup (Chicken)</span><span class="price">Rs. 200</span></div>
+          <div class="menu-item"><span class="name" data-en="Clear Soup (Veg)" data-ne="क्लियर सूप (भेज)">Clear Soup (Veg)</span><span class="price">Rs. 150</span></div>
+          <div class="menu-item"><span class="name" data-en="Clear Soup (Chicken)" data-ne="क्लियर सूप (चिकन)">Clear Soup (Chicken)</span><span class="price">Rs. 200</span></div>
         </div>
-
-        <!-- Curries -->
-        <div class="menu-category animate-from-left">
-          <h3><i class="fas fa-utensil-spoon"></i> Curries (Veg)</h3>
-          <div class="menu-item"><span class="name">Daal (Fry/Tadka)</span><span class="price">Rs. 200</span></div>
-          <div class="menu-item"><span class="name">Mix-Veg Curry</span><span class="price">Rs. 300</span></div>
-          <div class="menu-item"><span class="name">Aloo Govi Matar</span><span class="price">Rs. 250</span></div>
-          <div class="menu-item"><span class="name">Paneer Kadai</span><span class="price">Rs. 350</span></div>
-          <div class="menu-item"><span class="name">Paneer Butter Masala</span><span class="price">Rs. 400</span></div>
-          <div class="menu-item"><span class="name">Malai Kofta</span><span class="price">Rs. 400</span></div>
+        <div class="menu-category animate-from-left"><h3><i class="fas fa-utensil-spoon"></i> <span data-en="Curries (Veg)" data-ne="तरकारी (भेज)">Curries (Veg)</span></h3>
+          <div class="menu-item"><span class="name" data-en="Daal (Fry/Tadka)" data-ne="दाल (फ्राइ/तड्का)">Daal (Fry/Tadka)</span><span class="price">Rs. 200</span></div>
+          <div class="menu-item"><span class="name" data-en="Mix-Veg Curry" data-ne="मिक्स-भेज करी">Mix-Veg Curry</span><span class="price">Rs. 300</span></div>
+          <div class="menu-item"><span class="name" data-en="Aloo Govi Matar" data-ne="आलु गोभी मटर">Aloo Govi Matar</span><span class="price">Rs. 250</span></div>
+          <div class="menu-item"><span class="name" data-en="Paneer Kadai" data-ne="पनीर कडाइ">Paneer Kadai</span><span class="price">Rs. 350</span></div>
+          <div class="menu-item"><span class="name" data-en="Paneer Butter Masala" data-ne="पनीर बटर मसाला">Paneer Butter Masala</span><span class="price">Rs. 400</span></div>
+          <div class="menu-item"><span class="name" data-en="Malai Kofta" data-ne="मलाई कोफ्ता">Malai Kofta</span><span class="price">Rs. 400</span></div>
         </div>
-
-        <div class="menu-category animate-from-right">
-          <h3><i class="fas fa-utensil-spoon"></i> Curries (Non-Veg)</h3>
-          <div class="menu-item"><span class="name">Chicken Kadai</span><span class="price">Rs. 350</span></div>
-          <div class="menu-item"><span class="name">Chicken Butter Masala</span><span class="price">Rs. 400</span></div>
-          <div class="menu-item"><span class="name">Chicken Curry (Nepali Style)</span><span class="price">Rs. 350</span></div>
-          <div class="menu-item"><span class="name">Chicken Dopiyaza</span><span class="price">Rs. 400</span></div>
-          <div class="menu-item"><span class="name">Egg Curry</span><span class="price">Rs. 250</span></div>
-          <div class="menu-item"><span class="name">Mutton Curry</span><span class="price">Rs. 450</span></div>
-          <div class="menu-item"><span class="name">Mutton Rogan Josh</span><span class="price">Rs. 500</span></div>
-          <div class="menu-item"><span class="name">Mutton Curry (Nepali Style)</span><span class="price">Rs. 450</span></div>
-          <div class="menu-item"><span class="name">Mustard Fish Curry</span><span class="price">Rs. 350</span></div>
-          <div class="menu-item"><span class="name">Tawa Fish</span><span class="price">Rs. 400</span></div>
+        <div class="menu-category animate-from-right"><h3><i class="fas fa-utensil-spoon"></i> <span data-en="Curries (Non-Veg)" data-ne="तरकारी (नन-भेज)">Curries (Non-Veg)</span></h3>
+          <div class="menu-item"><span class="name" data-en="Chicken Kadai" data-ne="चिकन कडाइ">Chicken Kadai</span><span class="price">Rs. 350</span></div>
+          <div class="menu-item"><span class="name" data-en="Chicken Butter Masala" data-ne="चिकन बटर मसाला">Chicken Butter Masala</span><span class="price">Rs. 400</span></div>
+          <div class="menu-item"><span class="name" data-en="Chicken Curry (Nepali Style)" data-ne="चिकन करी (नेपाली शैली)">Chicken Curry (Nepali Style)</span><span class="price">Rs. 350</span></div>
+          <div class="menu-item"><span class="name" data-en="Chicken Dopiyaza" data-ne="चिकन दोपियाजा">Chicken Dopiyaza</span><span class="price">Rs. 400</span></div>
+          <div class="menu-item"><span class="name" data-en="Egg Curry" data-ne="अण्डा करी">Egg Curry</span><span class="price">Rs. 250</span></div>
+          <div class="menu-item"><span class="name" data-en="Mutton Curry" data-ne="मटन करी">Mutton Curry</span><span class="price">Rs. 450</span></div>
+          <div class="menu-item"><span class="name" data-en="Mutton Rogan Josh" data-ne="मटन रोगन जोश">Mutton Rogan Josh</span><span class="price">Rs. 500</span></div>
+          <div class="menu-item"><span class="name" data-en="Mutton Curry (Nepali Style)" data-ne="मटन करी (नेपाली शैली)">Mutton Curry (Nepali Style)</span><span class="price">Rs. 450</span></div>
+          <div class="menu-item"><span class="name" data-en="Mustard Fish Curry" data-ne="तोरी माछाको झोल">Mustard Fish Curry</span><span class="price">Rs. 350</span></div>
+          <div class="menu-item"><span class="name" data-en="Tawa Fish" data-ne="तवा माछा">Tawa Fish</span><span class="price">Rs. 400</span></div>
         </div>
-
-        <!-- Breads -->
-        <div class="menu-category animate-from-left delay-1">
-          <h3><i class="fas fa-bread-slice"></i> Breads</h3>
-          <div class="menu-item"><span class="name">Naan (Plain)</span><span class="price">Rs. 85</span></div>
-          <div class="menu-item"><span class="name">Naan (Butter)</span><span class="price">Rs. 100</span></div>
-          <div class="menu-item"><span class="name">Naan (Garlic)</span><span class="price">Rs. 120</span></div>
-          <div class="menu-item"><span class="name">Naan (Kashmiri)</span><span class="price">Rs. 150</span></div>
-          <div class="menu-item"><span class="name">Roti (Tawa)</span><span class="price">Rs. 45</span></div>
-          <div class="menu-item"><span class="name">Roti (Tandoori)</span><span class="price">Rs. 70</span></div>
-          <div class="menu-item"><span class="name">Laccha Paratha</span><span class="price">Rs. 150</span></div>
-          <div class="menu-item"><span class="name">Paratha (Aloo/Paneer)</span><span class="price">Rs. 150</span></div>
-          <div class="menu-item"><span class="name">Toasted Bread (Butter & Jam)</span><span class="price">Rs. 145</span></div>
+        <div class="menu-category animate-from-left delay-1"><h3><i class="fas fa-bread-slice"></i> <span data-en="Breads" data-ne="रोटी">Breads</span></h3>
+          <div class="menu-item"><span class="name" data-en="Naan (Plain)" data-ne="नान (सादा)">Naan (Plain)</span><span class="price">Rs. 85</span></div>
+          <div class="menu-item"><span class="name" data-en="Naan (Butter)" data-ne="नान (बटर)">Naan (Butter)</span><span class="price">Rs. 100</span></div>
+          <div class="menu-item"><span class="name" data-en="Naan (Garlic)" data-ne="नान (लसुन)">Naan (Garlic)</span><span class="price">Rs. 120</span></div>
+          <div class="menu-item"><span class="name" data-en="Naan (Kashmiri)" data-ne="नान (काश्मीरी)">Naan (Kashmiri)</span><span class="price">Rs. 150</span></div>
+          <div class="menu-item"><span class="name" data-en="Roti (Tawa)" data-ne="रोटी (तवा)">Roti (Tawa)</span><span class="price">Rs. 45</span></div>
+          <div class="menu-item"><span class="name" data-en="Roti (Tandoori)" data-ne="रोटी (तन्दुरी)">Roti (Tandoori)</span><span class="price">Rs. 70</span></div>
+          <div class="menu-item"><span class="name" data-en="Laccha Paratha" data-ne="लच्छा पराठा">Laccha Paratha</span><span class="price">Rs. 150</span></div>
+          <div class="menu-item"><span class="name" data-en="Paratha (Aloo/Paneer)" data-ne="पराठा (आलु/पनीर)">Paratha (Aloo/Paneer)</span><span class="price">Rs. 150</span></div>
+          <div class="menu-item"><span class="name" data-en="Toasted Bread (Butter & Jam)" data-ne="टोस्टेड ब्रेड (बटर र जाम)">Toasted Bread (Butter & Jam)</span><span class="price">Rs. 145</span></div>
         </div>
-
-        <!-- Breakfast -->
-        <div class="menu-category animate-from-right delay-1">
-          <h3><i class="fas fa-sun"></i> Breakfast</h3>
-          <div class="menu-item"><span class="name">American Breakfast</span><span class="price">Rs. 650</span></div>
-          <div class="menu-item"><span class="name">Indian Breakfast</span><span class="price">Rs. 450</span></div>
-          <div class="menu-item"><span class="name">Healthy Breakfast</span><span class="price">Rs. 500</span></div>
-          <div class="menu-item"><span class="name">Muesli with Curd</span><span class="price">Rs. 195</span></div>
-          <div class="menu-item"><span class="name">Fruits Salad (Seasonal)</span><span class="price">Rs. 300</span></div>
+        <div class="menu-category animate-from-right delay-1"><h3><i class="fas fa-sun"></i> <span data-en="Breakfast" data-ne="नास्ता">Breakfast</span></h3>
+          <div class="menu-item"><span class="name" data-en="American Breakfast" data-ne="अमेरिकन नास्ता">American Breakfast</span><span class="price">Rs. 650</span></div>
+          <div class="menu-item"><span class="name" data-en="Indian Breakfast" data-ne="भारतीय नास्ता">Indian Breakfast</span><span class="price">Rs. 450</span></div>
+          <div class="menu-item"><span class="name" data-en="Healthy Breakfast" data-ne="स्वस्थ नास्ता">Healthy Breakfast</span><span class="price">Rs. 500</span></div>
+          <div class="menu-item"><span class="name" data-en="Muesli with Curd" data-ne="म्युज्ली दही सहित">Muesli with Curd</span><span class="price">Rs. 195</span></div>
+          <div class="menu-item"><span class="name" data-en="Fruits Salad (Seasonal)" data-ne="फलफूल सलाद (सिजनल)">Fruits Salad (Seasonal)</span><span class="price">Rs. 300</span></div>
         </div>
-
-        <!-- Beverages -->
-        <div class="menu-category animate-from-left delay-2">
-          <h3><i class="fas fa-mug-hot"></i> Beverages</h3>
-          <div class="menu-item"><span class="name">Coffee Based</span><span class="price">Rs. 245</span></div>
-          <div class="menu-item"><span class="name">Hot Chocolate</span><span class="price">Rs. 195</span></div>
-          <div class="menu-item"><span class="name">Dark Chocolate</span><span class="price">Rs. 245</span></div>
-          <div class="menu-item"><span class="name">Hot Lemon (Plain)</span><span class="price">Rs. 95</span></div>
-          <div class="menu-item"><span class="name">Hot Lemon (Honey)</span><span class="price">Rs. 145</span></div>
-          <div class="menu-item"><span class="name">Hot Lemon (Ginger)</span><span class="price">Rs. 175</span></div>
-          <div class="menu-item"><span class="name">Iced Tea (Peach/Lemon/Green Apple)</span><span class="price">Rs. 175</span></div>
+        <div class="menu-category animate-from-left delay-2"><h3><i class="fas fa-mug-hot"></i> <span data-en="Beverages" data-ne="पेय पदार्थ">Beverages</span></h3>
+          <div class="menu-item"><span class="name" data-en="Coffee Based" data-ne="कफी आधारित">Coffee Based</span><span class="price">Rs. 245</span></div>
+          <div class="menu-item"><span class="name" data-en="Hot Chocolate" data-ne="हट चकलेट">Hot Chocolate</span><span class="price">Rs. 195</span></div>
+          <div class="menu-item"><span class="name" data-en="Dark Chocolate" data-ne="डार्क चकलेट">Dark Chocolate</span><span class="price">Rs. 245</span></div>
+          <div class="menu-item"><span class="name" data-en="Hot Lemon (Plain)" data-ne="हट लेमन (सादा)">Hot Lemon (Plain)</span><span class="price">Rs. 95</span></div>
+          <div class="menu-item"><span class="name" data-en="Hot Lemon (Honey)" data-ne="हट लेमन (मह)">Hot Lemon (Honey)</span><span class="price">Rs. 145</span></div>
+          <div class="menu-item"><span class="name" data-en="Hot Lemon (Ginger)" data-ne="हट लेमन (अदुवा)">Hot Lemon (Ginger)</span><span class="price">Rs. 175</span></div>
+          <div class="menu-item"><span class="name" data-en="Iced Tea (Peach/Lemon/Green Apple)" data-ne="आइस्ड टी (पीच/लेमन/ग्रीन एप्पल)">Iced Tea (Peach/Lemon/Green Apple)</span><span class="price">Rs. 175</span></div>
         </div>
-
-        <!-- Shakes & Smoothies -->
-        <div class="menu-category animate-from-right delay-2">
-          <h3><i class="fas fa-glass-whiskey"></i> Shakes &amp; Smoothies</h3>
-          <div class="menu-item"><span class="name">Milk Shake (Chocolate/Vanilla)</span><span class="price">Rs. 245</span></div>
-          <div class="menu-item"><span class="name">Strawberry Shake</span><span class="price">Rs. 265</span></div>
-          <div class="menu-item"><span class="name">Kitkat Milkshake</span><span class="price">Rs. 265</span></div>
-          <div class="menu-item"><span class="name">Double Fun Shake</span><span class="price">Rs. 295</span></div>
-          <div class="menu-item"><span class="name">Smoothie (Vanilla/Strawberry/Kiwi)</span><span class="price">Rs. 245</span></div>
-          <div class="menu-item"><span class="name">Lassi (Plain/Banana)</span><span class="price">Rs. 115</span></div>
-          <div class="menu-item"><span class="name">Mango Lassi (Seasonal)</span><span class="price">Rs. 195</span></div>
-          <div class="menu-item"><span class="name">Flavored Lassi (Butter Scotch/Strawberry/Vanilla/Hazelnut)</span><span class="price">Rs. 195</span></div>
+        <div class="menu-category animate-from-right delay-2"><h3><i class="fas fa-glass-whiskey"></i> <span data-en="Shakes &amp; Smoothies" data-ne="शेक र स्मूदी">Shakes &amp; Smoothies</span></h3>
+          <div class="menu-item"><span class="name" data-en="Milk Shake (Chocolate/Vanilla)" data-ne="मिल्क शेक (चकलेट/भेनिला)">Milk Shake (Chocolate/Vanilla)</span><span class="price">Rs. 245</span></div>
+          <div class="menu-item"><span class="name" data-en="Strawberry Shake" data-ne="स्ट्रबेरी शेक">Strawberry Shake</span><span class="price">Rs. 265</span></div>
+          <div class="menu-item"><span class="name" data-en="Kitkat Milkshake" data-ne="किटक्याट मिल्कसेक">Kitkat Milkshake</span><span class="price">Rs. 265</span></div>
+          <div class="menu-item"><span class="name" data-en="Double Fun Shake" data-ne="डबल फन शेक">Double Fun Shake</span><span class="price">Rs. 295</span></div>
+          <div class="menu-item"><span class="name" data-en="Smoothie (Vanilla/Strawberry/Kiwi)" data-ne="स्मूदी (भेनिला/स्ट्रबेरी/किवी)">Smoothie (Vanilla/Strawberry/Kiwi)</span><span class="price">Rs. 245</span></div>
+          <div class="menu-item"><span class="name" data-en="Lassi (Plain/Banana)" data-ne="लस्सी (सादा/केरा)">Lassi (Plain/Banana)</span><span class="price">Rs. 115</span></div>
+          <div class="menu-item"><span class="name" data-en="Mango Lassi (Seasonal)" data-ne="आमको लस्सी (सिजनल)">Mango Lassi (Seasonal)</span><span class="price">Rs. 195</span></div>
+          <div class="menu-item"><span class="name" data-en="Flavored Lassi (Butter Scotch/Strawberry/Vanilla/Hazelnut)" data-ne="फ्लेवर्ड लस्सी (बटर स्कच/स्ट्रबेरी/भेनिला/हेजलनट)">Flavored Lassi (Butter Scotch/Strawberry/Vanilla/Hazelnut)</span><span class="price">Rs. 195</span></div>
         </div>
-
-        <!-- Soft Drinks -->
-        <div class="menu-category animate-from-left delay-3">
-          <h3><i class="fas fa-wine-bottle"></i> Soft Drinks</h3>
-          <div class="menu-item"><span class="name">Coke/Fanta/Sprite/Coke Diet</span><span class="price">Rs. 95</span></div>
-          <div class="menu-item"><span class="name">Ginger Ale</span><span class="price">Rs. 275</span></div>
-          <div class="menu-item"><span class="name">Soda</span><span class="price">Rs. 95</span></div>
-          <div class="menu-item"><span class="name">Tonic Water</span><span class="price">Rs. 175</span></div>
-          <div class="menu-item"><span class="name">Red Bull</span><span class="price">Rs. 275</span></div>
-          <div class="menu-item"><span class="name">Masala Coke & Sprite</span><span class="price">Rs. 175</span></div>
+        <div class="menu-category animate-from-left delay-3"><h3><i class="fas fa-wine-bottle"></i> <span data-en="Soft Drinks" data-ne="शीतल पेय">Soft Drinks</span></h3>
+          <div class="menu-item"><span class="name" data-en="Coke/Fanta/Sprite/Coke Diet" data-ne="कोक/फ्यान्टा/स्प्राइट/कोक डाइट">Coke/Fanta/Sprite/Coke Diet</span><span class="price">Rs. 95</span></div>
+          <div class="menu-item"><span class="name" data-en="Ginger Ale" data-ne="जिन्जर एल">Ginger Ale</span><span class="price">Rs. 275</span></div>
+          <div class="menu-item"><span class="name" data-en="Soda" data-ne="सोडा">Soda</span><span class="price">Rs. 95</span></div>
+          <div class="menu-item"><span class="name" data-en="Tonic Water" data-ne="टोनिक वाटर">Tonic Water</span><span class="price">Rs. 175</span></div>
+          <div class="menu-item"><span class="name" data-en="Red Bull" data-ne="रेड बुल">Red Bull</span><span class="price">Rs. 275</span></div>
+          <div class="menu-item"><span class="name" data-en="Masala Coke & Sprite" data-ne="मसाला कोक र स्प्राइट">Masala Coke & Sprite</span><span class="price">Rs. 175</span></div>
         </div>
-
-        <!-- Desserts -->
-        <div class="menu-category animate-from-right delay-3">
-          <h3><i class="fas fa-cake"></i> Desserts</h3>
-          <div class="menu-item"><span class="name">Sizzling Brownie</span><span class="price">Rs. 250</span></div>
-          <div class="menu-item"><span class="name">Brownie with Ice Cream</span><span class="price">Rs. 220</span></div>
-          <div class="menu-item"><span class="name">Gagari Ko Halwa</span><span class="price">Rs. 180</span></div>
-          <div class="menu-item"><span class="name">Warm Gulab Jamun</span><span class="price">Rs. 50</span></div>
-          <div class="menu-item"><span class="name">Fruits with Curd</span><span class="price">Rs. 200</span></div>
+        <div class="menu-category animate-from-right delay-3"><h3><i class="fas fa-cake"></i> <span data-en="Desserts" data-ne="मिठाई">Desserts</span></h3>
+          <div class="menu-item"><span class="name" data-en="Sizzling Brownie" data-ne="सिजलिङ ब्राउनी">Sizzling Brownie</span><span class="price">Rs. 250</span></div>
+          <div class="menu-item"><span class="name" data-en="Brownie with Ice Cream" data-ne="ब्राउनी आइसक्रिम सहित">Brownie with Ice Cream</span><span class="price">Rs. 220</span></div>
+          <div class="menu-item"><span class="name" data-en="Gagari Ko Halwa" data-ne="गागरीको हलुवा">Gagari Ko Halwa</span><span class="price">Rs. 180</span></div>
+          <div class="menu-item"><span class="name" data-en="Warm Gulab Jamun" data-ne="न्यानो गुलाब जामुन">Warm Gulab Jamun</span><span class="price">Rs. 50</span></div>
+          <div class="menu-item"><span class="name" data-en="Fruits with Curd" data-ne="फलफूल दही सहित">Fruits with Curd</span><span class="price">Rs. 200</span></div>
         </div>
       </div>
     </div>
@@ -2335,196 +2489,54 @@
     <div class="section-title animate-on-scroll"><i class="fas fa-bed"></i> <span data-en="Rooms at Hotel Bella Cafe, Damak" data-ne="होटल बेला क्याफे, दमकमा कोठाहरू">Rooms at Hotel Bella Cafe, Damak</span></div>
     <p class="section-sub animate-on-scroll" data-en="Five room types, from Rs 3,500 to Rs 5,500 per night, all with air conditioning, attached bathroom, smart TV and free Wi-Fi. Check availability by phone or WhatsApp. Guests staying overnight can order from the full restaurant menu to the room until 9:30 PM." data-ne="पाँच कोठा प्रकार, रु. ३,५०० देखि ५,५०० प्रति रात, सबैमा एयर कन्डिसनिङ, संलग्न बाथरूम, स्मार्ट टिभी र नि:शुल्क वाइफाई। फोन वा ह्वाट्सएपद्वारा उपलब्धता जाँच गर्नुहोस्। रातभरि बस्ने पाहुनाहरूले राति ९:३० बजेसम्म कोठामा पूर्ण रेस्टुरेन्ट मेनुबाट अर्डर गर्न सक्छन्।">Five room types, from Rs 3,500 to Rs 5,500 per night, all with air conditioning, attached bathroom, smart TV and free Wi-Fi. Check availability by phone or WhatsApp. Guests staying overnight can order from the full restaurant menu to the room until 9:30 PM.</p>
     <div class="rooms-grid">
-      <!-- Standard Room -->
       <div class="room-card animate-from-left">
-        <div class="room-image">
-          <img src="firstroom.jpeg" alt="Standard Room with double bed at Hotel Bella Cafe, Damak" loading="lazy" onerror="this.src='https://picsum.photos/seed/standard/600/400';" />
-          <span class="room-badge" data-en="Standard" data-ne="स्ट्यान्डर्ड">Standard</span>
-        </div>
-        <div class="room-body">
-          <h3 data-en="Standard Room" data-ne="स्ट्यान्डर्ड कोठा">Standard Room</h3>
-          <div class="room-sub" data-en="2 guests · Rs 3,500/night" data-ne="२ पाहुना · रु. ३,५००/रात">2 guests · Rs 3,500/night</div>
-          <div class="room-desc" data-en="A compact room with a double bed, air conditioning, attached bathroom with hot water, smart TV and free Wi-Fi. Suited to solo travellers and couples staying one or two nights in Damak." data-ne="डबल बेड, एयर कन्डिसनिङ, तातो पानीको संलग्न बाथरूम, स्मार्ट टिभी र नि:शुल्क वाइफाई सहितको कम्प्याक्ट कोठा। दमकमा एक वा दुई रात बस्ने एकल यात्री र जोडीहरूको लागि उपयुक्त।">A compact room with a double bed, air conditioning, attached bathroom with hot water, smart TV and free Wi-Fi. Suited to solo travellers and couples staying one or two nights in Damak.</div>
-          <div class="room-amenities">
-            <span><i class="fas fa-wifi"></i> <span data-en="Free Wi-Fi" data-ne="नि:शुल्क वाइफाई">Free Wi-Fi</span></span>
-            <span><i class="fas fa-tv"></i> <span data-en="Smart TV" data-ne="स्मार्ट टिभी">Smart TV</span></span>
-            <span><i class="fas fa-snowflake"></i> <span data-en="AC" data-ne="एसी">AC</span></span>
-            <span><i class="fas fa-shower"></i> <span data-en="Attached Bath" data-ne="संलग्न बाथरुम">Attached Bath</span></span>
-          </div>
-          <div class="room-footer">
-            <div class="room-price">Rs. 3,500 <small data-en="/ night" data-ne="/ रात">/ night</small></div>
-            <a href="https://wa.me/9779852630088?text=Is%20This%20Room%20available?%20(Standard%20Room)" class="btn-book-room" data-en="Book Now" data-ne="बुक गर्नुहोस्"><i class="fas fa-calendar-check"></i> Book Now</a>
-          </div>
-        </div>
+        <div class="room-image"><img src="firstroom.jpeg" alt="Standard Room with double bed at Hotel Bella Cafe, Damak" loading="lazy" onerror="this.src='https://picsum.photos/seed/standard/600/400';" /><span class="room-badge" data-en="Standard" data-ne="स्ट्यान्डर्ड">Standard</span></div>
+        <div class="room-body"><h3 data-en="Standard Room" data-ne="स्ट्यान्डर्ड कोठा">Standard Room</h3><div class="room-sub" data-en="2 guests · Rs 3,500/night" data-ne="२ पाहुना · रु. ३,५००/रात">2 guests · Rs 3,500/night</div><div class="room-desc" data-en="A compact room with a double bed, air conditioning, attached bathroom with hot water, smart TV and free Wi-Fi. Suited to solo travellers and couples staying one or two nights in Damak." data-ne="डबल बेड, एयर कन्डिसनिङ, तातो पानीको संलग्न बाथरूम, स्मार्ट टिभी र नि:शुल्क वाइफाई सहितको कम्प्याक्ट कोठा। दमकमा एक वा दुई रात बस्ने एकल यात्री र जोडीहरूको लागि उपयुक्त।">A compact room with a double bed, air conditioning, attached bathroom with hot water, smart TV and free Wi-Fi. Suited to solo travellers and couples staying one or two nights in Damak.</div><div class="room-amenities"><span><i class="fas fa-wifi"></i> <span data-en="Free Wi-Fi" data-ne="नि:शुल्क वाइफाई">Free Wi-Fi</span></span><span><i class="fas fa-tv"></i> <span data-en="Smart TV" data-ne="स्मार्ट टिभी">Smart TV</span></span><span><i class="fas fa-snowflake"></i> <span data-en="AC" data-ne="एसी">AC</span></span><span><i class="fas fa-shower"></i> <span data-en="Attached Bath" data-ne="संलग्न बाथरुम">Attached Bath</span></span></div><div class="room-footer"><div class="room-price">Rs. 3,500 <small data-en="/ night" data-ne="/ रात">/ night</small></div><a href="https://wa.me/9779852630088?text=Is%20This%20Room%20available?%20(Standard%20Room)" class="btn-book-room" data-en="Book Now" data-ne="बुक गर्नुहोस्"><i class="fas fa-calendar-check"></i> Book Now</a></div></div>
       </div>
-
-      <!-- Deluxe Single Room -->
       <div class="room-card animate-from-right">
-        <div class="room-image">
-          <img src="standard.jpeg" alt="Deluxe Single Room with coffee maker at Hotel Bella Cafe, Damak" loading="lazy" onerror="this.src='https://picsum.photos/seed/deluxe-single/600/400';" />
-          <span class="room-badge" style="background:#2a6b3a; border-color:var(--gold);" data-en="Deluxe Single" data-ne="डिलक्स सिंगल">Deluxe Single</span>
-        </div>
-        <div class="room-body">
-          <h3 data-en="Deluxe Single Room" data-ne="डिलक्स सिंगल कोठा">Deluxe Single Room</h3>
-          <div class="room-sub" data-en="2 guests · Rs 4,000/night" data-ne="२ पाहुना · रु. ४,०००/रात">2 guests · Rs 4,000/night</div>
-          <div class="room-desc" data-en="A larger room with a double bed, coffee maker, air conditioning, attached bathroom and smart TV. The extra floor space over the Standard makes it easier for guests travelling with luggage." data-ne="डबल बेड, कफी मेकर, एयर कन्डिसनिङ, संलग्न बाथरूम र स्मार्ट टिभी सहितको ठूलो कोठा। स्ट्यान्डर्डको तुलनामा थप फ्लोर स्पेसले सामानसँग यात्रा गर्ने पाहुनाहरूको लागि सजिलो बनाउँछ।">A larger room with a double bed, coffee maker, air conditioning, attached bathroom and smart TV. The extra floor space over the Standard makes it easier for guests travelling with luggage.</div>
-          <div class="room-amenities">
-            <span><i class="fas fa-wifi"></i> <span data-en="Free Wi-Fi" data-ne="नि:शुल्क वाइफाई">Free Wi-Fi</span></span>
-            <span><i class="fas fa-tv"></i> <span data-en="Smart TV" data-ne="स्मार्ट टिभी">Smart TV</span></span>
-            <span><i class="fas fa-snowflake"></i> <span data-en="AC" data-ne="एसी">AC</span></span>
-            <span><i class="fas fa-shower"></i> <span data-en="Attached Bath" data-ne="संलग्न बाथरुम">Attached Bath</span></span>
-            <span><i class="fas fa-coffee"></i> <span data-en="Coffee Maker" data-ne="कफी मेकर">Coffee Maker</span></span>
-          </div>
-          <div class="room-footer">
-            <div class="room-price">Rs. 4,000 <small data-en="/ night" data-ne="/ रात">/ night</small></div>
-            <a href="https://wa.me/9779852630088?text=Is%20This%20Room%20available?%20(Deluxe%20Single%20Room)" class="btn-book-room" data-en="Book Now" data-ne="बुक गर्नुहोस्"><i class="fas fa-calendar-check"></i> Book Now</a>
-          </div>
-        </div>
+        <div class="room-image"><img src="standard.jpeg" alt="Deluxe Single Room with coffee maker at Hotel Bella Cafe, Damak" loading="lazy" onerror="this.src='https://picsum.photos/seed/deluxe-single/600/400';" /><span class="room-badge" style="background:#2a6b3a; border-color:var(--gold);" data-en="Deluxe Single" data-ne="डिलक्स सिंगल">Deluxe Single</span></div>
+        <div class="room-body"><h3 data-en="Deluxe Single Room" data-ne="डिलक्स सिंगल कोठा">Deluxe Single Room</h3><div class="room-sub" data-en="2 guests · Rs 4,000/night" data-ne="२ पाहुना · रु. ४,०००/रात">2 guests · Rs 4,000/night</div><div class="room-desc" data-en="A larger room with a double bed, coffee maker, air conditioning, attached bathroom and smart TV. The extra floor space over the Standard makes it easier for guests travelling with luggage." data-ne="डबल बेड, कफी मेकर, एयर कन्डिसनिङ, संलग्न बाथरूम र स्मार्ट टिभी सहितको ठूलो कोठा। स्ट्यान्डर्डको तुलनामा थप फ्लोर स्पेसले सामानसँग यात्रा गर्ने पाहुनाहरूको लागि सजिलो बनाउँछ।">A larger room with a double bed, coffee maker, air conditioning, attached bathroom and smart TV. The extra floor space over the Standard makes it easier for guests travelling with luggage.</div><div class="room-amenities"><span><i class="fas fa-wifi"></i> <span data-en="Free Wi-Fi" data-ne="नि:शुल्क वाइफाई">Free Wi-Fi</span></span><span><i class="fas fa-tv"></i> <span data-en="Smart TV" data-ne="स्मार्ट टिभी">Smart TV</span></span><span><i class="fas fa-snowflake"></i> <span data-en="AC" data-ne="एसी">AC</span></span><span><i class="fas fa-shower"></i> <span data-en="Attached Bath" data-ne="संलग्न बाथरुम">Attached Bath</span></span><span><i class="fas fa-coffee"></i> <span data-en="Coffee Maker" data-ne="कफी मेकर">Coffee Maker</span></span></div><div class="room-footer"><div class="room-price">Rs. 4,000 <small data-en="/ night" data-ne="/ रात">/ night</small></div><a href="https://wa.me/9779852630088?text=Is%20This%20Room%20available?%20(Deluxe%20Single%20Room)" class="btn-book-room" data-en="Book Now" data-ne="बुक गर्नुहोस्"><i class="fas fa-calendar-check"></i> Book Now</a></div></div>
       </div>
-
-      <!-- Deluxe Double Room -->
       <div class="room-card animate-from-left delay-1">
-        <div class="room-image">
-          <img src="deluxe.jpeg" alt="Deluxe Double Room with king bed at Hotel Bella Cafe, Damak" loading="lazy" onerror="this.src='https://picsum.photos/seed/deluxe/600/400';" />
-          <span class="room-badge popular" data-en="Popular" data-ne="लोकप्रिय">Popular</span>
-        </div>
-        <div class="room-body">
-          <h3 data-en="Deluxe Double Room" data-ne="डिलक्स डबल कोठा">Deluxe Double Room</h3>
-          <div class="room-sub" data-en="3 guests · Rs 4,500/night" data-ne="३ पाहुना · रु. ४,५००/रात">3 guests · Rs 4,500/night</div>
-          <div class="room-desc" data-en="King-size bed, work desk and a city-facing window, with air conditioning, coffee maker, attached bathroom and free Wi-Fi. The desk and Wi-Fi make it the usual choice for business travellers stopping in Damak." data-ne="किङ-साइज बेड, कार्य डेस्क र सहरतर्फ फर्केको झ्याल, एयर कन्डिसनिङ, कफी मेकर, संलग्न बाथरूम र नि:शुल्क वाइफाई सहित। डेस्क र वाइफाईले यसलाई दमकमा रोकिने व्यापार यात्रीहरूको सामान्य छनौट बनाउँछ।">King-size bed, work desk and a city-facing window, with air conditioning, coffee maker, attached bathroom and free Wi-Fi. The desk and Wi-Fi make it the usual choice for business travellers stopping in Damak.</div>
-          <div class="room-amenities">
-            <span><i class="fas fa-wifi"></i> <span data-en="Free Wi-Fi" data-ne="नि:शुल्क वाइफाई">Free Wi-Fi</span></span>
-            <span><i class="fas fa-tv"></i> <span data-en="Smart TV" data-ne="स्मार्ट टिभी">Smart TV</span></span>
-            <span><i class="fas fa-snowflake"></i> <span data-en="AC" data-ne="एसी">AC</span></span>
-            <span><i class="fas fa-shower"></i> <span data-en="Attached Bath" data-ne="संलग्न बाथरुम">Attached Bath</span></span>
-            <span><i class="fas fa-coffee"></i> <span data-en="Coffee Maker" data-ne="कफी मेकर">Coffee Maker</span></span>
-          </div>
-          <div class="room-footer">
-            <div class="room-price">Rs. 4,500 <small data-en="/ night" data-ne="/ रात">/ night</small></div>
-            <a href="https://wa.me/9779852630088?text=Is%20This%20Room%20available?%20(Deluxe%20Double%20Room)" class="btn-book-room" data-en="Book Now" data-ne="बुक गर्नुहोस्"><i class="fas fa-calendar-check"></i> Book Now</a>
-          </div>
-        </div>
+        <div class="room-image"><img src="deluxe.jpeg" alt="Deluxe Double Room with king bed at Hotel Bella Cafe, Damak" loading="lazy" onerror="this.src='https://picsum.photos/seed/deluxe/600/400';" /><span class="room-badge popular" data-en="Popular" data-ne="लोकप्रिय">Popular</span></div>
+        <div class="room-body"><h3 data-en="Deluxe Double Room" data-ne="डिलक्स डबल कोठा">Deluxe Double Room</h3><div class="room-sub" data-en="3 guests · Rs 4,500/night" data-ne="३ पाहुना · रु. ४,५००/रात">3 guests · Rs 4,500/night</div><div class="room-desc" data-en="King-size bed, work desk and a city-facing window, with air conditioning, coffee maker, attached bathroom and free Wi-Fi. The desk and Wi-Fi make it the usual choice for business travellers stopping in Damak." data-ne="किङ-साइज बेड, कार्य डेस्क र सहरतर्फ फर्केको झ्याल, एयर कन्डिसनिङ, कफी मेकर, संलग्न बाथरूम र नि:शुल्क वाइफाई सहित। डेस्क र वाइफाईले यसलाई दमकमा रोकिने व्यापार यात्रीहरूको सामान्य छनौट बनाउँछ।">King-size bed, work desk and a city-facing window, with air conditioning, coffee maker, attached bathroom and free Wi-Fi. The desk and Wi-Fi make it the usual choice for business travellers stopping in Damak.</div><div class="room-amenities"><span><i class="fas fa-wifi"></i> <span data-en="Free Wi-Fi" data-ne="नि:शुल्क वाइफाई">Free Wi-Fi</span></span><span><i class="fas fa-tv"></i> <span data-en="Smart TV" data-ne="स्मार्ट टिभी">Smart TV</span></span><span><i class="fas fa-snowflake"></i> <span data-en="AC" data-ne="एसी">AC</span></span><span><i class="fas fa-shower"></i> <span data-en="Attached Bath" data-ne="संलग्न बाथरुम">Attached Bath</span></span><span><i class="fas fa-coffee"></i> <span data-en="Coffee Maker" data-ne="कफी मेकर">Coffee Maker</span></span></div><div class="room-footer"><div class="room-price">Rs. 4,500 <small data-en="/ night" data-ne="/ रात">/ night</small></div><a href="https://wa.me/9779852630088?text=Is%20This%20Room%20available?%20(Deluxe%20Double%20Room)" class="btn-book-room" data-en="Book Now" data-ne="बुक गर्नुहोस्"><i class="fas fa-calendar-check"></i> Book Now</a></div></div>
       </div>
-
-      <!-- Suite Room -->
       <div class="room-card animate-from-right delay-1">
-        <div class="room-image">
-          <img src="suit.jpeg" alt="Suite Room with jacuzzi and living area at Hotel Bella Cafe, Damak" loading="lazy" onerror="this.src='https://picsum.photos/seed/suite/600/400';" />
-          <span class="room-badge" style="background:#9b59b6; border-color:var(--gold);" data-en="Premium" data-ne="प्रिमियम">Premium</span>
-        </div>
-        <div class="room-body">
-          <h3 data-en="Suite Room" data-ne="सुइट कोठा">Suite Room</h3>
-          <div class="room-sub" data-en="4 guests · Rs 5,000/night" data-ne="४ पाहुना · रु. ५,०००/रात">4 guests · Rs 5,000/night</div>
-          <div class="room-desc" data-en="A separate living area alongside the bedroom, with a jacuzzi, mini bar, coffee maker and air conditioning. The largest room on the property, used most often for family celebrations and longer stays." data-ne="शयनकक्षको छेउमा छुट्टै बैठक कोठा, जाकुजी, मिनी बार, कफी मेकर र एयर कन्डिसनिङ सहित। प्रोपर्टीको सबैभन्दा ठूलो कोठा, प्रायः पारिवारिक समारोह र लामो बसाइको लागि प्रयोग गरिन्छ।">A separate living area alongside the bedroom, with a jacuzzi, mini bar, coffee maker and air conditioning. The largest room on the property, used most often for family celebrations and longer stays.</div>
-          <div class="room-amenities">
-            <span><i class="fas fa-wifi"></i> <span data-en="Free Wi-Fi" data-ne="नि:शुल्क वाइफाई">Free Wi-Fi</span></span>
-            <span><i class="fas fa-tv"></i> <span data-en="Smart TV" data-ne="स्मार्ट टिभी">Smart TV</span></span>
-            <span><i class="fas fa-snowflake"></i> <span data-en="AC" data-ne="एसी">AC</span></span>
-            <span><i class="fas fa-shower"></i> <span data-en="Jacuzzi" data-ne="जाकुजी">Jacuzzi</span></span>
-            <span><i class="fas fa-coffee"></i> <span data-en="Coffee Maker" data-ne="कफी मेकर">Coffee Maker</span></span>
-            <span><i class="fas fa-utensils"></i> <span data-en="Mini Bar" data-ne="मिनी बार">Mini Bar</span></span>
-          </div>
-          <div class="room-footer">
-            <div class="room-price">Rs. 5,000 <small data-en="/ night" data-ne="/ रात">/ night</small></div>
-            <a href="https://wa.me/9779852630088?text=Is%20This%20Room%20available?%20(Suite%20Room)" class="btn-book-room" data-en="Book Now" data-ne="बुक गर्नुहोस्"><i class="fas fa-calendar-check"></i> Book Now</a>
-          </div>
-        </div>
+        <div class="room-image"><img src="suit.jpeg" alt="Suite Room with jacuzzi and living area at Hotel Bella Cafe, Damak" loading="lazy" onerror="this.src='https://picsum.photos/seed/suite/600/400';" /><span class="room-badge" style="background:#9b59b6; border-color:var(--gold);" data-en="Premium" data-ne="प्रिमियम">Premium</span></div>
+        <div class="room-body"><h3 data-en="Suite Room" data-ne="सुइट कोठा">Suite Room</h3><div class="room-sub" data-en="4 guests · Rs 5,000/night" data-ne="४ पाहुना · रु. ५,०००/रात">4 guests · Rs 5,000/night</div><div class="room-desc" data-en="A separate living area alongside the bedroom, with a jacuzzi, mini bar, coffee maker and air conditioning. The largest room on the property, used most often for family celebrations and longer stays." data-ne="शयनकक्षको छेउमा छुट्टै बैठक कोठा, जाकुजी, मिनी बार, कफी मेकर र एयर कन्डिसनिङ सहित। प्रोपर्टीको सबैभन्दा ठूलो कोठा, प्रायः पारिवारिक समारोह र लामो बसाइको लागि प्रयोग गरिन्छ।">A separate living area alongside the bedroom, with a jacuzzi, mini bar, coffee maker and air conditioning. The largest room on the property, used most often for family celebrations and longer stays.</div><div class="room-amenities"><span><i class="fas fa-wifi"></i> <span data-en="Free Wi-Fi" data-ne="नि:शुल्क वाइफाई">Free Wi-Fi</span></span><span><i class="fas fa-tv"></i> <span data-en="Smart TV" data-ne="स्मार्ट टिभी">Smart TV</span></span><span><i class="fas fa-snowflake"></i> <span data-en="AC" data-ne="एसी">AC</span></span><span><i class="fas fa-shower"></i> <span data-en="Jacuzzi" data-ne="जाकुजी">Jacuzzi</span></span><span><i class="fas fa-coffee"></i> <span data-en="Coffee Maker" data-ne="कफी मेकर">Coffee Maker</span></span><span><i class="fas fa-utensils"></i> <span data-en="Mini Bar" data-ne="मिनी बार">Mini Bar</span></span></div><div class="room-footer"><div class="room-price">Rs. 5,000 <small data-en="/ night" data-ne="/ रात">/ night</small></div><a href="https://wa.me/9779852630088?text=Is%20This%20Room%20available?%20(Suite%20Room)" class="btn-book-room" data-en="Book Now" data-ne="बुक गर्नुहोस्"><i class="fas fa-calendar-check"></i> Book Now</a></div></div>
       </div>
-
-      <!-- Family Room -->
       <div class="room-card animate-from-left delay-2">
-        <div class="room-image">
-          <img src="family.jpeg" alt="Family Room with two queen beds at Hotel Bella Cafe, Damak" loading="lazy" onerror="this.src='https://picsum.photos/seed/family/600/400';" />
-          <span class="room-badge" style="background:#2e7d32; border-color:var(--gold);" data-en="Family" data-ne="परिवार">Family</span>
-        </div>
-        <div class="room-body">
-          <h3 data-en="Family Room" data-ne="पारिवारिक कोठा">Family Room</h3>
-          <div class="room-sub" data-en="5 guests · Rs 5,500/night" data-ne="५ पाहुना · रु. ५,५००/रात">5 guests · Rs 5,500/night</div>
-          <div class="room-desc" data-en="Two queen beds and a sitting area, with air conditioning, attached bathroom, coffee maker and smart TV. Sleeps five, and connects easily to the kids' menu and high chairs in the restaurant downstairs." data-ne="दुई क्वीन बेड र बैठक कोठा, एयर कन्डिसनिङ, संलग्न बाथरूम, कफी मेकर र स्मार्ट टिभी सहित। पाँच जना सुत्छ, र तलको रेस्टुरेन्टमा बालबालिकाको मेनु र उच्च कुर्सीहरूसँग सजिलै जोडिन्छ।">Two queen beds and a sitting area, with air conditioning, attached bathroom, coffee maker and smart TV. Sleeps five, and connects easily to the kids' menu and high chairs in the restaurant downstairs.</div>
-          <div class="room-amenities">
-            <span><i class="fas fa-wifi"></i> <span data-en="Free Wi-Fi" data-ne="नि:शुल्क वाइफाई">Free Wi-Fi</span></span>
-            <span><i class="fas fa-tv"></i> <span data-en="Smart TV" data-ne="स्मार्ट टिभी">Smart TV</span></span>
-            <span><i class="fas fa-snowflake"></i> <span data-en="AC" data-ne="एसी">AC</span></span>
-            <span><i class="fas fa-shower"></i> <span data-en="Attached Bath" data-ne="संलग्न बाथरुम">Attached Bath</span></span>
-            <span><i class="fas fa-coffee"></i> <span data-en="Coffee Maker" data-ne="कफी मेकर">Coffee Maker</span></span>
-          </div>
-          <div class="room-footer">
-            <div class="room-price">Rs. 5,500 <small data-en="/ night" data-ne="/ रात">/ night</small></div>
-            <a href="https://wa.me/9779852630088?text=Is%20This%20Room%20available?%20(Family%20Room)" class="btn-book-room" data-en="Book Now" data-ne="बुक गर्नुहोस्"><i class="fas fa-calendar-check"></i> Book Now</a>
-          </div>
-        </div>
+        <div class="room-image"><img src="family.jpeg" alt="Family Room with two queen beds at Hotel Bella Cafe, Damak" loading="lazy" onerror="this.src='https://picsum.photos/seed/family/600/400';" /><span class="room-badge" style="background:#2e7d32; border-color:var(--gold);" data-en="Family" data-ne="परिवार">Family</span></div>
+        <div class="room-body"><h3 data-en="Family Room" data-ne="पारिवारिक कोठा">Family Room</h3><div class="room-sub" data-en="5 guests · Rs 5,500/night" data-ne="५ पाहुना · रु. ५,५००/रात">5 guests · Rs 5,500/night</div><div class="room-desc" data-en="Two queen beds and a sitting area, with air conditioning, attached bathroom, coffee maker and smart TV. Sleeps five, and connects easily to the kids' menu and high chairs in the restaurant downstairs." data-ne="दुई क्वीन बेड र बैठक कोठा, एयर कन्डिसनिङ, संलग्न बाथरूम, कफी मेकर र स्मार्ट टिभी सहित। पाँच जना सुत्छ, र तलको रेस्टुरेन्टमा बालबालिकाको मेनु र उच्च कुर्सीहरूसँग सजिलै जोडिन्छ।">Two queen beds and a sitting area, with air conditioning, attached bathroom, coffee maker and smart TV. Sleeps five, and connects easily to the kids' menu and high chairs in the restaurant downstairs.</div><div class="room-amenities"><span><i class="fas fa-wifi"></i> <span data-en="Free Wi-Fi" data-ne="नि:शुल्क वाइफाई">Free Wi-Fi</span></span><span><i class="fas fa-tv"></i> <span data-en="Smart TV" data-ne="स्मार्ट टिभी">Smart TV</span></span><span><i class="fas fa-snowflake"></i> <span data-en="AC" data-ne="एसी">AC</span></span><span><i class="fas fa-shower"></i> <span data-en="Attached Bath" data-ne="संलग्न बाथरुम">Attached Bath</span></span><span><i class="fas fa-coffee"></i> <span data-en="Coffee Maker" data-ne="कफी मेकर">Coffee Maker</span></span></div><div class="room-footer"><div class="room-price">Rs. 5,500 <small data-en="/ night" data-ne="/ रात">/ night</small></div><a href="https://wa.me/9779852630088?text=Is%20This%20Room%20available?%20(Family%20Room)" class="btn-book-room" data-en="Book Now" data-ne="बुक गर्नुहोस्"><i class="fas fa-calendar-check"></i> Book Now</a></div></div>
       </div>
     </div>
     <div style="text-align:center; margin-top:28px;">
-      <a href="https://wa.me/9779852630088?text=Hello%20Bella%20Cafe!%20My%20name%20is%20[Your%20Name].%20I%20would%20like%20to%20inquire%20about%20room%20availability%20and%20prices." class="btn btn-gold animate-on-scroll" style="font-size:1rem; padding:14px 44px;" data-en="Check Availability" data-ne="उपलब्धता जाँच गर्नुहोस्">
-        <i class="fas fa-calendar-check"></i> <span>Check Availability</span>
-      </a>
+      <a href="https://wa.me/9779852630088?text=Hello%20Bella%20Cafe!%20My%20name%20is%20[Your%20Name].%20I%20would%20like%20to%20inquire%20about%20room%20availability%20and%20prices." class="btn btn-gold animate-on-scroll" style="font-size:1rem; padding:14px 44px;" data-en="Check Availability" data-ne="उपलब्धता जाँच गर्नुहोस्"><i class="fas fa-calendar-check"></i> <span>Check Availability</span></a>
     </div>
   </section>
 
-  <!-- ============================================ -->
-  <!-- NEW SECTION: DESTINATIONS / ATTRACTIONS      -->
-  <!-- ============================================ -->
+  <!-- Destinations -->
   <section id="destinations" style="margin: 40px 0 24px;">
     <div class="section-title animate-on-scroll"><i class="fas fa-map-marked-alt"></i> <span data-en="Places to Visit Near Damak" data-ne="दमक नजिकका घुम्न लायक ठाउँहरू">Places to Visit Near Damak</span></div>
     <p class="section-sub animate-on-scroll" data-en="Damak is a convenient base for eastern Nepal. Kanchenjunga, the third-highest peak in the world, is visible on clear days. Biratnagar is about 1.5 hours by road, Baraha Kshetra about 2.5 hours, Pathibhara Devi Temple and Koshi Tappu Wildlife Reserve about 4 hours each, and the Ilam tea gardens about 5 hours." data-ne="दमक पूर्वी नेपालको लागि सुविधाजनक आधार हो। कञ्चनजङ्घा, विश्वको तेस्रो अग्लो हिमाल, सफा दिनमा देखिन्छ। विराटनगर सडक मार्गबाट लगभग १.५ घण्टा, बराह क्षेत्र लगभग २.५ घण्टा, पाथिभरा देवी मन्दिर र कोशी टप्पु वन्यजन्तु आरक्ष लगभग ४ घण्टा प्रत्येक, र इलाम चिया बगान लगभग ५ घण्टा।">Damak is a convenient base for eastern Nepal. Kanchenjunga, the third-highest peak in the world, is visible on clear days. Biratnagar is about 1.5 hours by road, Baraha Kshetra about 2.5 hours, Pathibhara Devi Temple and Koshi Tappu Wildlife Reserve about 4 hours each, and the Ilam tea gardens about 5 hours.</p>
     <div class="destinations-grid">
-      <div class="destination-card animate-from-left">
-        <i class="fas fa-mountain"></i>
-        <h4 data-en="Kanchanjunga Mountain" data-ne="कञ्चनजङ्घा हिमाल">Kanchanjunga Mountain</h4>
-        <p data-en="Third highest peak in the world, visible on clear days from Damak." data-ne="विश्वको तेस्रो अग्लो हिमाल, दमकबाट सफा दिनमा देखिन्छ।">Third highest peak in the world, visible on clear days from Damak.</p>
-        <div class="dist"><i class="fas fa-route"></i> <span data-en="~3 hours drive" data-ne="~३ घण्टा ड्राइभ">~3 hours drive</span></div>
-      </div>
-      <div class="destination-card animate-from-right">
-        <i class="fas fa-temple"></i>
-        <h4 data-en="Pathibhara Devi Temple" data-ne="पाथिभरा देवी मन्दिर">Pathibhara Devi Temple</h4>
-        <p data-en="Sacred pilgrimage site with stunning views of the eastern Himalayas." data-ne="पूर्वी हिमालयको मनमोहक दृश्य भएको पवित्र तीर्थस्थल।">Sacred pilgrimage site with stunning views of the eastern Himalayas.</p>
-        <div class="dist"><i class="fas fa-route"></i> <span data-en="~4 hours drive" data-ne="~४ घण्टा ड्राइभ">~4 hours drive</span></div>
-      </div>
-      <div class="destination-card animate-from-left delay-1">
-        <i class="fas fa-city"></i>
-        <h4 data-en="Biratnagar" data-ne="विराटनगर">Biratnagar</h4>
-        <p data-en="Industrial hub and gateway to eastern Nepal with rich cultural heritage." data-ne="पूर्वी नेपालको औद्योगिक केन्द्र र समृद्ध सांस्कृतिक सम्पदाको प्रवेशद्वार।">Industrial hub and gateway to eastern Nepal with rich cultural heritage.</p>
-        <div class="dist"><i class="fas fa-route"></i> <span data-en="~1.5 hours drive" data-ne="~१.५ घण्टा ड्राइभ">~1.5 hours drive</span></div>
-      </div>
-      <div class="destination-card animate-from-right delay-1">
-        <i class="fas fa-leaf"></i>
-        <h4 data-en="Ilam Tea Gardens" data-ne="इलाम चिया बगान">Ilam Tea Gardens</h4>
-        <p data-en="Lush green tea estates offering breathtaking views and fresh tea." data-ne="हरियाली चिया बगानहरू जसले मनमोहक दृश्य र ताजा चिया प्रदान गर्दछ।">Lush green tea estates offering breathtaking views and fresh tea.</p>
-        <div class="dist"><i class="fas fa-route"></i> <span data-en="~5 hours drive" data-ne="~५ घण्टा ड्राइभ">~5 hours drive</span></div>
-      </div>
-      <div class="destination-card animate-from-left delay-2">
-        <i class="fas fa-water"></i>
-        <h4 data-en="Koshi Tappu Wildlife Reserve" data-ne="कोशी टप्पु वन्यजन्तु आरक्ष">Koshi Tappu Wildlife Reserve</h4>
-        <p data-en="Home to wild water buffalo and over 500 bird species, a nature lover's paradise." data-ne="जङ्गली भैँसी र ५०० भन्दा बढी चरा प्रजातिहरूको घर, प्रकृति प्रेमीको स्वर्ग।">Home to wild water buffalo and over 500 bird species, a nature lover's paradise.</p>
-        <div class="dist"><i class="fas fa-route"></i> <span data-en="~4 hours drive" data-ne="~४ घण्टा ड्राइभ">~4 hours drive</span></div>
-      </div>
-      <div class="destination-card animate-from-right delay-2">
-        <i class="fas fa-kaaba"></i>
-        <h4 data-en="Baraha Kshetra" data-ne="बराह क्षेत्र">Baraha Kshetra</h4>
-        <p data-en="Sacred Hindu pilgrimage site at the confluence of Koshi and Baraha rivers." data-ne="कोशी र बराह नदीको संगममा अवस्थित पवित्र हिन्दू तीर्थस्थल।">Sacred Hindu pilgrimage site at the confluence of Koshi and Baraha rivers.</p>
-        <div class="dist"><i class="fas fa-route"></i> <span data-en="~2.5 hours drive" data-ne="~२.५ घण्टा ड्राइभ">~2.5 hours drive</span></div>
-      </div>
+      <div class="destination-card animate-from-left"><i class="fas fa-mountain"></i><h4 data-en="Kanchanjunga Mountain" data-ne="कञ्चनजङ्घा हिमाल">Kanchanjunga Mountain</h4><p data-en="Third highest peak in the world, visible on clear days from Damak." data-ne="विश्वको तेस्रो अग्लो हिमाल, दमकबाट सफा दिनमा देखिन्छ।">Third highest peak in the world, visible on clear days from Damak.</p><div class="dist"><i class="fas fa-route"></i> <span data-en="~3 hours drive" data-ne="~३ घण्टा ड्राइभ">~3 hours drive</span></div></div>
+      <div class="destination-card animate-from-right"><i class="fas fa-temple"></i><h4 data-en="Pathibhara Devi Temple" data-ne="पाथिभरा देवी मन्दिर">Pathibhara Devi Temple</h4><p data-en="Sacred pilgrimage site with stunning views of the eastern Himalayas." data-ne="पूर्वी हिमालयको मनमोहक दृश्य भएको पवित्र तीर्थस्थल।">Sacred pilgrimage site with stunning views of the eastern Himalayas.</p><div class="dist"><i class="fas fa-route"></i> <span data-en="~4 hours drive" data-ne="~४ घण्टा ड्राइभ">~4 hours drive</span></div></div>
+      <div class="destination-card animate-from-left delay-1"><i class="fas fa-city"></i><h4 data-en="Biratnagar" data-ne="विराटनगर">Biratnagar</h4><p data-en="Industrial hub and gateway to eastern Nepal with rich cultural heritage." data-ne="पूर्वी नेपालको औद्योगिक केन्द्र र समृद्ध सांस्कृतिक सम्पदाको प्रवेशद्वार।">Industrial hub and gateway to eastern Nepal with rich cultural heritage.</p><div class="dist"><i class="fas fa-route"></i> <span data-en="~1.5 hours drive" data-ne="~१.५ घण्टा ड्राइभ">~1.5 hours drive</span></div></div>
+      <div class="destination-card animate-from-right delay-1"><i class="fas fa-leaf"></i><h4 data-en="Ilam Tea Gardens" data-ne="इलाम चिया बगान">Ilam Tea Gardens</h4><p data-en="Lush green tea estates offering breathtaking views and fresh tea." data-ne="हरियाली चिया बगानहरू जसले मनमोहक दृश्य र ताजा चिया प्रदान गर्दछ।">Lush green tea estates offering breathtaking views and fresh tea.</p><div class="dist"><i class="fas fa-route"></i> <span data-en="~5 hours drive" data-ne="~५ घण्टा ड्राइभ">~5 hours drive</span></div></div>
+      <div class="destination-card animate-from-left delay-2"><i class="fas fa-water"></i><h4 data-en="Koshi Tappu Wildlife Reserve" data-ne="कोशी टप्पु वन्यजन्तु आरक्ष">Koshi Tappu Wildlife Reserve</h4><p data-en="Home to wild water buffalo and over 500 bird species, a nature lover's paradise." data-ne="जङ्गली भैँसी र ५०० भन्दा बढी चरा प्रजातिहरूको घर, प्रकृति प्रेमीको स्वर्ग।">Home to wild water buffalo and over 500 bird species, a nature lover's paradise.</p><div class="dist"><i class="fas fa-route"></i> <span data-en="~4 hours drive" data-ne="~४ घण्टा ड्राइभ">~4 hours drive</span></div></div>
+      <div class="destination-card animate-from-right delay-2"><i class="fas fa-kaaba"></i><h4 data-en="Baraha Kshetra" data-ne="बराह क्षेत्र">Baraha Kshetra</h4><p data-en="Sacred Hindu pilgrimage site at the confluence of Koshi and Baraha rivers." data-ne="कोशी र बराह नदीको संगममा अवस्थित पवित्र हिन्दू तीर्थस्थल।">Sacred Hindu pilgrimage site at the confluence of Koshi and Baraha rivers.</p><div class="dist"><i class="fas fa-route"></i> <span data-en="~2.5 hours drive" data-ne="~२.५ घण्टा ड्राइभ">~2.5 hours drive</span></div></div>
     </div>
   </section>
 
-  <!-- ============================================ -->
-  <!-- NEW SECTION: WEDDING & EVENTS                -->
-  <!-- ============================================ -->
+  <!-- Events -->
   <section id="events" style="margin: 40px 0 24px;">
     <div class="section-title animate-on-scroll"><i class="fas fa-calendar-plus"></i> <span data-en="Wedding &amp; Event Venue in Damak" data-ne="दमकमा विवाह र कार्यक्रम स्थल">Wedding &amp; Event Venue in Damak</span></div>
     <div class="events-section animate-on-scroll">
       <h3 data-en="Banquet Hall &amp; Outdoor Space for Weddings and Corporate Events" data-ne="विवाह र कर्पोरेट कार्यक्रमहरूको लागि बैंक्वेट हल र बाहिरी स्थान">Banquet Hall &amp; Outdoor Space for Weddings and Corporate Events</h3>
       <p class="events-desc" data-en="Our banquet hall and outdoor space host weddings, receptions, corporate meetings and conferences in Damak and across Jhapa. Catering is prepared in our own kitchen, with veg and non-veg menus built to your budget. The hall seats up to 120 guests indoors, with additional space in the outdoor area. Per-plate catering starts at Rs 550. Free parking is available for guests." data-ne="हाम्रो बैंक्वेट हल र बाहिरी स्थानले दमक र झापाभरि विवाह, स्वागत समारोह, कर्पोरेट बैठक र सम्मेलनहरू आयोजना गर्दछ। केटरिङ हाम्रो आफ्नै किचनमा तयार गरिन्छ, तपाईंको बजेट अनुसार भेग र नन-भेग मेनुहरू सहित। हलले भित्र १२० पाहुनासम्म बस्न सक्छ, बाहिरी क्षेत्रमा थप ठाउँको साथ। प्रति प्लेट केटरिङ रु. ५५० बाट सुरु हुन्छ। पाहुनाहरूको लागि नि:शुल्क पार्किङ उपलब्ध छ।">Our banquet hall and outdoor space host weddings, receptions, corporate meetings and conferences in Damak and across Jhapa. Catering is prepared in our own kitchen, with veg and non-veg menus built to your budget. The hall seats up to 120 guests indoors, with additional space in the outdoor area. Per-plate catering starts at Rs 550. Free parking is available for guests.</p>
       <p class="events-desc" data-en="To check a date, call 985-2630088 or message us on WhatsApp." data-ne="मिति जाँच गर्न, 985-2630088 मा कल गर्नुहोस् वा हामीलाई ह्वाट्सएपमा सन्देश पठाउनुहोस्।">To check a date, call 985-2630088 or message us on WhatsApp.</p>
-      <div class="events-features">
-        <span><i class="fas fa-ring"></i> <span data-en="Weddings" data-ne="विवाह">Weddings</span></span>
-        <span><i class="fas fa-users"></i> <span data-en="Corporate Events" data-ne="कर्पोरेट कार्यक्रम">Corporate Events</span></span>
-        <span><i class="fas fa-glass-cheers"></i> <span data-en="Celebrations" data-ne="समारोह">Celebrations</span></span>
-        <span><i class="fas fa-utensils"></i> <span data-en="Exquisite Catering" data-ne="उत्कृष्ट केटरिङ">Exquisite Catering</span></span>
-        <span><i class="fas fa-tree"></i> <span data-en="Outdoor Spaces" data-ne="बाहिरी स्थानहरू">Outdoor Spaces</span></span>
-        <span><i class="fas fa-music"></i> <span data-en="Customizable Décor" data-ne="अनुकूलन योग्य सजावट">Customizable Décor</span></span>
-      </div>
+      <div class="events-features"><span><i class="fas fa-ring"></i> <span data-en="Weddings" data-ne="विवाह">Weddings</span></span><span><i class="fas fa-users"></i> <span data-en="Corporate Events" data-ne="कर्पोरेट कार्यक्रम">Corporate Events</span></span><span><i class="fas fa-glass-cheers"></i> <span data-en="Celebrations" data-ne="समारोह">Celebrations</span></span><span><i class="fas fa-utensils"></i> <span data-en="Exquisite Catering" data-ne="उत्कृष्ट केटरिङ">Exquisite Catering</span></span><span><i class="fas fa-tree"></i> <span data-en="Outdoor Spaces" data-ne="बाहिरी स्थानहरू">Outdoor Spaces</span></span><span><i class="fas fa-music"></i> <span data-en="Customizable Décor" data-ne="अनुकूलन योग्य सजावट">Customizable Décor</span></span></div>
       <a href="#book-now" class="btn btn-gold" data-en="Plan Your Event" data-ne="आफ्नो कार्यक्रम योजना गर्नुहोस्"><i class="fas fa-calendar-plus"></i> <span>Plan Your Event</span></a>
     </div>
   </section>
@@ -2555,52 +2567,249 @@
     <div class="section-title animate-on-scroll"><i class="fas fa-concierge-bell"></i> <span data-en="Facilities" data-ne="सुविधाहरू">Facilities</span></div>
     <p class="section-sub animate-on-scroll" data-en="Free Wi-Fi throughout, free parking, wheelchair ramps and accessible seating, outdoor seating, kids' menu and high chairs, live music on evenings, takeaway, card and mobile wallet and cash payment, free delivery within 1 km, banquet hall, conference room." data-ne="सबै ठाउँमा नि:शुल्क वाइफाई, नि:शुल्क पार्किङ, पाङ्ग्रे कुर्सी र्याम्प र पहुँचयोग्य बस्ने स्थान, बाहिरी बस्ने स्थान, बालबालिकाको मेनु र उच्च कुर्सी, साँझमा लाइभ संगीत, टेकअवे, कार्ड र मोबाइल वालेट र नगद भुक्तानी, १ किमि भित्र नि:शुल्क डेलिभरी, बैंक्वेट हल, सम्मेलन कोठा।">Free Wi-Fi throughout, free parking, wheelchair ramps and accessible seating, outdoor seating, kids' menu and high chairs, live music on evenings, takeaway, card and mobile wallet and cash payment, free delivery within 1 km, banquet hall, conference room.</p>
     <div class="facilities-grid">
-      <div class="facility-card animate-from-left"><i class="fas fa-wifi"></i>
-        <h4 data-en="Free Wi-Fi" data-ne="नि:शुल्क वाइफाई">Free Wi-Fi</h4>
-        <p data-en="High-speed internet throughout" data-ne="सबै ठाउँमा उच्च-गतिको इन्टरनेट">High-speed internet throughout</p>
-      </div>
-      <div class="facility-card animate-from-right"><i class="fas fa-parking"></i>
-        <h4 data-en="Free Parking" data-ne="नि:शुल्क पार्किङ">Free Parking</h4>
-        <p data-en="Ample space for vehicles" data-ne="सवारी साधनको लागि पर्याप्त ठाउँ">Ample space for vehicles</p>
-      </div>
-      <div class="facility-card animate-from-left delay-1"><i class="fas fa-wheelchair"></i>
-        <h4 data-en="Wheelchair Access" data-ne="पाङ्ग्रे कुर्सी पहुँच">Wheelchair Access</h4>
-        <p data-en="Ramps &amp; accessible seating" data-ne="र्याम्प र पहुँचयोग्य बस्ने ठाउँ">Ramps &amp; accessible seating</p>
-      </div>
-      <div class="facility-card animate-from-right delay-1"><i class="fas fa-tree"></i>
-        <h4 data-en="Outdoor Seating" data-ne="बाहिरी बस्ने स्थान">Outdoor Seating</h4>
-        <p data-en="Relax in the fresh air" data-ne="ताजा हावामा आराम गर्नुहोस्">Relax in the fresh air</p>
-      </div>
-      <div class="facility-card animate-from-left delay-2"><i class="fas fa-baby"></i>
-        <h4 data-en="Kids Friendly" data-ne="बालमैत्री">Kids Friendly</h4>
-        <p data-en="High chairs &amp; kids menu" data-ne="उच्च कुर्सी र बालबालिकाको मेनु">High chairs &amp; kids menu</p>
-      </div>
-      <div class="facility-card animate-from-right delay-2"><i class="fas fa-music"></i>
-        <h4 data-en="Live Music" data-ne="लाइभ संगीत">Live Music</h4>
-        <p data-en="Evenings with local artists" data-ne="स्थानीय कलाकारहरूसँग साँझ">Evenings with local artists</p>
-      </div>
-      <div class="facility-card animate-from-left delay-3"><i class="fas fa-coffee"></i>
-        <h4 data-en="Takeaway" data-ne="टेकअवे">Takeaway</h4>
-        <p data-en="Order &amp; pick up on the go" data-ne="अर्डर गर्नुहोस् र जाँदै लिनुहोस्">Order &amp; pick up on the go</p>
-      </div>
-      <div class="facility-card animate-from-right delay-3"><i class="fas fa-credit-card"></i>
-        <h4 data-en="Card Payment" data-ne="कार्ड भुक्तानी">Card Payment</h4>
-        <p data-en="Visa, Mastercard &amp; mobile" data-ne="भिसा, मास्टरकार्ड र मोबाइल">Visa, Mastercard &amp; mobile</p>
-      </div>
-      <div class="facility-card animate-from-left delay-3" style="border-color:var(--gold); background:var(--delivery-light);"><i class="fas fa-motorcycle" style="color:var(--delivery-green);"></i>
-        <h4 style="color:var(--delivery-green);" data-en="Free Delivery" data-ne="नि:शुल्क डेलिभरी">Free Delivery</h4>
-        <p data-en="Within 1 km radius" data-ne="१ किमि दायरा भित्र">Within 1 km radius</p>
-      </div>
-      <div class="facility-card animate-from-right delay-3"><i class="fas fa-ring"></i>
-        <h4 data-en="Wedding Venue" data-ne="विवाह स्थल">Wedding Venue</h4>
-        <p data-en="Elegant banquet hall &amp; outdoor spaces" data-ne="सुन्दर बैंक्वेट हल र बाहिरी स्थानहरू">Elegant banquet hall &amp; outdoor spaces</p>
-      </div>
-      <div class="facility-card animate-from-left delay-3"><i class="fas fa-chalkboard"></i>
-        <h4 data-en="Conference Hall" data-ne="सम्मेलन हल">Conference Hall</h4>
-        <p data-en="Corporate events &amp; meetings" data-ne="कर्पोरेट कार्यक्रम र बैठकहरू">Corporate events &amp; meetings</p>
-      </div>
+      <div class="facility-card animate-from-left"><i class="fas fa-wifi"></i><h4 data-en="Free Wi-Fi" data-ne="नि:शुल्क वाइफाई">Free Wi-Fi</h4><p data-en="High-speed internet throughout" data-ne="सबै ठाउँमा उच्च-गतिको इन्टरनेट">High-speed internet throughout</p></div>
+      <div class="facility-card animate-from-right"><i class="fas fa-parking"></i><h4 data-en="Free Parking" data-ne="नि:शुल्क पार्किङ">Free Parking</h4><p data-en="Ample space for vehicles" data-ne="सवारी साधनको लागि पर्याप्त ठाउँ">Ample space for vehicles</p></div>
+      <div class="facility-card animate-from-left delay-1"><i class="fas fa-wheelchair"></i><h4 data-en="Wheelchair Access" data-ne="पाङ्ग्रे कुर्सी पहुँच">Wheelchair Access</h4><p data-en="Ramps &amp; accessible seating" data-ne="र्याम्प र पहुँचयोग्य बस्ने ठाउँ">Ramps &amp; accessible seating</p></div>
+      <div class="facility-card animate-from-right delay-1"><i class="fas fa-tree"></i><h4 data-en="Outdoor Seating" data-ne="बाहिरी बस्ने स्थान">Outdoor Seating</h4><p data-en="Relax in the fresh air" data-ne="ताजा हावामा आराम गर्नुहोस्">Relax in the fresh air</p></div>
+      <div class="facility-card animate-from-left delay-2"><i class="fas fa-baby"></i><h4 data-en="Kids Friendly" data-ne="बालमैत्री">Kids Friendly</h4><p data-en="High chairs &amp; kids menu" data-ne="उच्च कुर्सी र बालबालिकाको मेनु">High chairs &amp; kids menu</p></div>
+      <div class="facility-card animate-from-right delay-2"><i class="fas fa-music"></i><h4 data-en="Live Music" data-ne="लाइभ संगीत">Live Music</h4><p data-en="Evenings with local artists" data-ne="स्थानीय कलाकारहरूसँग साँझ">Evenings with local artists</p></div>
+      <div class="facility-card animate-from-left delay-3"><i class="fas fa-coffee"></i><h4 data-en="Takeaway" data-ne="टेकअवे">Takeaway</h4><p data-en="Order &amp; pick up on the go" data-ne="अर्डर गर्नुहोस् र जाँदै लिनुहोस्">Order &amp; pick up on the go</p></div>
+      <div class="facility-card animate-from-right delay-3"><i class="fas fa-credit-card"></i><h4 data-en="Card Payment" data-ne="कार्ड भुक्तानी">Card Payment</h4><p data-en="Visa, Mastercard &amp; mobile" data-ne="भिसा, मास्टरकार्ड र मोबाइल">Visa, Mastercard &amp; mobile</p></div>
+      <div class="facility-card animate-from-left delay-3" style="border-color:var(--gold); background:var(--delivery-light);"><i class="fas fa-motorcycle" style="color:var(--delivery-green);"></i><h4 style="color:var(--delivery-green);" data-en="Free Delivery" data-ne="नि:शुल्क डेलिभरी">Free Delivery</h4><p data-en="Within 1 km radius" data-ne="१ किमि दायरा भित्र">Within 1 km radius</p></div>
+      <div class="facility-card animate-from-right delay-3"><i class="fas fa-ring"></i><h4 data-en="Wedding Venue" data-ne="विवाह स्थल">Wedding Venue</h4><p data-en="Elegant banquet hall &amp; outdoor spaces" data-ne="सुन्दर बैंक्वेट हल र बाहिरी स्थानहरू">Elegant banquet hall &amp; outdoor spaces</p></div>
+      <div class="facility-card animate-from-left delay-3"><i class="fas fa-chalkboard"></i><h4 data-en="Conference Hall" data-ne="सम्मेलन हल">Conference Hall</h4><p data-en="Corporate events &amp; meetings" data-ne="कर्पोरेट कार्यक्रम र बैठकहरू">Corporate events &amp; meetings</p></div>
     </div>
   </section>
+
+  <!-- ============================================ -->
+  <!-- BLOG SECTION (5 blog posts)                  -->
+  <!-- ============================================ -->
+  <section id="blog" style="margin: 40px 0 24px;">
+    <div class="section-title animate-on-scroll"><i class="fas fa-newspaper"></i> <span data-en="Latest from Our Blog" data-ne="हाम्रो ब्लगबाट पछिल्लो">Latest from Our Blog</span></div>
+    <p class="section-sub animate-on-scroll" data-en="Practical guides and local insights for travellers, families and event planners in Damak, Jhapa and eastern Nepal." data-ne="दमक, झापा र पूर्वी नेपालका यात्रु, परिवार र कार्यक्रम आयोजकहरूका लागि व्यावहारिक गाइड र स्थानीय अन्तरदृष्टि।">Practical guides and local insights for travellers, families and event planners in Damak, Jhapa and eastern Nepal.</p>
+    <div class="blog-grid" id="blogGrid">
+
+      <!-- BLOG POST 1: Best Hotel in Damak -->
+      <div class="blog-card animate-from-left">
+        <div class="blog-image"><img src="https://picsum.photos/seed/hotel-damak-blog/800/500" alt="Best Hotel in Damak near East-West Highway" loading="lazy" /><span class="blog-category" data-en="Accommodation" data-ne="आवास">Accommodation</span></div>
+        <div class="blog-body">
+          <div class="blog-date"><i class="fas fa-calendar-alt"></i> 1 September 2026</div>
+          <h3 data-en="Best Hotel in Damak Near the East-West Highway: A Practical Local Stay Guide" data-ne="दमकको उत्कृष्ट होटल पूर्व-पश्चिम राजमार्ग नजिक: एक व्यावहारिक स्थानीय बसाइ गाइड">Best Hotel in Damak Near the East-West Highway: A Practical Local Stay Guide</h3>
+          <div class="blog-excerpt" data-en="Finding the best hotel in Damak is less about choosing the grandest building and more about choosing the right base for your journey. A useful hotel should be easy to locate, comfortable after a long road trip, and suitable for your group size. Hotel Bella Cafe brings accommodation, dining and cafe service together at MM6V+WJH, Damak 57217, with five room categories and direct booking by phone or WhatsApp." data-ne="दमकको उत्कृष्ट होटल पत्ता लगाउनु भनेको सबैभन्दा भव्य भवन छनौट गर्नुभन्दा पनि तपाईंको यात्राको लागि सही आधार छनौट गर्नु हो। एक उपयोगी होटल पत्ता लगाउन सजिलो, लामो सडक यात्रा पछि आरामदायी र तपाईंको समूहको आकारको लागि उपयुक्त हुनुपर्दछ। होटल बेला क्याफेले MM6V+WJH, दमक ५७२१७ मा आवास, भोजन र क्याफे सेवा एकै ठाउँमा ल्याउँछ, जसमा पाँच कोठा श्रेणीहरू र फोन वा ह्वाट्सएपद्वारा प्रत्यक्ष बुकिङ छ।">Finding the best hotel in Damak is less about choosing the grandest building and more about choosing the right base for your journey. A useful hotel should be easy to locate, comfortable after a long road trip, and suitable for your group size. Hotel Bella Cafe brings accommodation, dining and cafe service together at MM6V+WJH, Damak 57217, with five room categories and direct booking by phone or WhatsApp.</div>
+          <button class="read-more-btn" data-blog="1"><i class="fas fa-book-open"></i> <span data-en="Read More" data-ne="थप पढ्नुहोस्">Read More</span></button>
+        </div>
+      </div>
+
+      <!-- BLOG POST 2: Things to Do Near Damak -->
+      <div class="blog-card animate-from-right">
+        <div class="blog-image"><img src="https://picsum.photos/seed/damak-travel-blog/800/500" alt="Things to do near Damak, Jhapa" loading="lazy" /><span class="blog-category" data-en="Travel" data-ne="यात्रा">Travel</span></div>
+        <div class="blog-body">
+          <div class="blog-date"><i class="fas fa-calendar-alt"></i> 1 September 2026</div>
+          <h3 data-en="Things to Do Near Damak, Jhapa: Local Day Trips, Temples, Tea Gardens and Travel Times" data-ne="दमक, झापा नजिक गर्न मिल्ने कुराहरू: स्थानीय डे-ट्रिप, मन्दिरहरू, चिया बगान र यात्रा समय">Things to Do Near Damak, Jhapa: Local Day Trips, Temples, Tea Gardens and Travel Times</h3>
+          <div class="blog-excerpt" data-en="The best things to do near Damak, Jhapa range from short riverside and religious outings to full-day drives toward Ilam's tea country and Koshi Tappu's wetlands. Damak's position on the East-West Highway makes it a practical starting point, but not every famous destination in eastern Nepal is a simple day trip. This local guide separates nearby outings from longer journeys and gives realistic planning ranges." data-ne="दमक, झापा नजिकका उत्कृष्ट गतिविधिहरू छोटो नदी किनारका र धार्मिक भ्रमणहरूदेखि इलामको चिया क्षेत्र र कोशी टप्पुका सिमसार क्षेत्रहरूतर्फको पूर्ण-दिनको ड्राइभसम्म फैलिएका छन्। पूर्व-पश्चिम राजमार्गमा दमकको स्थानले यसलाई व्यावहारिक सुरूवात बिन्दु बनाउँछ, तर पूर्वी नेपालको हरेक प्रसिद्ध गन्तव्य साधारण डे-ट्रिप होइन। यो स्थानीय गाइडले नजिकका भ्रमणहरूलाई लामो यात्राहरूबाट अलग गर्दछ र यथार्थवादी योजना दायराहरू दिन्छ।">The best things to do near Damak, Jhapa range from short riverside and religious outings to full-day drives toward Ilam's tea country and Koshi Tappu's wetlands. Damak's position on the East-West Highway makes it a practical starting point, but not every famous destination in eastern Nepal is a simple day trip. This local guide separates nearby outings from longer journeys and gives realistic planning ranges.</div>
+          <button class="read-more-btn" data-blog="2"><i class="fas fa-book-open"></i> <span data-en="Read More" data-ne="थप पढ्नुहोस्">Read More</span></button>
+        </div>
+      </div>
+
+      <!-- BLOG POST 3: Wedding Venue in Damak -->
+      <div class="blog-card animate-from-left delay-1">
+        <div class="blog-image"><img src="https://picsum.photos/seed/wedding-damak-blog/800/500" alt="Wedding venue in Damak planning guide" loading="lazy" /><span class="blog-category" data-en="Events" data-ne="कार्यक्रमहरू">Events</span></div>
+        <div class="blog-body">
+          <div class="blog-date"><i class="fas fa-calendar-alt"></i> 1 September 2026</div>
+          <h3 data-en="How to Plan a Wedding in Damak: Venue, Catering, Rooms and 2083 Lagan Dates" data-ne="दमकमा विवाह कसरी योजना गर्ने: स्थल, केटरिङ, कोठा र २०८३ लगन मितिहरू">How to Plan a Wedding in Damak: Venue, Catering, Rooms and 2083 Lagan Dates</h3>
+          <div class="blog-excerpt" data-en="Choosing a wedding venue in Damak is one of the first decisions that affects nearly every other part of a Nepali wedding, including the guest list, janti arrival, mandap layout, catering, parking, photography and rooms for relatives. Hotel Bella Cafe promotes a banquet hall, outdoor spaces, customisable décor, in-house food service and accommodation at MM6V+WJH, Damak 57217." data-ne="दमकमा विवाह स्थल छनौट गर्नु नेपाली विवाहको लगभग हरेक अन्य भागलाई असर गर्ने पहिलो निर्णयहरू मध्ये एक हो, जसमा अतिथि सूची, जन्ती आगमन, मण्डप लेआउट, केटरिङ, पार्किङ, फोटोग्राफी र नातेदारहरूका लागि कोठाहरू समावेश छन्। होटल बेला क्याफेले MM6V+WJH, दमक ५७२१७ मा बैंक्वेट हल, बाहिरी स्थानहरू, अनुकूलन योग्य सजावट, घरेलु खाना सेवा र आवास प्रवर्द्धन गर्दछ।">Choosing a wedding venue in Damak is one of the first decisions that affects nearly every other part of a Nepali wedding, including the guest list, janti arrival, mandap layout, catering, parking, photography and rooms for relatives. Hotel Bella Cafe promotes a banquet hall, outdoor spaces, customisable décor, in-house food service and accommodation at MM6V+WJH, Damak 57217.</div>
+          <button class="read-more-btn" data-blog="3"><i class="fas fa-book-open"></i> <span data-en="Read More" data-ne="थप पढ्नुहोस्">Read More</span></button>
+        </div>
+      </div>
+
+      <!-- BLOG POST 4: Coffee and Nepali Food -->
+      <div class="blog-card animate-from-right delay-1">
+        <div class="blog-image"><img src="https://picsum.photos/seed/coffee-nepali-blog/800/500" alt="Coffee and Nepali food in Damak at Bella Cafe" loading="lazy" /><span class="blog-category" data-en="Food &amp; Drink" data-ne="खाना र पेय">Food &amp; Drink</span></div>
+        <div class="blog-body">
+          <div class="blog-date"><i class="fas fa-calendar-alt"></i> 1 September 2026</div>
+          <h3 data-en="Coffee and Nepali Food in Damak: A Local Guide to the Bella Cafe Menu" data-ne="दमकमा कफी र नेपाली खाना: बेला क्याफे मेनुको स्थानीय गाइड">Coffee and Nepali Food in Damak: A Local Guide to the Bella Cafe Menu</h3>
+          <div class="blog-excerpt" data-en="Coffee and Nepali food in Damak no longer belong to two completely different dining occasions. A group may want a proper daal-bhat style meal, a cappuccino, children's pizza and a quick snack at the same table. Bella Cafe serves that mixed local demand with Nepali-style curries, rice, roti, biryani, continental choices, breakfast, coffee, shakes and desserts." data-ne="दमकमा कफी र नेपाली खाना अब दुई पूर्ण रूपमा फरक भोजन अवसरहरूमा सीमित छैनन्। एउटा समूहले उचित दाल-भात शैलीको खाना, क्यापुचिनो, बालबालिकाको पिज्जा र द्रुत नास्ता एउटै टेबलमा चाहन सक्छ। बेला क्याफेले त्यो मिश्रित स्थानीय मागलाई नेपाली शैलीको करी, चामल, रोटी, बिर्यानी, कन्टिनेन्टल विकल्प, नास्ता, कफी, शेक र मिठाईहरूको साथ सेवा गर्दछ।">Coffee and Nepali food in Damak no longer belong to two completely different dining occasions. A group may want a proper daal-bhat style meal, a cappuccino, children's pizza and a quick snack at the same table. Bella Cafe serves that mixed local demand with Nepali-style curries, rice, roti, biryani, continental choices, breakfast, coffee, shakes and desserts.</div>
+          <button class="read-more-btn" data-blog="4"><i class="fas fa-book-open"></i> <span data-en="Read More" data-ne="थप पढ्नुहोस्">Read More</span></button>
+        </div>
+      </div>
+
+      <!-- BLOG POST 5: Family-Friendly Restaurant -->
+      <div class="blog-card animate-from-left delay-2">
+        <div class="blog-image"><img src="https://picsum.photos/seed/family-restaurant-blog/800/500" alt="Family-friendly restaurant in Damak" loading="lazy" /><span class="blog-category" data-en="Family" data-ne="परिवार">Family</span></div>
+        <div class="blog-body">
+          <div class="blog-date"><i class="fas fa-calendar-alt"></i> 1 September 2026</div>
+          <h3 data-en="Family-Friendly Restaurant in Damak: A Local Guide for Parents and Group Dining" data-ne="दमकमा परिवार-मैत्री रेस्टुरेन्ट: अभिभावक र समूह भोजनको लागि स्थानीय गाइड">Family-Friendly Restaurant in Damak: A Local Guide for Parents and Group Dining</h3>
+          <div class="blog-excerpt" data-en="A family-friendly restaurant in Damak needs more than a few dishes children might eat. Nepali family dining often includes grandparents, parents, teenagers and young children at the same table, so seating, washroom access, parking, noise, spice level, service pace and menu variety all matter. Bella Cafe lists high chairs, a kids menu, indoor and outdoor seating, wheelchair access, free parking and a multi-cuisine menu." data-ne="दमकमा एक परिवार-मैत्री रेस्टुरेन्टलाई बालबालिकाले खान सक्ने केही परिकारहरू मात्र होइन, अझ बढी चाहिन्छ। नेपाली पारिवारिक भोजनमा प्रायः हजुरबुबा-हजुरआमा, आमाबाबु, किशोरकिशोरी र साना बालबालिकाहरू एउटै टेबलमा हुन्छन्, त्यसैले बस्ने ठाउँ, वाशरूम पहुँच, पार्किङ, आवाज, मसलाको स्तर, सेवाको गति र मेनु विविधता सबै महत्त्वपूर्ण हुन्छन्। बेला क्याफेले उच्च कुर्सी, बालबालिकाको मेनु, भित्री र बाहिरी बस्ने स्थान, पाङ्ग्रे कुर्सी पहुँच, नि:शुल्क पार्किङ र बहु-भोजन मेनु सूचीबद्ध गर्दछ।">A family-friendly restaurant in Damak needs more than a few dishes children might eat. Nepali family dining often includes grandparents, parents, teenagers and young children at the same table, so seating, washroom access, parking, noise, spice level, service pace and menu variety all matter. Bella Cafe lists high chairs, a kids menu, indoor and outdoor seating, wheelchair access, free parking and a multi-cuisine menu.</div>
+          <button class="read-more-btn" data-blog="5"><i class="fas fa-book-open"></i> <span data-en="Read More" data-ne="थप पढ्नुहोस्">Read More</span></button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- BLOG MODALS (full content for each post)     -->
+  <!-- ============================================ -->
+
+  <!-- Blog Modal 1 -->
+  <div class="blog-modal-overlay" id="blogModal1">
+    <div class="blog-modal">
+      <button class="close-modal" data-modal="1"><i class="fas fa-times"></i></button>
+      <div class="modal-image"><img src="https://picsum.photos/seed/hotel-damak-blog/800/500" alt="Best Hotel in Damak" /></div>
+      <span class="modal-category" data-en="Accommodation" data-ne="आवास">Accommodation</span>
+      <h2 class="modal-title" data-en="Best Hotel in Damak Near the East-West Highway: A Practical Local Stay Guide" data-ne="दमकको उत्कृष्ट होटल पूर्व-पश्चिम राजमार्ग नजिक: एक व्यावहारिक स्थानीय बसाइ गाइड">Best Hotel in Damak Near the East-West Highway: A Practical Local Stay Guide</h2>
+      <div class="modal-date"><i class="fas fa-calendar-alt"></i> 1 September 2026</div>
+      <div class="modal-content" data-en="
+        <p>Finding the best hotel in Damak is less about choosing the grandest building and more about choosing the right base for your journey. A useful hotel should be easy to locate, comfortable after a long road trip, suitable for your group size and close to food, transport and the places you need to visit. Hotel Bella Cafe &amp; Restaurant brings accommodation, dining and cafe service together at MM6V+WJH, Damak 57217, Jhapa, with five room categories and direct booking by phone or WhatsApp.</p>
+        <p>For Nepali families, business visitors and travellers moving along the East-West Highway, practical details matter. Is there parking? Can the family eat without travelling to another restaurant? Is there an attached bathroom, air conditioning and reliable Wi-Fi? Can someone check availability before leaving Birtamode, Urlabari or Bhadrapur Airport?</p>
+        <h4>Why Damak Is a Useful Stop in Eastern Nepal</h4>
+        <p>Damak sits in Jhapa district in Koshi Province. The municipality borders Chulachuli in Ilam to the north, Gauradaha to the south, Kamal to the east, and Miklajung and Urlabari toward the west. That position places Damak between the Terai highway corridor and the hill routes used for Ilam, Panchthar and Taplejung. It is therefore useful for more than overnight tourism. People stay for family visits, hospital or education-related work, business meetings, weddings, onward road journeys and airport connections.</p>
+        <p>Bhadrapur Airport is approximately 45 km by road from Damak, with online route planners estimating around 45 minutes in light traffic. Real travel time can be longer because of roadworks, market traffic and weather. Travellers arriving on a late flight should therefore confirm their vehicle and room before departure rather than relying only on the estimated time shown on a map.</p>
+        <h4>Hotel Bella Cafe Room Types and Published Prices</h4>
+        <div class='highlight-box'><p><strong>Standard Room:</strong> NPR 3,500/night · 2 guests · Wi-Fi, Smart TV, AC, attached bath</p><p><strong>Deluxe Single Room:</strong> NPR 4,000/night · 2 guests · Standard facilities plus coffee maker</p><p><strong>Deluxe Double Room:</strong> NPR 4,500/night · 3 guests · Spacious room, work desk and city-view</p><p><strong>Suite Room:</strong> NPR 5,000/night · 4 guests · Separate living area, jacuzzi, coffee maker and mini bar</p><p><strong>Family Room:</strong> NPR 5,500/night · 5 guests · Two queen beds, sitting area, AC and attached bath</p></div>
+        <p><a href='https://hotelbellacafedmk.com/#rooms' style='color:var(--gold-dark); font-weight:600;'>View the current room information and booking options →</a></p>
+        <h4>What to Check Before You Book a Hotel in Damak</h4>
+        <ul><li><strong>Confirm the exact total, not only the room rate</strong> — Ask whether the quoted price includes taxes, breakfast and any additional guest charge.</li><li><strong>Match the room to the people actually staying</strong> — Share the number of adults, children and elderly guests before paying an advance.</li><li><strong>Ask about vehicle parking and arrival time</strong> — Confirm available space in advance, especially on event days.</li><li><strong>Verify the amenities important to your trip</strong> — Ask specifically about the feature you cannot travel without.</li><li><strong>Save the map pin and phone number</strong> — Save the hotel's primary number, +977 985-2630088, and the landline, 023-591588.</li></ul>
+        <p><strong>How to Book:</strong> Call +977 985-2630088 or message the same number on <a href='https://wa.me/9779852630088' style='color:var(--gold-dark); font-weight:600;'>WhatsApp</a>. Share your check-in date, expected arrival time, room preference, number of adults and children, and any accessibility requirement.</p>
+      " data-ne="
+        <p>दमकको उत्कृष्ट होटल पत्ता लगाउनु भनेको सबैभन्दा भव्य भवन छनौट गर्नुभन्दा पनि तपाईंको यात्राको लागि सही आधार छनौट गर्नु हो। एक उपयोगी होटल पत्ता लगाउन सजिलो, लामो सडक यात्रा पछि आरामदायी, तपाईंको समूहको आकारको लागि उपयुक्त र खाना, यातायात र तपाईंले भ्रमण गर्न चाहनुभएको ठाउँहरूको नजिक हुनुपर्दछ। होटल बेला क्याफे र रेस्टुरेन्टले MM6V+WJH, दमक ५७२१७, झापामा पाँच कोठा श्रेणीहरू र फोन वा ह्वाट्सएपद्वारा प्रत्यक्ष बुकिङको साथ आवास, भोजन र क्याफे सेवा एकै ठाउँमा ल्याउँछ।</p>
+        <p>नेपाली परिवार, व्यापार आगन्तुक र पूर्व-पश्चिम राजमार्गमा यात्रा गर्ने यात्रुहरूका लागि व्यावहारिक विवरणहरू महत्त्वपूर्ण छन्। के पार्किङ छ? के परिवार अर्को रेस्टुरेन्टमा यात्रा नगरी खान सक्छ? के संलग्न बाथरूम, एयर कन्डिसनिङ र भरपर्दो वाइफाई छ? के कोही बिर्तामोड, उर्लाबारी वा भद्रपुर एयरपोर्ट छोड्नु अघि उपलब्धता जाँच गर्न सक्छ?</p>
+        <h4>पूर्वी नेपालमा दमक किन एक उपयोगी स्टप हो</h4>
+        <p>दमक कोशी प्रदेशको झापा जिल्लामा अवस्थित छ। यस नगरपालिकाको उत्तरमा इलामको चुलाचुली, दक्षिणमा गौरादह, पूर्वमा कमल, र पश्चिमतिर मिक्लाजुङ र उर्लाबारी सीमाना छन्। यो स्थानले दमकलाई तराई राजमार्ग कोरिडोर र इलाम, पाँचथर र ताप्लेजुङका लागि प्रयोग हुने पहाडी मार्गहरूको बीचमा राख्दछ। तसर्थ यो रात्रिकालीन पर्यटन भन्दा बढीको लागि उपयोगी छ। मानिसहरू पारिवारिक भ्रमण, अस्पताल वा शिक्षा-सम्बन्धित कार्य, व्यापार बैठक, विवाह, अगाडिको सडक यात्रा र एयरपोर्ट जडानहरूको लागि बस्छन्।</p>
+        <p>भद्रपुर एयरपोर्ट दमकबाट सडक मार्गले लगभग ४५ किमि टाढा छ, अनलाइन रूट प्लानरहरूले हल्का ट्राफिकमा लगभग ४५ मिनेट अनुमान गर्छन्। वास्तविक यात्रा समय सडक निर्माण, बजार ट्राफिक र मौसमको कारण लामो हुन सक्छ। ढिलो उडानमा आइपुग्ने यात्रुहरूले नक्सामा देखाइएको अनुमानित समयमा मात्र भर नपरी आफ्नो सवारी साधन र कोठा पुष्टि गर्नुपर्दछ।</p>
+        <h4>होटल बेला क्याफे कोठा प्रकार र प्रकाशित मूल्यहरू</h4>
+        <div class='highlight-box'><p><strong>स्ट्यान्डर्ड कोठा:</strong> रु. ३,५००/रात · २ पाहुना · वाइफाई, स्मार्ट टिभी, एसी, संलग्न बाथरूम</p><p><strong>डिलक्स सिंगल कोठा:</strong> रु. ४,०००/रात · २ पाहुना · मानक सुविधाहरू प्लस कफी मेकर</p><p><strong>डिलक्स डबल कोठा:</strong> रु. ४,५००/रात · ३ पाहुना · विशाल कोठा, कार्य डेस्क र सहर दृश्य</p><p><strong>सुइट कोठा:</strong> रु. ५,०००/रात · ४ पाहुना · छुट्टै बैठक कोठा, जाकुजी, कफी मेकर र मिनी बार</p><p><strong>पारिवारिक कोठा:</strong> रु. ५,५००/रात · ५ पाहुना · दुई क्वीन बेड, बैठक कोठा, एसी र संलग्न बाथरूम</p></div>
+        <p><a href='https://hotelbellacafedmk.com/#rooms' style='color:var(--gold-dark); font-weight:600;'>हालको कोठा जानकारी र बुकिङ विकल्पहरू हेर्नुहोस् →</a></p>
+        <h4>दमकमा होटल बुक गर्नु अघि के जाँच गर्ने</h4>
+        <ul><li><strong>कोठा दर मात्र होइन, सटीक कुल पुष्टि गर्नुहोस्</strong> — उद्धृत मूल्यमा कर, नाश्ता र कुनै अतिरिक्त अतिथि शुल्क समावेश छ कि छैन सोध्नुहोस्।</li><li><strong>कोठालाई वास्तवमा बस्ने व्यक्तिहरूसँग मिलाउनुहोस्</strong> — अग्रिम भुक्तानी गर्नु अघि वयस्क, बालबालिका र वृद्ध अतिथिहरूको संख्या साझा गर्नुहोस्।</li><li><strong>सवारी पार्किङ र आगमन समयको बारेमा सोध्नुहोस्</strong> — विशेष गरी कार्यक्रमका दिनहरूमा अग्रिम उपलब्ध स्थान पुष्टि गर्नुहोस्।</li><li><strong>तपाईंको यात्राको लागि महत्त्वपूर्ण सुविधाहरू प्रमाणित गर्नुहोस्</strong> — तपाईंले बिना यात्रा गर्न नसक्ने सुविधाको बारेमा विशेष रूपमा सोध्नुहोस्।</li><li><strong>नक्सा पिन र फोन नम्बर सुरक्षित गर्नुहोस्</strong> — होटलको प्राथमिक नम्बर, +977 985-2630088, र ल्यान्डलाइन, ०२३-५९१५८८ सुरक्षित गर्नुहोस्।</li></ul>
+        <p><strong>कसरी बुक गर्ने:</strong> +977 985-2630088 मा कल गर्नुहोस् वा सोही नम्बरमा <a href='https://wa.me/9779852630088' style='color:var(--gold-dark); font-weight:600;'>ह्वाट्सएप</a> मार्फत सन्देश पठाउनुहोस्। तपाईंको चेक-इन मिति, अपेक्षित आगमन समय, कोठा प्राथमिकता, वयस्क र बालबालिकाको संख्या, र कुनै पहुँच आवश्यकता साझा गर्नुहोस्।</p>
+      "></div>
+    </div>
+  </div>
+
+  <!-- Blog Modal 2 -->
+  <div class="blog-modal-overlay" id="blogModal2">
+    <div class="blog-modal">
+      <button class="close-modal" data-modal="2"><i class="fas fa-times"></i></button>
+      <div class="modal-image"><img src="https://picsum.photos/seed/damak-travel-blog/800/500" alt="Things to do near Damak" /></div>
+      <span class="modal-category" data-en="Travel" data-ne="यात्रा">Travel</span>
+      <h2 class="modal-title" data-en="Things to Do Near Damak, Jhapa: Local Day Trips, Temples, Tea Gardens and Travel Times" data-ne="दमक, झापा नजिक गर्न मिल्ने कुराहरू: स्थानीय डे-ट्रिप, मन्दिरहरू, चिया बगान र यात्रा समय">Things to Do Near Damak, Jhapa: Local Day Trips, Temples, Tea Gardens and Travel Times</h2>
+      <div class="modal-date"><i class="fas fa-calendar-alt"></i> 1 September 2026</div>
+      <div class="modal-content" data-en="
+        <p>The best things to do near Damak, Jhapa range from short riverside and religious outings to full-day drives toward Ilam's tea country and Koshi Tappu's wetlands. Damak's position on the East-West Highway makes it a practical starting point, but not every famous destination in eastern Nepal is a simple day trip. Kanyam may fit into a relaxed day, while Pathibhara in Taplejung requires a much bigger plan that includes a long road journey and an uphill walk.</p>
+        <h4>Quick Comparison: Places Near Damak</h4>
+        <ul><li><strong>Damak View Tower:</strong> 10-20 minutes — Short city outing, photos</li><li><strong>Satakshi Dham:</strong> 35-50 minutes — Pilgrimage, family outing, nature</li><li><strong>Domukha and Kankai riverside:</strong> 40-60 minutes — Picnic, riverside views</li><li><strong>Kanyam Tea Garden:</strong> ~70-80 km, 1.5-2.5 hours — Tea gardens, photos, cool-weather drive</li><li><strong>Ilam Bazaar and Mai Pokhari:</strong> Full-day or overnight — Hill town, lake, culture and tea</li><li><strong>Koshi Tappu Wildlife Reserve:</strong> Full-day — Birdwatching and wildlife (best October to March)</li><li><strong>Pathibhara, Taplejung:</strong> Multi-day — Pilgrimage and mountain experience (not a day trip)</li></ul>
+        <h4>Satakshi Dham: Faith, Forest and a Family Day Out</h4>
+        <p>Satakshi Dham is one of Jhapa's recognised pilgrimage areas and appears in Nepal Tourism Board's eastern-region pilgrimage information. The area is associated with Hindu tradition and attracts visitors who combine puja, family time and a nature outing. Online local travel listings generally place Satakshi Dham and its waterfall area around 35 to 50 minutes from central Damak under ordinary conditions.</p>
+        <h4>Kanyam Tea Garden: Eastern Nepal's Classic Road Trip</h4>
+        <p>Kanyam is the most practical tea-garden destination for many visitors starting from Damak. Route services estimate roughly 70 to 80 km by road, with driving time ranging from a little over one hour in ideal conditions to closer to two hours or more with traffic and stops. The route normally goes east toward Birtamode and then north on the Mechi Highway.</p>
+        <div class='highlight-box'><p><strong>Two-Day Itinerary From Hotel Bella Cafe</strong></p><p><strong>Day 1:</strong> Satakshi Dham or Domukha — Return before dark, have dinner at Bella Cafe.</p><p><strong>Day 2:</strong> Kanyam and the Ilam road — Leave early, stop for tea-garden views, continue only as far as time and weather safely allow.</p></div>
+        <p><a href='https://hotelbellacafedmk.com/#rooms' style='color:var(--gold-dark); font-weight:600;'>Book your stay at Hotel Bella Cafe →</a></p>
+      " data-ne="
+        <p>दमक, झापा नजिकका उत्कृष्ट गतिविधिहरू छोटो नदी किनारका र धार्मिक भ्रमणहरूदेखि इलामको चिया क्षेत्र र कोशी टप्पुका सिमसार क्षेत्रहरूतर्फको पूर्ण-दिनको ड्राइभसम्म फैलिएका छन्। पूर्व-पश्चिम राजमार्गमा दमकको स्थानले यसलाई व्यावहारिक सुरूवात बिन्दु बनाउँछ, तर पूर्वी नेपालको हरेक प्रसिद्ध गन्तव्य साधारण डे-ट्रिप होइन। कन्याम आरामदायी दिनमा फिट हुन सक्छ, जबकि ताप्लेजुङको पाथिभराले लामो सडक यात्रा र उकालो पैदल यात्रा समावेश गर्ने धेरै ठूलो योजना चाहिन्छ।</p>
+        <h4>द्रुत तुलना: दमक नजिकका ठाउँहरू</h4>
+        <ul><li><strong>दमक व्यू टावर:</strong> १०-२० मिनेट — छोटो सहर भ्रमण, फोटो</li><li><strong>सताक्षी धाम:</strong> ३५-५० मिनेट — तीर्थयात्रा, पारिवारिक भ्रमण, प्रकृति</li><li><strong>डोमुखा र कन्काई नदी किनार:</strong> ४०-६० मिनेट — पिकनिक, नदी दृश्य</li><li><strong>कन्याम चिया बगान:</strong> ~७०-८० किमि, १.५-२.५ घण्टा — चिया बगान, फोटो, चिसो मौसम ड्राइभ</li><li><strong>इलाम बजार र माई पोखरी:</strong> पूर्ण-दिन वा रात बास — पहाडी सहर, ताल, संस्कृति र चिया</li><li><strong>कोशी टप्पु वन्यजन्तु आरक्ष:</strong> पूर्ण-दिन — चरा अवलोकन र वन्यजन्तु (उत्तम अक्टोबर देखि मार्च)</li><li><strong>पाथिभरा, ताप्लेजुङ:</strong> बहु-दिन — तीर्थयात्रा र पहाडी अनुभव (दिनको यात्रा होइन)</li></ul>
+        <h4>सताक्षी धाम: आस्था, वन र पारिवारिक दिन</h4>
+        <p>सताक्षी धाम झापाको मान्यता प्राप्त तीर्थ क्षेत्रहरू मध्ये एक हो र नेपाल पर्यटन बोर्डको पूर्वी-क्षेत्र तीर्थयात्रा जानकारीमा देखिन्छ। यो क्षेत्र हिन्दू परम्परासँग सम्बन्धित छ र पूजा, पारिवारिक समय र प्रकृति भ्रमणलाई संयोजन गर्ने आगन्तुकहरूलाई आकर्षित गर्दछ। अनलाइन स्थानीय यात्रा सूचीहरूले सामान्य अवस्थामा सताक्षी धाम र यसको झरना क्षेत्रलाई केन्द्रीय दमकबाट लगभग ३५ देखि ५० मिनेटमा राख्छन्।</p>
+        <h4>कन्याम चिया बगान: पूर्वी नेपालको क्लासिक सडक यात्रा</h4>
+        <p>कन्याम दमकबाट सुरू गर्ने धेरै आगन्तुकहरूको लागि सबैभन्दा व्यावहारिक चिया-बगान गन्तव्य हो। रूट सेवाहरूले सडक मार्गले लगभग ७० देखि ८० किमि अनुमान गर्छन्, आदर्श अवस्थामा एक घण्टाभन्दा अलि बढीदेखि ट्राफिक र रोकावटहरूसँग दुई घण्टा वा सोभन्दा बढीको ड्राइभिङ समयको साथ। मार्ग सामान्यतया पूर्वतिर बिर्तामोडतिर र त्यसपछि मेची राजमार्गमा उत्तरतिर जान्छ।</p>
+        <div class='highlight-box'><p><strong>होटल बेला क्याफेबाट दुई-दिनको यात्रा कार्यक्रम</strong></p><p><strong>दिन १:</strong> सताक्षी धाम वा डोमुखा — अँध्यारो हुनु अघि फर्किनुहोस्, बेला क्याफेमा डिनर गर्नुहोस्।</p><p><strong>दिन २:</strong> कन्याम र इलाम सडक — चाँडै निस्कनुहोस्, चिया बगान दृश्यका लागि रोक्नुहोस्, समय र मौसमले सुरक्षित रूपमा अनुमति दिएसम्म मात्र जारी राख्नुहोस्।</p></div>
+        <p><a href='https://hotelbellacafedmk.com/#rooms' style='color:var(--gold-dark); font-weight:600;'>होटल बेला क्याफेमा आफ्नो बसाइ बुक गर्नुहोस् →</a></p>
+      "></div>
+    </div>
+  </div>
+
+  <!-- Blog Modal 3 -->
+  <div class="blog-modal-overlay" id="blogModal3">
+    <div class="blog-modal">
+      <button class="close-modal" data-modal="3"><i class="fas fa-times"></i></button>
+      <div class="modal-image"><img src="https://picsum.photos/seed/wedding-damak-blog/800/500" alt="Wedding venue in Damak" /></div>
+      <span class="modal-category" data-en="Events" data-ne="कार्यक्रमहरू">Events</span>
+      <h2 class="modal-title" data-en="How to Plan a Wedding in Damak: Venue, Catering, Rooms and 2083 Lagan Dates" data-ne="दमकमा विवाह कसरी योजना गर्ने: स्थल, केटरिङ, कोठा र २०८३ लगन मितिहरू">How to Plan a Wedding in Damak: Venue, Catering, Rooms and 2083 Lagan Dates</h2>
+      <div class="modal-date"><i class="fas fa-calendar-alt"></i> 1 September 2026</div>
+      <div class="modal-content" data-en="
+        <p>Choosing a wedding venue in Damak is one of the first decisions that affects nearly every other part of a Nepali wedding, including the guest list, janti arrival, mandap layout, catering, parking, photography and rooms for relatives. Hotel Bella Cafe &amp; Restaurant promotes a banquet hall, outdoor spaces, customisable décor, in-house food service and accommodation at MM6V+WJH, Damak 57217.</p>
+        <h4>Local Wedding Update: 2083 BS Has 41 Published Marriage Sait Days</h4>
+        <p>Hamro Patro lists 41 marriage muhurta days in 2083 BS. They are spread across Baisakh, Ashadh, Mangsir, Magh and Falgun. Mangsir alone has eight published days, including 9, 10, 16, 17, 19, 24, 25 and 26 Mangsir, which fall from late November to mid-December 2026.</p>
+        <p>For planning purposes, families targeting a popular Mangsir date should begin venue conversations several months ahead. Do not wait for the final invitation card design. The venue, guest capacity, meal style and core supplier availability should be settled first.</p>
+        <h4>Step-by-Step Wedding Planning Checklist</h4>
+        <ul><li><strong>Build a Realistic Guest List:</strong> Start with three lists: must-invite guests, expected guests and a buffer.</li><li><strong>Visit the Venue at the Same Time as Your Event:</strong> Look at lighting, road access, parking, sound from neighbouring properties and power backup.</li><li><strong>Choose the Ceremony and Guest Flow:</strong> Map the event from arrival to departure. Where will the janti assemble? Where will the bride's family welcome them?</li><li><strong>Plan a Menu for Jhapa Families:</strong> Six dishes served hot and on time can make a stronger impression than twelve items that become cold.</li><li><strong>Design Décor Around the Venue and Season:</strong> Begin with the physical space, ceremony tradition and guest movement.</li><li><strong>Reserve Rooms for Close Family:</strong> Hotel Bella Cafe publishes five categories, from a two-guest Standard Room at NPR 3,500 to a five-guest Family Room at NPR 5,500 per night.</li><li><strong>Build a Transparent Wedding Budget:</strong> Separate fixed costs from per-person costs. Add a contingency of around 10 percent for genuine changes.</li></ul>
+        <div class='highlight-box'><p><strong>Questions to Ask Before Booking</strong></p><p>What is the seated capacity for the banquet hall? How many guests can the outdoor space serve comfortably? What is the exact wet-weather backup plan? Is venue rental separate from catering, décor and sound? What minimum food guarantee applies?</p></div>
+        <p><a href='https://hotelbellacafedmk.com/#events' style='color:var(--gold-dark); font-weight:600;'>Plan your event at Hotel Bella Cafe →</a></p>
+      " data-ne="
+        <p>दमकमा विवाह स्थल छनौट गर्नु नेपाली विवाहको लगभग हरेक अन्य भागलाई असर गर्ने पहिलो निर्णयहरू मध्ये एक हो, जसमा अतिथि सूची, जन्ती आगमन, मण्डप लेआउट, केटरिङ, पार्किङ, फोटोग्राफी र नातेदारहरूका लागि कोठाहरू समावेश छन्। होटल बेला क्याफे र रेस्टुरेन्टले MM6V+WJH, दमक ५७२१७ मा बैंक्वेट हल, बाहिरी स्थानहरू, अनुकूलन योग्य सजावट, घरेलु खाना सेवा र आवास प्रवर्द्धन गर्दछ।</p>
+        <h4>स्थानीय विवाह अपडेट: २०८३ मा ४१ प्रकाशित विवाह साइत दिनहरू</h4>
+        <p>हाम्रो पात्रोले २०८३ सालमा ४१ विवाह मुहूर्त दिनहरू सूचीबद्ध गर्दछ। तिनीहरू वैशाख, असाढ, मंसिर, माघ र फागुनमा फैलिएका छन्। मंसिरमा मात्र ९, १०, १६, १७, १९, २४, २५ र २६ मंसिर सहित आठ प्रकाशित दिनहरू छन्, जुन नोभेम्बर २०२६ को अन्त्यदेखि मध्य-डिसेम्बर २०२६ सम्म पर्दछन्।</p>
+        <p>योजना उद्देश्यका लागि, लोकप्रिय मंसिर मिति लक्षित गर्ने परिवारहरूले धेरै महिना अगाडि स्थल वार्ता सुरू गर्नुपर्दछ। अन्तिम निमन्त्रणा कार्ड डिजाइनको लागि पर्खनुहोस्। स्थल, अतिथि क्षमता, खानाको शैली र मुख्य आपूर्तिकर्ता उपलब्धता पहिले तय गर्नुपर्दछ।</p>
+        <h4>चरण-दर-चरण विवाह योजना चेकलिस्ट</h4>
+        <ul><li><strong>यथार्थवादी अतिथि सूची बनाउनुहोस्:</strong> तीन सूचीहरूको साथ सुरू गर्नुहोस्: अनिवार्य-निम्ता अतिथिहरू, अपेक्षित अतिथिहरू र एक बफर।</li><li><strong>तपाईंको कार्यक्रमको समयमा स्थलको भ्रमण गर्नुहोस्:</strong> प्रकाश, सडक पहुँच, पार्किङ, छिमेकी सम्पत्तिहरूबाट आवाज र पावर ब्याकअप हेर्नुहोस्।</li><li><strong>समारोह र अतिथि प्रवाह छनौट गर्नुहोस्:</strong> आगमनदेखि प्रस्थानसम्म कार्यक्रमको नक्सा बनाउनुहोस्। जन्ती कहाँ जम्मा हुन्छ? दुलहीको परिवारले उनीहरूलाई कहाँ स्वागत गर्छ?</li><li><strong>झापा परिवारहरूको लागि मेनु योजना गर्नुहोस्:</strong> छ वटा परिकार तातो र समयमा सेवा गर्नाले बाह्र वटा चिसो हुने भन्दा बढी प्रभाव पार्न सक्छ।</li><li><strong>स्थल र मौसम अनुसार सजावट डिजाइन गर्नुहोस्:</strong> भौतिक स्थान, समारोह परम्परा र अतिथि आवागमनबाट सुरू गर्नुहोस्।</li><li><strong>नजिकका परिवारका लागि कोठाहरू आरक्षित गर्नुहोस्:</strong> होटल बेला क्याफेले दुई-अतिथि स्ट्यान्डर्ड कोठा रु. ३,५०० देखि पाँच-अतिथि पारिवारिक कोठा रु. ५,५०० प्रति रातसम्म पाँच श्रेणीहरू प्रकाशित गर्दछ।</li><li><strong>पारदर्शी विवाह बजेट बनाउनुहोस्:</strong> निश्चित लागतहरूलाई प्रति-व्यक्ति लागतहरूबाट अलग गर्नुहोस्। वास्तविक परिवर्तनहरूको लागि लगभग १० प्रतिशतको आकस्मिकता थप्नुहोस्।</li></ul>
+        <div class='highlight-box'><p><strong>बुक गर्नु अघि सोध्ने प्रश्नहरू</strong></p><p>बैंक्वेट हलको बस्ने क्षमता कति हो? बाहिरी स्थानले कति पाहुनालाई आरामसँग सेवा गर्न सक्छ? वर्षाको लागि सटीक ब्याकअप योजना के हो? के स्थल भाडा केटरिङ, सजावट र ध्वनिबाट अलग छ? कुन न्यूनतम खाना ग्यारेन्टी लागू हुन्छ?</p></div>
+        <p><a href='https://hotelbellacafedmk.com/#events' style='color:var(--gold-dark); font-weight:600;'>होटल बेला क्याफेमा आफ्नो कार्यक्रम योजना गर्नुहोस् →</a></p>
+      "></div>
+    </div>
+  </div>
+
+  <!-- Blog Modal 4 -->
+  <div class="blog-modal-overlay" id="blogModal4">
+    <div class="blog-modal">
+      <button class="close-modal" data-modal="4"><i class="fas fa-times"></i></button>
+      <div class="modal-image"><img src="https://picsum.photos/seed/coffee-nepali-blog/800/500" alt="Coffee and Nepali food in Damak" /></div>
+      <span class="modal-category" data-en="Food &amp; Drink" data-ne="खाना र पेय">Food &amp; Drink</span>
+      <h2 class="modal-title" data-en="Coffee and Nepali Food in Damak: A Local Guide to the Bella Cafe Menu" data-ne="दमकमा कफी र नेपाली खाना: बेला क्याफे मेनुको स्थानीय गाइड">Coffee and Nepali Food in Damak: A Local Guide to the Bella Cafe Menu</h2>
+      <div class="modal-date"><i class="fas fa-calendar-alt"></i> 1 September 2026</div>
+      <div class="modal-content" data-en="
+        <p>Coffee and Nepali food in Damak no longer belong to two completely different dining occasions. A group may want a proper daal-bhat style meal, a cappuccino, children's pizza and a quick snack at the same table. Bella Cafe &amp; Restaurant serves that mixed local demand at MM6V+WJH, Damak 57217, with Nepali-style curries, rice, roti, momo-style and sekuwa-inspired snacks, biryani, continental choices, breakfast, coffee, shakes and desserts.</p>
+        <h4>Build a Nepali-Style Meal at Bella Cafe</h4>
+        <ul><li><strong>Daal:</strong> Fry or tadka — NPR 200</li><li><strong>Rice:</strong> Plain, jeera, vegetable, egg, chicken, pork or mixed fried rice — NPR 150-300</li><li><strong>Vegetarian curry:</strong> Mix veg, aloo gobi matar, paneer kadai, paneer butter masala, malai kofta — NPR 250-400</li><li><strong>Non-vegetarian curry:</strong> Nepali-style chicken, chicken kadai, mutton curry, rogan josh, fish curry — NPR 350-500</li><li><strong>Bread:</strong> Tawa roti, tandoori roti, naan, laccha paratha — NPR 45-150</li><li><strong>Local-style side:</strong> Chicken choila, chicken sekuwa, wai-wai sadeko, veg pakoda — NPR 150-450</li></ul>
+        <h4>Coffee and Hot Drinks</h4>
+        <p>Bella Cafe lists 'coffee based' drinks at NPR 245. Other published hot-drink prices include hot chocolate at NPR 195, dark chocolate at NPR 245 and hot lemon from NPR 95 for plain to NPR 175 with ginger.</p>
+        <h4>Sample Orders for Different Visits</h4>
+        <div class='highlight-box'><p><strong>Quick coffee meeting:</strong> Two coffee-based drinks (NPR 490) + one plate of veg pakoda (NPR 175) = NPR 665</p><p><strong>Vegetarian Nepali-style table:</strong> Daal (NPR 200) + plain rice (NPR 150) + mix-veg curry (NPR 300) + four tawa rotis (NPR 45 each) = NPR 830</p><p><strong>Mixed family table:</strong> Nepali-style chicken curry (NPR 350) + paneer kadai (NPR 350) + plain rice (NPR 150) + four tandoori rotis (NPR 70 each) + chicken pizza (NPR 650) = NPR 1,780</p></div>
+        <p><a href='https://hotelbellacafedmk.com/#menu' style='color:var(--gold-dark); font-weight:600;'>View the complete published menu →</a> | <a href='https://wa.me/9779852630088' style='color:var(--gold-dark); font-weight:600;'>Order on WhatsApp</a></p>
+      " data-ne="
+        <p>दमकमा कफी र नेपाली खाना अब दुई पूर्ण रूपमा फरक भोजन अवसरहरूमा सीमित छैनन्। एउटा समूहले उचित दाल-भात शैलीको खाना, क्यापुचिनो, बालबालिकाको पिज्जा र द्रुत नास्ता एउटै टेबलमा चाहन सक्छ। बेला क्याफे र रेस्टुरेन्टले MM6V+WJH, दमक ५७२१७ मा नेपाली शैलीको करी, चामल, रोटी, मःम शैली र सेकुवा-प्रेरित स्न्याक्स, बिर्यानी, कन्टिनेन्टल विकल्प, नास्ता, कफी, शेक र मिठाईहरूको साथ त्यो मिश्रित स्थानीय माग सेवा गर्दछ।</p>
+        <h4>बेला क्याफेमा नेपाली शैलीको भोजन बनाउनुहोस्</h4>
+        <ul><li><strong>दाल:</strong> फ्राइ वा तड्का — रु. २००</li><li><strong>चामल:</strong> सादा, जीरा, तरकारी, अण्डा, चिकन, पोर्क वा मिक्स फ्राइड राइस — रु. १५०-३००</li><li><strong>तरकारी (भेज):</strong> मिक्स भेज, आलु गोभी मटर, पनीर कडाइ, पनीर बटर मसाला, मलाई कोफ्ता — रु. २५०-४००</li><li><strong>तरकारी (नन-भेज):</strong> नेपाली शैलीको चिकन, चिकन कडाइ, मटन करी, रोगन जोश, माछाको झोल — रु. ३५०-५००</li><li><strong>रोटी:</strong> तवा रोटी, तन्दुरी रोटी, नान, लच्छा पराठा — रु. ४५-१५०</li><li><strong>स्थानीय शैलीको साइड:</strong> चिकन चोइला, चिकन सेकुवा, वाइ-वाइ सदेको, भेज पकौडा — रु. १५०-४५०</li></ul>
+        <h4>कफी र तातो पेय पदार्थ</h4>
+        <p>बेला क्याफेले 'कफी आधारित' पेय पदार्थहरू रु. २४५ मा सूचीबद्ध गर्दछ। अन्य प्रकाशित तातो पेय मूल्यहरूमा हट चकलेट रु. १९५, डार्क चकलेट रु. २४५ र हट लेमन सादा रु. ९५ देखि अदुवा सहित रु. १७५ सम्म समावेश छन्।</p>
+        <h4>विभिन्न भ्रमणहरूको लागि नमूना अर्डरहरू</h4>
+        <div class='highlight-box'><p><strong>द्रुत कफी बैठक:</strong> दुई कफी आधारित पेय (रु. ४९०) + एउटा प्लेट भेज पकौडा (रु. १७५) = रु. ६६५</p><p><strong>शाकाहारी नेपाली शैलीको टेबल:</strong> दाल (रु. २००) + सादा चामल (रु. १५०) + मिक्स-भेज करी (रु. ३००) + चार तवा रोटी (रु. ४५ प्रति) = रु. ८३०</p><p><strong>मिश्रित पारिवारिक टेबल:</strong> नेपाली शैलीको चिकन करी (रु. ३५०) + पनीर कडाइ (रु. ३५०) + सादा चामल (रु. १५०) + चार तन्दुरी रोटी (रु. ७० प्रति) + चिकन पिज्जा (रु. ६५०) = रु. १,७८०</p></div>
+        <p><a href='https://hotelbellacafedmk.com/#menu' style='color:var(--gold-dark); font-weight:600;'>पूर्ण प्रकाशित मेनु हेर्नुहोस् →</a> | <a href='https://wa.me/9779852630088' style='color:var(--gold-dark); font-weight:600;'>ह्वाट्सएपमा अर्डर गर्नुहोस्</a></p>
+      "></div>
+    </div>
+  </div>
+
+  <!-- Blog Modal 5 -->
+  <div class="blog-modal-overlay" id="blogModal5">
+    <div class="blog-modal">
+      <button class="close-modal" data-modal="5"><i class="fas fa-times"></i></button>
+      <div class="modal-image"><img src="https://picsum.photos/seed/family-restaurant-blog/800/500" alt="Family-friendly restaurant in Damak" /></div>
+      <span class="modal-category" data-en="Family" data-ne="परिवार">Family</span>
+      <h2 class="modal-title" data-en="Family-Friendly Restaurant in Damak: A Local Guide for Parents and Group Dining" data-ne="दमकमा परिवार-मैत्री रेस्टुरेन्ट: अभिभावक र समूह भोजनको लागि स्थानीय गाइड">Family-Friendly Restaurant in Damak: A Local Guide for Parents and Group Dining</h2>
+      <div class="modal-date"><i class="fas fa-calendar-alt"></i> 1 September 2026</div>
+      <div class="modal-content" data-en="
+        <p>A family-friendly restaurant in Damak needs more than a few dishes children might eat. Nepali family dining often includes grandparents, parents, teenagers and young children at the same table, so seating, washroom access, parking, noise, spice level, service pace and menu variety all matter. Bella Cafe &amp; Restaurant lists high chairs, a kids menu, indoor and outdoor seating, wheelchair access, free parking and a multi-cuisine menu at MM6V+WJH, Damak 57217.</p>
+        <h4>What 'Family-Friendly' Should Mean in Practice</h4>
+        <ul><li><strong>Safe and comfortable seating:</strong> High chairs should be clean, stable and available when promised. Tables need enough space for plates, water, children's items and shared food.</li><li><strong>A menu for several generations:</strong> Grandparents may prefer daal, rice, roti and familiar curries. Parents may want biryani, sizzlers or coffee, while children may choose chowmein, pizza, pasta, burgers, fries, lassi or a milkshake.</li><li><strong>Service that respects the family's pace:</strong> Young children may need food quickly, while elderly guests may need more time. Families can help by ordering a simple child dish first and placing large-table orders together.</li></ul>
+        <h4>Menu Choices for Children and Adults</h4>
+        <p><strong>Mild or familiar choices for children:</strong> Veg chowmein (NPR 150), chicken chowmein (NPR 220), veg burger (NPR 200), chicken burger (NPR 250), pizza from NPR 550, white-sauce pasta NPR 400-500. Plain or banana lassi is NPR 115.</p>
+        <p><strong>Familiar Nepali food for adults and grandparents:</strong> Daal (NPR 200), plain rice (NPR 150), tawa roti (NPR 45), mix-veg curry (NPR 300), paneer dishes (NPR 350-400), Nepali-style chicken curry (NPR 350), Nepali-style mutton curry (NPR 450).</p>
+        <h4>Sample Family Orders</h4>
+        <div class='highlight-box'><p><strong>Parent and child snack:</strong> Chicken burger (NPR 250) + veg chowmein (NPR 150) + plain lassi (NPR 115) = NPR 515</p><p><strong>Vegetarian family table:</strong> Daal + plain rice + mix-veg curry + paneer kadai + four tawa rotis = NPR 1,180</p><p><strong>Mixed family table:</strong> Nepali-style chicken curry + paneer kadai + plain rice + four tandoori rotis + chicken pizza = NPR 1,780</p></div>
+        <p><a href='https://hotelbellacafedmk.com/#menu' style='color:var(--gold-dark); font-weight:600;'>View the menu</a> · <a href='https://wa.me/9779852630088' style='color:var(--gold-dark); font-weight:600;'>Order delivery</a> · Call +977 985-2630088</p>
+      " data-ne="
+        <p>दमकमा एक परिवार-मैत्री रेस्टुरेन्टलाई बालबालिकाले खान सक्ने केही परिकारहरू मात्र होइन, अझ बढी चाहिन्छ। नेपाली पारिवारिक भोजनमा प्रायः हजुरबुबा-हजुरआमा, आमाबाबु, किशोरकिशोरी र साना बालबालिकाहरू एउटै टेबलमा हुन्छन्, त्यसैले बस्ने ठाउँ, वाशरूम पहुँच, पार्किङ, आवाज, मसलाको स्तर, सेवाको गति र मेनु विविधता सबै महत्त्वपूर्ण हुन्छन्। बेला क्याफे र रेस्टुरेन्टले MM6V+WJH, दमक ५७२१७ मा उच्च कुर्सी, बालबालिकाको मेनु, भित्री र बाहिरी बस्ने स्थान, पाङ्ग्रे कुर्सी पहुँच, नि:शुल्क पार्किङ र बहु-भोजन मेनु सूचीबद्ध गर्दछ।</p>
+        <h4>व्यवहारमा 'परिवार-मैत्री' भनेको के हो</h4>
+        <ul><li><strong>सुरक्षित र आरामदायी बस्ने:</strong> उच्च कुर्सीहरू सफा, स्थिर र वाचा गरिएको समयमा उपलब्ध हुनुपर्छ। टेबलहरूमा प्लेट, पानी, बालबालिकाका वस्तुहरू र साझा खानाको लागि पर्याप्त ठाउँ हुनुपर्छ।</li><li><strong>धेरै पुस्ताको लागि मेनु:</strong> हजुरबुबा-हजुरआमाले दाल, चामल, रोटी र परिचित तरकारीहरू मन पराउन सक्छन्। आमाबाबुले बिर्यानी, सिजलर वा कफी चाहन सक्छन्, जबकि बालबालिकाहरूले चाउमिन, पिज्जा, पास्ता, बर्गर, फ्राइज, लस्सी वा मिल्कसेक छनौट गर्न सक्छन्।</li><li><strong>परिवारको गतिलाई सम्मान गर्ने सेवा:</strong> साना बालबालिकाहरूलाई छिटो खाना चाहिन्छ, जबकि वृद्ध अतिथिहरूलाई अझ बढी समय चाहिन्छ। परिवारहरूले पहिले साधारण बालबालिकाको परिकार अर्डर गरेर र ठूलो-टेबल अर्डरहरू सँगै राखेर मद्दत गर्न सक्छन्।</li></ul>
+        <h4>बालबालिका र वयस्कहरूको लागि मेनु विकल्पहरू</h4>
+        <p><strong>बालबालिकाको लागि हल्का वा परिचित विकल्पहरू:</strong> भेज चाउमिन (रु. १५०), चिकन चाउमिन (रु. २२०), भेज बर्गर (रु. २००), चिकन बर्गर (रु. २५०), पिज्जा रु. ५५० देखि, सेतो सस पास्ता रु. ४००-५००। सादा वा केरा लस्सी रु. ११५ हो।</p>
+        <p><strong>वयस्क र हजुरबुबा-हजुरआमाको लागि परिचित नेपाली खाना:</strong> दाल (रु. २००), सादा चामल (रु. १५०), तवा रोटी (रु. ४५), मिक्स-भेज करी (रु. ३००), पनीर परिकारहरू (रु. ३५०-४००), नेपाली शैलीको चिकन करी (रु. ३५०), नेपाली शैलीको मटन करी (रु. ४५०)।</p>
+        <h4>नमूना पारिवारिक अर्डरहरू</h4>
+        <div class='highlight-box'><p><strong>अभिभावक र बालबालिकाको खाजा:</strong> चिकन बर्गर (रु. २५०) + भेज चाउमिन (रु. १५०) + सादा लस्सी (रु. ११५) = रु. ५१५</p><p><strong>शाकाहारी पारिवारिक टेबल:</strong> दाल + सादा चामल + मिक्स-भेज करी + पनीर कडाइ + चार तवा रोटी = रु. १,१८०</p><p><strong>मिश्रित पारिवारिक टेबल:</strong> नेपाली शैलीको चिकन करी + पनीर कडाइ + सादा चामल + चार तन्दुरी रोटी + चिकन पिज्जा = रु. १,७८०</p></div>
+        <p><a href='https://hotelbellacafedmk.com/#menu' style='color:var(--gold-dark); font-weight:600;'>मेनु हेर्नुहोस्</a> · <a href='https://wa.me/9779852630088' style='color:var(--gold-dark); font-weight:600;'>डेलिभरी अर्डर गर्नुहोस्</a> · +977 985-2630088 मा कल गर्नुहोस्</p>
+      "></div>
+    </div>
+  </div>
 
   <!-- Book Now -->
   <section id="book-now" style="margin: 40px 0 24px;">
@@ -2618,70 +2827,26 @@
   <section id="contact" style="margin: 40px 0 24px;">
     <div class="section-title animate-on-scroll"><i class="fas fa-headset"></i> <span data-en="Contact &amp; Hours" data-ne="सम्पर्क र समय">Contact &amp; Hours</span></div>
     <div class="contact-grid">
-      <div class="contact-card animate-from-left"><i class="fas fa-phone-alt"></i>
-        <h3 data-en="Call us" data-ne="हामीलाई कल गर्नुहोस्">Call us</h3>
-        <p>985-2630088 · 023-591588</p>
-      </div>
-      <div class="contact-card animate-from-right"><i class="fas fa-envelope"></i>
-        <h3 data-en="Email" data-ne="ईमेल">Email</h3>
-        <p>bellacafedamak5@gmail.com</p>
-      </div>
-      <div class="contact-card animate-from-left delay-1"><i class="fab fa-whatsapp"></i>
-        <h3 data-en="WhatsApp" data-ne="ह्वाट्सएप">WhatsApp</h3>
-        <p><a href="https://wa.me/9779852630088" target="_blank" style="color:var(--primary-dark); font-weight:500;">+977 985-2630088</a></p>
-      </div>
-      <div class="contact-card animate-from-right delay-1" style="border-color:var(--gold); background:var(--delivery-light);"><i class="fas fa-motorcycle" style="color:var(--delivery-green);"></i>
-        <h3 style="color:var(--delivery-green);" data-en="Free Delivery" data-ne="नि:शुल्क डेलिभरी">Free Delivery</h3>
-        <p data-en="Within 1 km · Call or WhatsApp to order" data-ne="१ किमि भित्र · अर्डर गर्न कल वा ह्वाट्सएप गर्नुहोस्">Within 1 km · Call or WhatsApp to order</p>
-      </div>
+      <div class="contact-card animate-from-left"><i class="fas fa-phone-alt"></i><h3 data-en="Call us" data-ne="हामीलाई कल गर्नुहोस्">Call us</h3><p>985-2630088 · 023-591588</p></div>
+      <div class="contact-card animate-from-right"><i class="fas fa-envelope"></i><h3 data-en="Email" data-ne="ईमेल">Email</h3><p>bellacafedamak5@gmail.com</p></div>
+      <div class="contact-card animate-from-left delay-1"><i class="fab fa-whatsapp"></i><h3 data-en="WhatsApp" data-ne="ह्वाट्सएप">WhatsApp</h3><p><a href="https://wa.me/9779852630088" target="_blank" style="color:var(--primary-dark); font-weight:500;">+977 985-2630088</a></p></div>
+      <div class="contact-card animate-from-right delay-1" style="border-color:var(--gold); background:var(--delivery-light);"><i class="fas fa-motorcycle" style="color:var(--delivery-green);"></i><h3 style="color:var(--delivery-green);" data-en="Free Delivery" data-ne="नि:शुल्क डेलिभरी">Free Delivery</h3><p data-en="Within 1 km · Call or WhatsApp to order" data-ne="१ किमि भित्र · अर्डर गर्न कल वा ह्वाट्सएप गर्नुहोस्">Within 1 km · Call or WhatsApp to order</p></div>
     </div>
   </section>
 
-  <!-- FAQ (with toggle functionality, factual answers) -->
+  <!-- FAQ -->
   <section id="faq" style="margin: 40px 0 24px;">
     <div class="section-title animate-on-scroll"><i class="fas fa-question-circle"></i> <span data-en="Frequently Asked Questions" data-ne="बारम्बार सोधिने प्रश्नहरू">Frequently Asked Questions</span></div>
     <p class="section-sub animate-on-scroll" data-en="Quick answers to the most common questions about Hotel Bella Cafe — rooms, restaurant and cafe in Damak, Jhapa" data-ne="होटल बेला क्याफेको बारेमा सबैभन्दा सामान्य प्रश्नहरूको द्रुत उत्तर — दमक, झापामा कोठा, रेस्टुरेन्ट र क्याफे">Quick answers to the most common questions about Hotel Bella Cafe — rooms, restaurant and cafe in Damak, Jhapa</p>
     <div class="faq-grid" id="faqList">
-      <div class="faq-item animate-from-left">
-        <div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="Where is Hotel Bella Cafe located?" data-ne="होटल बेला क्याफे कहाँ अवस्थित छ?">Where is Hotel Bella Cafe located?</span></div>
-        <div class="faq-a" data-en="Hotel Bella Cafe &amp; Restaurant is at Mangaldeep marg, Ward 5, Damak 57217, Jhapa, Nepal, close to the East-West Highway and about 5 minutes from Damak Bus Park." data-ne="होटल बेला क्याफे र रेस्टुरेन्ट मंगलदीप मार्ग, वार्ड ५, दमक ५७२१७, झापा, नेपालमा अवस्थित छ, पूर्व-पश्चिम राजमार्गको नजिक र दमक बस पार्कबाट लगभग ५ मिनेट।">Hotel Bella Cafe &amp; Restaurant is at Mangaldeep marg, Ward 5, Damak 57217, Jhapa, Nepal, close to the East-West Highway and about 5 minutes from Damak Bus Park.</div>
-      </div>
-      <div class="faq-item animate-from-right">
-        <div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="What are the room rates at Hotel Bella Cafe?" data-ne="होटल बेला क्याफेमा कोठा भाडा कति हो?">What are the room rates at Hotel Bella Cafe?</span></div>
-        <div class="faq-a" data-en="Rooms range from Rs 3,500 per night for a Standard Room to Rs 5,500 for a Family Room sleeping five. Deluxe Single is Rs 4,000, Deluxe Double Rs 4,500 and the Suite Rs 5,000. All rooms include air conditioning, an attached bathroom, smart TV and free Wi-Fi." data-ne="कोठाहरू रु. ३,५०० प्रति रातको स्ट्यान्डर्ड कोठादेखि रु. ५,५०० मा पाँच जना सुत्ने फैमिली रूमसम्म छन्। डिलक्स सिंगल रु. ४,०००, डिलक्स डबल रु. ४,५०० र सुइट रु. ५,००० हो। सबै कोठाहरूमा एयर कन्डिसनिङ, संलग्न बाथरूम, स्मार्ट टिभी र नि:शुल्क वाइफाई समावेश छ।">Rooms range from Rs 3,500 per night for a Standard Room to Rs 5,500 for a Family Room sleeping five. Deluxe Single is Rs 4,000, Deluxe Double Rs 4,500 and the Suite Rs 5,000. All rooms include air conditioning, an attached bathroom, smart TV and free Wi-Fi.</div>
-      </div>
-      <div class="faq-item animate-from-left delay-1">
-        <div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="Does Hotel Bella Cafe offer food delivery in Damak?" data-ne="के होटल बेला क्याफेले दमकमा खाना डेलिभरी प्रदान गर्दछ?">Does Hotel Bella Cafe offer food delivery in Damak?</span></div>
-        <div class="faq-a" data-en="Yes. Delivery is free within a 1 km radius, daily from 7:30 AM to 9:30 PM, with no minimum order. Call 985-2630088 or order on WhatsApp." data-ne="हो। १ किमि दायरा भित्र डेलिभरी नि:शुल्क छ, दैनिक बिहान ७:३० देखि राति ९:३० बजेसम्म, कुनै न्यूनतम अर्डर बिना। 985-2630088 मा कल गर्नुहोस् वा ह्वाट्सएपमा अर्डर गर्नुहोस्।">Yes. Delivery is free within a 1 km radius, daily from 7:30 AM to 9:30 PM, with no minimum order. Call 985-2630088 or order on WhatsApp.</div>
-      </div>
-      <div class="faq-item animate-from-right delay-1">
-        <div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="What cuisines does the restaurant serve?" data-ne="रेस्टुरेन्टले कस्तो खाना सेवा गर्दछ?">What cuisines does the restaurant serve?</span></div>
-        <div class="faq-a" data-en="Nepali, Indian, continental and Asian. The menu covers thali, momo, sekuwa, choila, thukpa and Nepali-style curries alongside pizza, pasta, burgers, biryani, sizzlers and tandoori dishes, plus espresso coffee, shakes and lassi." data-ne="नेपाली, भारतीय, कन्टिनेन्टल र एसियाली। मेनुले थाली, मःम, सेकुवा, चोइला, थुक्पा र नेपाली शैलीको करीहरू पिज्जा, पास्ता, बर्गर, बिर्यानी, सिजलर र तन्दुरी परिकारहरूको साथै एस्प्रेसो कफी, शेक र लस्सी समावेश गर्दछ।">Nepali, Indian, continental and Asian. The menu covers thali, momo, sekuwa, choila, thukpa and Nepali-style curries alongside pizza, pasta, burgers, biryani, sizzlers and tandoori dishes, plus espresso coffee, shakes and lassi.</div>
-      </div>
-      <div class="faq-item animate-from-left delay-2">
-        <div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="What are Hotel Bella Cafe's opening hours?" data-ne="होटल बेला क्याफेको खुल्ने समय के हो?">What are Hotel Bella Cafe's opening hours?</span></div>
-        <div class="faq-a" data-en="The restaurant and cafe are open daily from 7:30 AM to 9:30 PM, including Saturdays and public holidays. Hotel reception operates for guest check-in outside these hours." data-ne="रेस्टुरेन्ट र क्याफे दैनिक बिहान ७:३० देखि राति ९:३० बजेसम्म खुला हुन्छन्, शनिबार र सार्वजनिक बिदाहरू सहित। होटल रिसेप्सनले यी समय बाहिर पाहुना चेक-इनको लागि सञ्चालन गर्दछ।">The restaurant and cafe are open daily from 7:30 AM to 9:30 PM, including Saturdays and public holidays. Hotel reception operates for guest check-in outside these hours.</div>
-      </div>
-      <div class="faq-item animate-from-right delay-2">
-        <div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="Is the restaurant suitable for families with children?" data-ne="के रेस्टुरेन्ट बालबालिका भएका परिवारहरूको लागि उपयुक्त छ?">Is the restaurant suitable for families with children?</span></div>
-        <div class="faq-a" data-en="Yes. There is a kids' menu, high chairs, outdoor seating and wheelchair-accessible seating with ramp access. The Family Room upstairs sleeps five." data-ne="हो। बालबालिकाको मेनु, उच्च कुर्सी, बाहिरी बस्ने स्थान र र्याम्प पहुँच सहित पाङ्ग्रे कुर्सी-पहुँचयोग्य बस्ने स्थान छ। माथिल्लो तलाको फैमिली रूममा पाँच जना सुत्छन्।">Yes. There is a kids' menu, high chairs, outdoor seating and wheelchair-accessible seating with ramp access. The Family Room upstairs sleeps five.</div>
-      </div>
-      <div class="faq-item animate-from-left delay-3">
-        <div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="Can Hotel Bella Cafe host weddings and events?" data-ne="के होटल बेला क्याफेले विवाह र कार्यक्रमहरू आयोजना गर्न सक्छ?">Can Hotel Bella Cafe host weddings and events?</span></div>
-        <div class="faq-a" data-en="Yes. The banquet hall seats up to 120 guests with additional outdoor space, and catering is prepared in the hotel's own kitchen with veg and non-veg menus. Free parking is available. Call 985-2630088 to check a date." data-ne="हो। बैंक्वेट हलले १२० पाहुनासम्म थप बाहिरी ठाउँको साथ बस्न सक्छ, र केटरिङ होटलको आफ्नै किचनमा भेग र नन-भेग मेनुहरूसँग तयार गरिन्छ। नि:शुल्क पार्किङ उपलब्ध छ। मिति जाँच गर्न 985-2630088 मा कल गर्नुहोस्।">Yes. The banquet hall seats up to 120 guests with additional outdoor space, and catering is prepared in the hotel's own kitchen with veg and non-veg menus. Free parking is available. Call 985-2630088 to check a date.</div>
-      </div>
-      <div class="faq-item animate-from-right delay-3">
-        <div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="Does the hotel have parking and Wi-Fi?" data-ne="के होटलमा पार्किङ र वाइफाई छ?">Does the hotel have parking and Wi-Fi?</span></div>
-        <div class="faq-a" data-en="Yes, both free. Parking is on-site with space for cars and two-wheelers, and Wi-Fi covers the rooms, restaurant and cafe." data-ne="हो, दुवै नि:शुल्क। पार्किङ अन-साइट छ कार र दुई पाङ्ग्रे सवारीको लागि ठाउँको साथ, र वाइफाईले कोठा, रेस्टुरेन्ट र क्याफेलाई कभर गर्दछ।">Yes, both free. Parking is on-site with space for cars and two-wheelers, and Wi-Fi covers the rooms, restaurant and cafe.</div>
-      </div>
-      <div class="faq-item animate-from-left delay-3">
-        <div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="What payment methods are accepted?" data-ne="कुन भुक्तानी विधिहरू स्वीकार गरिन्छ?">What payment methods are accepted?</span></div>
-        <div class="faq-a" data-en="Cash, Visa and Mastercard, and mobile wallet payments." data-ne="नगद, भिसा र मास्टरकार्ड, र मोबाइल वालेट भुक्तानी।">Cash, Visa and Mastercard, and mobile wallet payments.</div>
-      </div>
-      <div class="faq-item animate-from-right delay-3">
-        <div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="How far is Hotel Bella Cafe from nearby attractions?" data-ne="होटल बेला क्याफे नजिकका आकर्षणहरूबाट कति टाढा छ?">How far is Hotel Bella Cafe from nearby attractions?</span></div>
-        <div class="faq-a" data-en="Biratnagar is about 1.5 hours by road, Baraha Kshetra 2.5 hours, Pathibhara Devi Temple and Koshi Tappu Wildlife Reserve about 4 hours each, and the Ilam tea gardens about 5 hours. Kanchenjunga is visible from Damak on clear days." data-ne="विराटनगर सडक मार्गबाट लगभग १.५ घण्टा, बराह क्षेत्र २.५ घण्टा, पाथिभरा देवी मन्दिर र कोशी टप्पु वन्यजन्तु आरक्ष लगभग ४ घण्टा प्रत्येक, र इलाम चिया बगान लगभग ५ घण्टा। कञ्चनजङ्घा दमकबाट सफा दिनमा देखिन्छ।">Biratnagar is about 1.5 hours by road, Baraha Kshetra 2.5 hours, Pathibhara Devi Temple and Koshi Tappu Wildlife Reserve about 4 hours each, and the Ilam tea gardens about 5 hours. Kanchenjunga is visible from Damak on clear days.</div>
-      </div>
+      <div class="faq-item animate-from-left"><div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="Where is Hotel Bella Cafe located?" data-ne="होटल बेला क्याफे कहाँ अवस्थित छ?">Where is Hotel Bella Cafe located?</span></div><div class="faq-a" data-en="Hotel Bella Cafe &amp; Restaurant is at Mangaldeep marg, Ward 5, Damak 57217, Jhapa, Nepal, close to the East-West Highway and about 5 minutes from Damak Bus Park." data-ne="होटल बेला क्याफे र रेस्टुरेन्ट मंगलदीप मार्ग, वार्ड ५, दमक ५७२१७, झापा, नेपालमा अवस्थित छ, पूर्व-पश्चिम राजमार्गको नजिक र दमक बस पार्कबाट लगभग ५ मिनेट।">Hotel Bella Cafe &amp; Restaurant is at Mangaldeep marg, Ward 5, Damak 57217, Jhapa, Nepal, close to the East-West Highway and about 5 minutes from Damak Bus Park.</div></div>
+      <div class="faq-item animate-from-right"><div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="What are the room rates at Hotel Bella Cafe?" data-ne="होटल बेला क्याफेमा कोठा भाडा कति हो?">What are the room rates at Hotel Bella Cafe?</span></div><div class="faq-a" data-en="Rooms range from Rs 3,500 per night for a Standard Room to Rs 5,500 for a Family Room sleeping five. Deluxe Single is Rs 4,000, Deluxe Double Rs 4,500 and the Suite Rs 5,000. All rooms include air conditioning, an attached bathroom, smart TV and free Wi-Fi." data-ne="कोठाहरू रु. ३,५०० प्रति रातको स्ट्यान्डर्ड कोठादेखि रु. ५,५०० मा पाँच जना सुत्ने फैमिली रूमसम्म छन्। डिलक्स सिंगल रु. ४,०००, डिलक्स डबल रु. ४,५०० र सुइट रु. ५,००० हो। सबै कोठाहरूमा एयर कन्डिसनिङ, संलग्न बाथरूम, स्मार्ट टिभी र नि:शुल्क वाइफाई समावेश छ।">Rooms range from Rs 3,500 per night for a Standard Room to Rs 5,500 for a Family Room sleeping five. Deluxe Single is Rs 4,000, Deluxe Double Rs 4,500 and the Suite Rs 5,000. All rooms include air conditioning, an attached bathroom, smart TV and free Wi-Fi.</div></div>
+      <div class="faq-item animate-from-left delay-1"><div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="Does Hotel Bella Cafe offer food delivery in Damak?" data-ne="के होटल बेला क्याफेले दमकमा खाना डेलिभरी प्रदान गर्दछ?">Does Hotel Bella Cafe offer food delivery in Damak?</span></div><div class="faq-a" data-en="Yes. Delivery is free within a 1 km radius, daily from 7:30 AM to 9:30 PM, with no minimum order. Call 985-2630088 or order on WhatsApp." data-ne="हो। १ किमि दायरा भित्र डेलिभरी नि:शुल्क छ, दैनिक बिहान ७:३० देखि राति ९:३० बजेसम्म, कुनै न्यूनतम अर्डर बिना। 985-2630088 मा कल गर्नुहोस् वा ह्वाट्सएपमा अर्डर गर्नुहोस्।">Yes. Delivery is free within a 1 km radius, daily from 7:30 AM to 9:30 PM, with no minimum order. Call 985-2630088 or order on WhatsApp.</div></div>
+      <div class="faq-item animate-from-right delay-1"><div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="What cuisines does the restaurant serve?" data-ne="रेस्टुरेन्टले कस्तो खाना सेवा गर्दछ?">What cuisines does the restaurant serve?</span></div><div class="faq-a" data-en="Nepali, Indian, continental and Asian. The menu covers thali, momo, sekuwa, choila, thukpa and Nepali-style curries alongside pizza, pasta, burgers, biryani, sizzlers and tandoori dishes, plus espresso coffee, shakes and lassi." data-ne="नेपाली, भारतीय, कन्टिनेन्टल र एसियाली। मेनुले थाली, मःम, सेकुवा, चोइला, थुक्पा र नेपाली शैलीको करीहरू पिज्जा, पास्ता, बर्गर, बिर्यानी, सिजलर र तन्दुरी परिकारहरूको साथै एस्प्रेसो कफी, शेक र लस्सी समावेश गर्दछ।">Nepali, Indian, continental and Asian. The menu covers thali, momo, sekuwa, choila, thukpa and Nepali-style curries alongside pizza, pasta, burgers, biryani, sizzlers and tandoori dishes, plus espresso coffee, shakes and lassi.</div></div>
+      <div class="faq-item animate-from-left delay-2"><div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="What are Hotel Bella Cafe's opening hours?" data-ne="होटल बेला क्याफेको खुल्ने समय के हो?">What are Hotel Bella Cafe's opening hours?</span></div><div class="faq-a" data-en="The restaurant and cafe are open daily from 7:30 AM to 9:30 PM, including Saturdays and public holidays. Hotel reception operates for guest check-in outside these hours." data-ne="रेस्टुरेन्ट र क्याफे दैनिक बिहान ७:३० देखि राति ९:३० बजेसम्म खुला हुन्छन्, शनिबार र सार्वजनिक बिदाहरू सहित। होटल रिसेप्सनले यी समय बाहिर पाहुना चेक-इनको लागि सञ्चालन गर्दछ।">The restaurant and cafe are open daily from 7:30 AM to 9:30 PM, including Saturdays and public holidays. Hotel reception operates for guest check-in outside these hours.</div></div>
+      <div class="faq-item animate-from-right delay-2"><div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="Is the restaurant suitable for families with children?" data-ne="के रेस्टुरेन्ट बालबालिका भएका परिवारहरूको लागि उपयुक्त छ?">Is the restaurant suitable for families with children?</span></div><div class="faq-a" data-en="Yes. There is a kids' menu, high chairs, outdoor seating and wheelchair-accessible seating with ramp access. The Family Room upstairs sleeps five." data-ne="हो। बालबालिकाको मेनु, उच्च कुर्सी, बाहिरी बस्ने स्थान र र्याम्प पहुँच सहित पाङ्ग्रे कुर्सी-पहुँचयोग्य बस्ने स्थान छ। माथिल्लो तलाको फैमिली रूममा पाँच जना सुत्छन्।">Yes. There is a kids' menu, high chairs, outdoor seating and wheelchair-accessible seating with ramp access. The Family Room upstairs sleeps five.</div></div>
+      <div class="faq-item animate-from-left delay-3"><div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="Can Hotel Bella Cafe host weddings and events?" data-ne="के होटल बेला क्याफेले विवाह र कार्यक्रमहरू आयोजना गर्न सक्छ?">Can Hotel Bella Cafe host weddings and events?</span></div><div class="faq-a" data-en="Yes. The banquet hall seats up to 120 guests with additional outdoor space, and catering is prepared in the hotel's own kitchen with veg and non-veg menus. Free parking is available. Call 985-2630088 to check a date." data-ne="हो। बैंक्वेट हलले १२० पाहुनासम्म थप बाहिरी ठाउँको साथ बस्न सक्छ, र केटरिङ होटलको आफ्नै किचनमा भेग र नन-भेग मेनुहरूसँग तयार गरिन्छ। नि:शुल्क पार्किङ उपलब्ध छ। मिति जाँच गर्न 985-2630088 मा कल गर्नुहोस्।">Yes. The banquet hall seats up to 120 guests with additional outdoor space, and catering is prepared in the hotel's own kitchen with veg and non-veg menus. Free parking is available. Call 985-2630088 to check a date.</div></div>
+      <div class="faq-item animate-from-right delay-3"><div class="faq-q"><i class="fas fa-chevron-circle-right"></i> <span data-en="Does the hotel have parking and Wi-Fi?" data-ne="के होटलमा पार्किङ र वाइफाई छ?">Does the hotel have parking and Wi-Fi?</span></div><div class="faq-a" data-en="Yes, both free. Parking is on-site with space for cars and two-wheelers, and Wi-Fi covers the rooms, restaurant and cafe." data-ne="हो, दुवै नि:शुल्क। पार्किङ अन-साइट छ कार र दुई पाङ्ग्रे सवारीको लागि ठाउँको साथ, र वाइफाईले कोठा, रेस्टुरेन्ट र क्याफेलाई कभर गर्दछ।">Yes, both free. Parking is on-site with space for cars and two-wheelers, and Wi-Fi covers the rooms, restaurant and cafe.</div></div>
     </div>
   </section>
 </div>
@@ -2714,15 +2879,14 @@
         <a href="#menu"><i class="fas fa-chevron-right"></i> <span data-en="Menu" data-ne="मेनु">Menu</span></a>
         <a href="#rooms"><i class="fas fa-chevron-right"></i> <span data-en="Rooms" data-ne="कोठाहरू">Rooms</span></a>
         <a href="#gallery"><i class="fas fa-chevron-right"></i> <span data-en="Gallery" data-ne="ग्यालरी">Gallery</span></a>
-        <a href="#destinations"><i class="fas fa-chevron-right"></i> <span data-en="Destinations" data-ne="गन्तव्यहरू">Destinations</span></a>
-        <a href="#events"><i class="fas fa-chevron-right"></i> <span data-en="Events" data-ne="कार्यक्रमहरू">Events</span></a>
+        <a href="#blog"><i class="fas fa-chevron-right"></i> <span data-en="Blog" data-ne="ब्लग">Blog</span></a>
       </div>
       <div class="footer-links-col">
         <h4 data-en="Services" data-ne="सेवाहरू">Services</h4>
         <a href="#facilities"><i class="fas fa-chevron-right"></i> <span data-en="Facilities" data-ne="सुविधाहरू">Facilities</span></a>
         <a href="#book-now"><i class="fas fa-chevron-right"></i> <span data-en="Book a Table" data-ne="टेबल बुक गर्नुहोस्">Book a Table</span></a>
         <a href="#book-now"><i class="fas fa-chevron-right"></i> <span data-en="Book a Room" data-ne="कोठा बुक गर्नुहोस्">Book a Room</span></a>
-        <a href="#location"><i class="fas fa-chevron-right"></i> <span data-en="Location" data-ne="स्थान">Location</span></a>
+        <a href="#events"><i class="fas fa-chevron-right"></i> <span data-en="Events" data-ne="कार्यक्रमहरू">Events</span></a>
         <a href="#deliveryCard"><i class="fas fa-motorcycle"></i> <span data-en="Free Delivery" data-ne="नि:शुल्क डेलिभरी">Free Delivery</span></a>
       </div>
       <div class="footer-links-col">
@@ -2744,14 +2908,8 @@
 <!-- FLOATING BUTTONS (green + gold)              -->
 <!-- ============================================ -->
 <div class="float-buttons">
-  <a href="https://wa.me/9779852630088?text=Hello%20Bella%20Cafe%2C%20I'd%20like%20to%20place%20a%20delivery%20order." target="_blank" rel="noopener" class="float-btn whatsapp" data-en="Order Delivery" data-ne="डेलिभरी अर्डर गर्नुहोस्">
-    <i class="fab fa-whatsapp"></i>
-    <span class="label">Order Delivery</span>
-  </a>
-  <a href="tel:9852630088" class="float-btn phone" data-en="Call" data-ne="कल गर्नुहोस्">
-    <i class="fas fa-phone-alt"></i>
-    <span class="label">Call</span>
-  </a>
+  <a href="https://wa.me/9779852630088?text=Hello%20Bella%20Cafe%2C%20I'd%20like%20to%20place%20a%20delivery%20order." target="_blank" rel="noopener" class="float-btn whatsapp" data-en="Order Delivery" data-ne="डेलिभरी अर्डर गर्नुहोस्"><i class="fab fa-whatsapp"></i><span class="label">Order Delivery</span></a>
+  <a href="tel:9852630088" class="float-btn phone" data-en="Call" data-ne="कल गर्नुहोस्"><i class="fas fa-phone-alt"></i><span class="label">Call</span></a>
 </div>
 
 <!-- ============================================ -->
@@ -2769,6 +2927,7 @@
 <script>
   const CLOUDINARY_CONFIG = { cloudName: 'demo' };
 
+  // Intro overlay
   setTimeout(function() {
     const overlay = document.getElementById('intro-overlay');
     if (overlay) overlay.remove();
@@ -2839,7 +2998,7 @@
     }
   });
 
-  // Lightbox - no captions
+  // Lightbox
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
   const closeLightbox = document.getElementById('closeLightbox');
@@ -2888,21 +3047,26 @@
     });
   });
 
-  // Language toggle
+  // ============================================
+  // BILINGUAL LANGUAGE TOGGLE (full support)
+  // ============================================
   function setLanguage(lang) {
     document.documentElement.lang = lang;
+    // All elements with data-en and data-ne
     document.querySelectorAll('[data-en][data-ne]').forEach(el => {
       const text = el.getAttribute(lang === 'ne' ? 'data-ne' : 'data-en');
       if (text) {
-        if (el.tagName === 'H1' || el.tagName === 'H3' || el.tagName === 'P' || el.tagName === 'DIV' || el
-          .tagName === 'SPAN' || el
-          .tagName === 'A' || el.tagName === 'BUTTON' || el.tagName === 'LI') {
+        // If element contains HTML (like h3 with badge), set innerHTML
+        if (el.tagName === 'H1' || el.tagName === 'H3' || el.tagName === 'P' || el.tagName === 'DIV' ||
+          el.tagName === 'SPAN' || el.tagName === 'A' || el.tagName === 'BUTTON' || el.tagName === 'LI' ||
+          el.tagName === 'H2' || el.tagName === 'H4') {
           el.innerHTML = text;
         } else {
           el.textContent = text;
         }
       }
     });
+    // Nav links with .nav-text
     document.querySelectorAll('.nav-links a').forEach(link => {
       const span = link.querySelector('.nav-text');
       if (span) {
@@ -2911,6 +3075,7 @@
         if (val) span.textContent = val;
       }
     });
+    // Floating buttons labels
     document.querySelectorAll('.float-btn').forEach(btn => {
       const span = btn.querySelector('span.label');
       if (span) {
@@ -2919,6 +3084,7 @@
         if (val) span.textContent = val;
       }
     });
+    // Delivery card special handling (already has data attributes)
     const deliveryCard = document.querySelector('.delivery-info-card');
     if (deliveryCard) {
       const h3 = deliveryCard.querySelector('h3');
@@ -2940,11 +3106,31 @@
         if (val) a.innerHTML = val;
       });
     }
+    // Blog modal content (data-en and data-ne on .modal-content)
+    document.querySelectorAll('.modal-content').forEach(el => {
+      const key = lang === 'ne' ? 'data-ne' : 'data-en';
+      const val = el.getAttribute(key);
+      if (val) el.innerHTML = val;
+    });
+    // Blog category badges (inside modal)
+    document.querySelectorAll('.modal-category').forEach(el => {
+      const key = lang === 'ne' ? 'data-ne' : 'data-en';
+      const val = el.getAttribute(key);
+      if (val) el.textContent = val;
+    });
+    // Blog card category badges
+    document.querySelectorAll('.blog-category').forEach(el => {
+      const key = lang === 'ne' ? 'data-ne' : 'data-en';
+      const val = el.getAttribute(key);
+      if (val) el.textContent = val;
+    });
+    // Update active class on language buttons
     document.querySelectorAll('.lang-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.lang === lang);
     });
   }
 
+  // Language button event listeners
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.addEventListener('click', function(e) {
       const lang = this.dataset.lang;
@@ -2952,9 +3138,10 @@
     });
   });
 
+  // Set default language
   setLanguage('en');
 
-  // Notice images
+  // Notice images (Cloudinary)
   function setNoticeImage(id, publicId) {
     const img = document.getElementById(id);
     if (img) {
@@ -2972,7 +3159,54 @@
   setNoticeImage('noticeImg2', 'cafe');
   setNoticeImage('noticeImg3', 'coffee');
 
-  console.log('☕ Hotel Bella Cafe · SEO Optimized · Rooms, Restaurant & Cafe in Damak · Free Delivery 1km');
+  // ============================================
+  // BLOG MODAL OPEN/CLOSE (separate)
+  // ============================================
+  // Open modal on "Read More" click
+  document.querySelectorAll('.read-more-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      const blogId = this.dataset.blog;
+      const modal = document.getElementById('blogModal' + blogId);
+      if (modal) {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  });
+
+  // Close modal on X button click
+  document.querySelectorAll('.close-modal').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      const modalId = this.dataset.modal;
+      const modal = document.getElementById('blogModal' + modalId);
+      if (modal) {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+
+  // Close modal on overlay click
+  document.querySelectorAll('.blog-modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+
+  // Close modal on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.blog-modal-overlay.open').forEach(modal => {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    }
+  });
+
+  console.log('☕ Hotel Bella Cafe · Fully Bilingual (EN/NE) · SEO Optimized · Blog section with translations');
 </script>
 </body>
 </html>
